@@ -1,0 +1,1392 @@
+
+
+Microchip Technology PIC18 PRO Macro Assembler V1.12 build 49521 
+                                                                                               Wed May 21 13:38:44 2014
+
+HI-TECH Software Omniscient Code Generator (PRO mode) build 49521
+     1                           	processor	18F87K90
+     2                           	fnconf	rparam,??,?,0
+     3                           	opt	pw 120
+     4                           	opt	pm
+     5                           	psect	text0,global,reloc=2,class=CODE,delta=1
+     6                           	psect	cinit,global,reloc=2,class=CODE,delta=1
+     7                           	psect	cstackCOMRAM,global,class=COMRAM,space=1,delta=1
+     8                           	psect	text1,global,reloc=2,class=CODE,delta=1
+     9                           	psect	text2,global,reloc=2,class=CODE,delta=1
+    10                           	psect	text3,global,reloc=2,class=CODE,delta=1
+    11                           	psect	intsave_regs,global,class=BIGRAM,space=1,delta=1
+    12                           	psect	text4,global,reloc=2,class=CODE,delta=1
+    13                           	psect	rparam,global,class=COMRAM,space=1,delta=1
+    14                           	dabs	1,0x66,2
+    15                           	dabs	1,0x62,2
+    16                           	dabs	1,0x64,2
+    17                           	dabs	1,0x68,2
+    18                           	dabs	1,0x60,2
+    19  0000                     
+    20 ;;
+    21 ;;Main: autosize = 0, tempsize = 0, incstack = 0, save=0
+    22 ;;
+    23 ;; *************** function _main *****************
+    24 ;; Defined at:
+    25 ;;		line 148 in file "main.c"
+    26 ;; Parameters:    Size  Location     Type
+    27 ;;		None
+    28 ;; Auto vars:     Size  Location     Type
+    29 ;;  testResult      1   13[COMRAM] volatile unsigned char 
+    30 ;; Return value:  Size  Location     Type
+    31 ;;		None               void
+    32 ;; Registers used:
+    33 ;;		wreg, fsr1l, fsr1h, fsr2l, fsr2h, status,2, status,0, cstack
+    34 ;; Tracked objects:
+    35 ;;		On entry : 0/0
+    36 ;;		On exit  : 0/0
+    37 ;;		Unchanged: 0/0
+    38 ;; Data sizes:     COMRAM  BANK0h   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK1
+      +1  BANK12  BANK13  BANK14
+    39 ;;      Params:         0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+    40 ;;      Locals:         1       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+    41 ;;      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+    42 ;;      Totals:         1       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+    43 ;;Total ram usage:        1 bytes
+    44 ;; Hardware stack levels required when called:    2
+    45 ;; This function calls:
+    46 ;;		_CLASSB_RAMMarchBTest
+    47 ;; This function is called by:
+    48 ;;		Startup code after reset
+    49 ;; This function uses a non-reentrant model
+    50 ;;
+    51                           
+    52                           	psect	text0
+    53  01FC26                     __ptext0:
+    54                           	opt stack 0
+    55  0000                     _TBLPTRL	set	4086
+    56  0000                     _TBLPTRH	set	4087
+    57  0000                     _PRODL	set	4083
+    58  0000                     _PRODH	set	4084
+    59  0000                     _INDF1	set	4071
+    60  0000                     _FSR1	set	4065
+    61  0000                     
+    62                           ; #config settings
+    63  01FC26                     _main:
+    64                           	opt stack 29
+    65                           
+    66                           ;main.c: 149: volatile uint8_t testResult = 0;
+    67  01FC26  6A0E               	clrf	main@testResult,c	;volatile
+    68                           
+    69                           ;main.c: 151: CLASSB_MarchstartAddress = (char*)0x60;
+    70  01FC28  0100               	movlb	0	; () banked
+    71  01FC2A  6B61               	clrf	97,b
+    72  01FC2C  0E60               	movlw	96
+    73  01FC2E  6F60               	movwf	96,b
+    74                           
+    75                           ;main.c: 152: CLASSB_MarchbufferAddress = (char*)0xC0;
+    76  01FC30  6B63               	clrf	99,b
+    77  01FC32  0EC0               	movlw	192
+    78  01FC34  6F62               	movwf	98,b
+    79                           
+    80                           ;main.c: 153: CLASSB_MarchLength = 0x50;
+    81  01FC36  6B69               	clrf	105,b
+    82  01FC38  0E50               	movlw	80
+    83  01FC3A  6F68               	movwf	104,b
+    84                           
+    85                           ; BSR set to: 0
+    86                           ;main.c: 155: testResult = CLASSB_RAMMarchBTest();
+    87  01FC3C  ECDE  F0FE         	call	_CLASSB_RAMMarchBTest	;wreg free
+    88  01FC40  6E0E               	movwf	main@testResult,c	;volatile
+    89                           
+    90                           ;main.c: 157: if (testResult == CLASSB_TEST_PASS)
+    91  01FC42  660E               	tstfsz	main@testResult,c	;volatile
+    92  01FC44  D000               	goto	l11
+    93  01FC46                     l11:
+    94  01FC46  F000               	nop		;# 
+    95  01FC48                     l13:
+    96  01FC48  D7FF               	goto	l13
+    97                           
+    98                           	psect	cinit
+    99  01FC20                     __pcinit:
+   100                           	opt stack 0
+   101  01FC20                     start_initialization:
+   102                           	opt stack 0
+   103  01FC20                     __initialization:
+   104                           	opt stack 0
+   105  01FC20                     end_of_initialization:
+   106                           	opt stack 0
+   107  01FC20                     __end_of__initialization:
+   108                           	opt stack 0
+   109  01FC20  0100               	movlb	0
+   110  01FC22  EF13  F0FE         	goto	_main	;jump to C main() function
+   111                           
+   112                           	psect	cstackCOMRAM
+   113  000001                     __pcstackCOMRAM:
+   114                           	opt stack 0
+   115  000001                     ?_memcpy:
+   116                           	opt stack 0
+   117  000001                     MarchBGlobalTest@i:
+   118                           	opt stack 0
+   119  000001                     memcpy@d1:
+   120                           	opt stack 0
+   121                           
+   122                           ; 2 bytes @ 0x0
+   123  000001                     	ds	1
+   124  000002                     MarchBGlobalTest@r:
+   125                           	opt stack 0
+   126                           
+   127                           ; 1 bytes @ 0x1
+   128  000002                     	ds	1
+   129  000003                     MarchBGlobalTest@bitMask:
+   130                           	opt stack 0
+   131  000003                     memcpy@s1:
+   132                           	opt stack 0
+   133                           
+   134                           ; 2 bytes @ 0x2
+   135  000003                     	ds	2
+   136  000005                     memcpy@n:
+   137                           	opt stack 0
+   138                           
+   139                           ; 2 bytes @ 0x4
+   140  000005                     	ds	2
+   141  000007                     memcpy@d:
+   142                           	opt stack 0
+   143                           
+   144                           ; 2 bytes @ 0x6
+   145  000007                     	ds	2
+   146  000009                     memcpy@s:
+   147                           	opt stack 0
+   148                           
+   149                           ; 2 bytes @ 0x8
+   150  000009                     	ds	2
+   151  00000B                     ??_CLASSB_RAMMarchBTest:
+   152                           
+   153                           ; 0 bytes @ 0xA
+   154  00000B                     	ds	2
+   155  00000D                     CLASSB_RAMMarchBTest@testResult:
+   156                           	opt stack 0
+   157                           
+   158                           ; 1 bytes @ 0xC
+   159  00000D                     	ds	1
+   160  00000E                     main@testResult:
+   161                           	opt stack 0
+   162                           
+   163                           ; 1 bytes @ 0xD
+   164  00000E                     	ds	1
+   165                           
+   166 ;; *************** function _CLASSB_RAMMarchBTest *****************
+   167 ;; Defined at:
+   168 ;;		line 78 in file "CLASSB_RAMMarchBTest.c"
+   169 ;; Parameters:    Size  Location     Type
+   170 ;;		None
+   171 ;; Auto vars:     Size  Location     Type
+   172 ;;  testResult      1   12[COMRAM] volatile unsigned char 
+   173 ;; Return value:  Size  Location     Type
+   174 ;;                  1    wreg      enum E11556
+   175 ;; Registers used:
+   176 ;;		wreg, fsr1l, fsr1h, fsr2l, fsr2h, status,2, status,0, cstack
+   177 ;; Tracked objects:
+   178 ;;		On entry : F/0
+   179 ;;		On exit  : 0/0
+   180 ;;		Unchanged: 0/0
+   181 ;; Data sizes:     COMRAM  BANK0h   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK1
+      +1  BANK12  BANK13  BANK14
+   182 ;;      Params:         0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+   183 ;;      Locals:         1       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+   184 ;;      Temps:          2       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+   185 ;;      Totals:         3       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+   186 ;;Total ram usage:        3 bytes
+   187 ;; Hardware stack levels used:    1
+   188 ;; Hardware stack levels required when called:    1
+   189 ;; This function calls:
+   190 ;;		_memcpy
+   191 ;;		_MarchBGlobalTest
+   192 ;; This function is called by:
+   193 ;;		_main
+   194 ;; This function uses a non-reentrant model
+   195 ;;
+   196                           
+   197                           	psect	text1
+   198  01FDBC                     __ptext1:
+   199                           	opt stack 0
+   200  01FDBC                     __end_of_main:
+   201                           	opt stack 0
+   202  01FDBC                     _CLASSB_RAMMarchBTest:
+   203                           	opt stack 29
+   204                           
+   205                           ; BSR set to: 0
+   206                           ;CLASSB_RAMMarchBTest.c: 79: volatile unsigned char testResult;
+   207                           ;CLASSB_RAMMarchBTest.c: 83: if (CLASSB_MarchbufferAddress != (0))
+   208  01FDBC  5163               	movf	99,w,b
+   209  01FDBE  1162               	iorwf	98,w,b
+   210  01FDC0  E00E               	bz	l878
+   211                           
+   212                           ; BSR set to: 0
+   213                           ;CLASSB_RAMMarchBTest.c: 84: memcpy(CLASSB_MarchbufferAddress, CLASSB_MarchstartAddress,
+      +                           CLASSB_MarchLength);
+   214  01FDC2  C062 F001          	movff	98,?_memcpy
+   215  01FDC6  C063 F002          	movff	99,?_memcpy+1
+   216  01FDCA  C060 F003          	movff	96,?_memcpy+2
+   217  01FDCE  C061 F004          	movff	97,?_memcpy+3
+   218  01FDD2  C068 F005          	movff	104,?_memcpy+4
+   219  01FDD6  C069 F006          	movff	105,?_memcpy+5
+   220  01FDDA  EC25  F0FE         	call	_memcpy	;wreg free
+   221  01FDDE                     l878:
+   222                           
+   223                           ;CLASSB_RAMMarchBTest.c: 89: if (CLASSB_MarchstartAddress < (char*)0x6A)
+   224  01FDDE  0E6A               	movlw	106
+   225  01FDE0  0100               	movlb	0	; () banked
+   226  01FDE2  5D60               	subwf	96,w,b
+   227  01FDE4  0E00               	movlw	0
+   228  01FDE6  5961               	subwfb	97,w,b
+   229  01FDE8  E215               	bc	l892
+   230                           
+   231                           ; BSR set to: 0
+   232                           ;CLASSB_RAMMarchBTest.c: 90: {
+   233                           ;CLASSB_RAMMarchBTest.c: 91: testResult = MarchBGlobalTest();
+   234  01FDEA  EC45  F0FE         	call	_MarchBGlobalTest	;wreg free
+   235  01FDEE  6E0D               	movwf	CLASSB_RAMMarchBTest@testResult,c	;volatile
+   236                           
+   237                           ;CLASSB_RAMMarchBTest.c: 92: if (testResult)
+   238  01FDF0  500D               	movf	CLASSB_RAMMarchBTest@testResult,w,c	;volatile
+   239  01FDF2  E001               	bz	l888
+   240  01FDF4                     l884:
+   241                           
+   242                           ;CLASSB_RAMMarchBTest.c: 93: {
+   243                           ;CLASSB_RAMMarchBTest.c: 94: return CLASSB_TEST_FAIL;
+   244  01FDF4  0C01               	retlw	1
+   245  01FDF6                     l888:
+   246                           
+   247                           ;CLASSB_RAMMarchBTest.c: 95: }
+   248                           ;CLASSB_RAMMarchBTest.c: 96: CLASSB_MarchLength -= (0x6B - (char)CLASSB_MarchstartAddres
+      +                          s);
+   249  01FDF6  0E6B               	movlw	107
+   250  01FDF8  6E0B               	movwf	??_CLASSB_RAMMarchBTest& (0+255),c
+   251  01FDFA  6A0C               	clrf	(??_CLASSB_RAMMarchBTest+1)& (0+255),c
+   252  01FDFC  0100               	movlb	0	; () banked
+   253  01FDFE  5160               	movf	96,w,b
+   254  01FE00  5E0B               	subwf	??_CLASSB_RAMMarchBTest,f,c
+   255  01FE02  0E00               	movlw	0
+   256  01FE04  5A0C               	subwfb	??_CLASSB_RAMMarchBTest+1,f,c
+   257  01FE06  500B               	movf	??_CLASSB_RAMMarchBTest,w,c
+   258  01FE08  5F68               	subwf	104,f,b
+   259  01FE0A  500C               	movf	??_CLASSB_RAMMarchBTest+1,w,c
+   260  01FE0C  5B69               	subwfb	105,f,b
+   261                           
+   262                           ; BSR set to: 0
+   263                           ;CLASSB_RAMMarchBTest.c: 97: CLASSB_MarchstartAddress = (char*)0x6A;
+   264  01FE0E  6B61               	clrf	97,b
+   265  01FE10  0E6A               	movlw	106
+   266  01FE12  6F60               	movwf	96,b
+   267  01FE14                     l892:
+   268                           
+   269                           ; BSR set to: 0
+   270                           ;CLASSB_RAMMarchBTest.c: 98: }
+   271                           ;CLASSB_RAMMarchBTest.c: 103: CLASSB_MarchtempAddress = CLASSB_MarchstartAddress;
+   272  01FE14  C060 F064          	movff	96,100
+   273  01FE18  C061 F065          	movff	97,101
+   274                           
+   275                           ; BSR set to: 0
+   276                           ;CLASSB_RAMMarchBTest.c: 104: for (CLASSB_MarchIndex = 0; CLASSB_MarchIndex < CLASSB_Mar
+      +                          chLength; CLASSB_MarchIndex++)
+   277  01FE1C  6B66               	clrf	102,b
+   278  01FE1E  6B67               	clrf	103,b
+   279  01FE20  D009               	goto	l902
+   280  01FE22                     l896:
+   281                           
+   282                           ; BSR set to: 0
+   283                           ;CLASSB_RAMMarchBTest.c: 105: {
+   284                           ;CLASSB_RAMMarchBTest.c: 106: *CLASSB_MarchstartAddress=0x00;
+   285  01FE22  C060 FFD9          	movff	96,fsr2l
+   286  01FE26  C061 FFDA          	movff	97,fsr2h
+   287  01FE2A  6ADF               	clrf	indf2,c
+   288                           
+   289                           ; BSR set to: 0
+   290                           ;CLASSB_RAMMarchBTest.c: 107: CLASSB_MarchstartAddress++;
+   291  01FE2C  4B60               	infsnz	96,f,b
+   292  01FE2E  2B61               	incf	97,f,b
+   293                           
+   294                           ; BSR set to: 0
+   295  01FE30  4B66               	infsnz	102,f,b
+   296  01FE32  2B67               	incf	103,f,b
+   297  01FE34                     l902:
+   298                           
+   299                           ; BSR set to: 0
+   300  01FE34  5168               	movf	104,w,b
+   301  01FE36  5D66               	subwf	102,w,b
+   302  01FE38  5169               	movf	105,w,b
+   303  01FE3A  5967               	subwfb	103,w,b
+   304  01FE3C  E3F2               	bnc	l896
+   305                           
+   306                           ; BSR set to: 0
+   307                           ;CLASSB_RAMMarchBTest.c: 108: }
+   308                           ;CLASSB_RAMMarchBTest.c: 113: CLASSB_MarchstartAddress = CLASSB_MarchtempAddress;
+   309  01FE3E  C064 F060          	movff	100,96
+   310  01FE42  C065 F061          	movff	101,97
+   311                           
+   312                           ;CLASSB_RAMMarchBTest.c: 114: for (CLASSB_MarchIndex = 0; CLASSB_MarchIndex < CLASSB_Mar
+      +                          chLength; CLASSB_MarchIndex++)
+   313  01FE46  6B66               	clrf	102,b
+   314  01FE48  6B67               	clrf	103,b
+   315  01FE4A  D031               	goto	l920
+   316  01FE4C                     l53:
+   317                           
+   318                           ; BSR set to: 0
+   319                           ;CLASSB_RAMMarchBTest.c: 115: {
+   320                           ;CLASSB_RAMMarchBTest.c: 116: PRODL = 0x00;
+   321  01FE4C  6AF3               	clrf	prodl,c	;volatile
+   322                           
+   323                           ;CLASSB_RAMMarchBTest.c: 117: for (TBLPTRL = 0; TBLPTRL < 8; TBLPTRL++)
+   324  01FE4E  6AF6               	clrf	tblptrl,c	;volatile
+   325  01FE50                     l904:
+   326  01FE50  0E07               	movlw	7
+   327  01FE52  64F6               	cpfsgt	tblptrl,c	;volatile
+   328  01FE54  D001               	goto	l54
+   329  01FE56  D026               	goto	l918
+   330  01FE58                     l54:
+   331  01FE58  C060 FFE1          	movff	96,fsr1l	;# 
+   332  01FE5C  C061 FFE2          	movff	97,fsr1h	;# 
+   333  01FE60  50E7               	movf	indf1,w,c	;# 
+   334  01FE62  18F3               	xorwf	prodl,w,c	;# 
+   335  01FE64  0E01               	movlw	1	;# 
+   336  01FE66  A4D8               	btfss	status,2,c	;# 
+   337  01FE68  6EF7               	movwf	tblptrh,c	;# 
+   338  01FE6A  50E7               	movf	indf1,w,c	;# 
+   339  01FE6C  80D8               	bsf	status,0,c	;# 
+   340  01FE6E  36F3               	rlcf	prodl,f,c	;# 
+   341  01FE70  10F3               	iorwf	prodl,w,c	;# 
+   342  01FE72  6EE7               	movwf	indf1,c	;# 
+   343  01FE74  50E7               	movf	indf1,w,c	;# 
+   344  01FE76  18F3               	xorwf	prodl,w,c	;# 
+   345  01FE78  0E01               	movlw	1	;# 
+   346  01FE7A  A4D8               	btfss	status,2,c	;# 
+   347  01FE7C  6EF7               	movwf	tblptrh,c	;# 
+   348  01FE7E  50E7               	movf	indf1,w,c	;# 
+   349  01FE80  90D8               	bcf	status,0,c	;# 
+   350  01FE82  32F3               	rrcf	prodl,f,c	;# 
+   351  01FE84  14F3               	andwf	prodl,w,c	;# 
+   352  01FE86  6EE7               	movwf	indf1,c	;# 
+   353  01FE88  50E7               	movf	indf1,w,c	;# 
+   354  01FE8A  18F3               	xorwf	prodl,w,c	;# 
+   355  01FE8C  0E01               	movlw	1	;# 
+   356  01FE8E  A4D8               	btfss	status,2,c	;# 
+   357  01FE90  6EF7               	movwf	tblptrh,c	;# 
+   358  01FE92  50E7               	movf	indf1,w,c	;# 
+   359  01FE94  80D8               	bsf	status,0,c	;# 
+   360  01FE96  36F3               	rlcf	prodl,f,c	;# 
+   361  01FE98  10F3               	iorwf	prodl,w,c	;# 
+   362  01FE9A  6EE7               	movwf	indf1,c	;# 
+   363                           
+   364                           ;CLASSB_RAMMarchBTest.c: 160: if (TBLPTRH)
+   365  01FE9C  50F7               	movf	tblptrh,w,c	;volatile
+   366  01FE9E  E1AA               	bnz	l884
+   367  01FEA0  2AF6               	incf	tblptrl,f,c	;volatile
+   368  01FEA2  D7D6               	goto	l904
+   369  01FEA4                     l918:
+   370                           
+   371                           ;CLASSB_RAMMarchBTest.c: 162: }
+   372                           ;CLASSB_RAMMarchBTest.c: 163: CLASSB_MarchstartAddress++;
+   373  01FEA4  0100               	movlb	0	; () banked
+   374  01FEA6  4B60               	infsnz	96,f,b
+   375  01FEA8  2B61               	incf	97,f,b
+   376  01FEAA  4B66               	infsnz	102,f,b
+   377  01FEAC  2B67               	incf	103,f,b
+   378  01FEAE                     l920:
+   379                           
+   380                           ; BSR set to: 0
+   381  01FEAE  5168               	movf	104,w,b
+   382  01FEB0  5D66               	subwf	102,w,b
+   383  01FEB2  5169               	movf	105,w,b
+   384  01FEB4  5967               	subwfb	103,w,b
+   385  01FEB6  E3CA               	bnc	l53
+   386                           
+   387                           ; BSR set to: 0
+   388                           ;CLASSB_RAMMarchBTest.c: 164: }
+   389                           ;CLASSB_RAMMarchBTest.c: 169: CLASSB_MarchstartAddress = CLASSB_MarchtempAddress;
+   390  01FEB8  C064 F060          	movff	100,96
+   391  01FEBC  C065 F061          	movff	101,97
+   392                           
+   393                           ;CLASSB_RAMMarchBTest.c: 170: for (CLASSB_MarchIndex = 0; CLASSB_MarchIndex < CLASSB_Mar
+      +                          chLength; CLASSB_MarchIndex++)
+   394  01FEC0  6B66               	clrf	102,b
+   395  01FEC2  6B67               	clrf	103,b
+   396  01FEC4  D021               	goto	l942
+   397  01FEC6                     l59:
+   398                           
+   399                           ; BSR set to: 0
+   400                           ;CLASSB_RAMMarchBTest.c: 171: {
+   401                           ;CLASSB_RAMMarchBTest.c: 172: PRODL = 0xFF;
+   402  01FEC6  68F3               	setf	prodl,c	;volatile
+   403                           
+   404                           ; BSR set to: 0
+   405                           ;CLASSB_RAMMarchBTest.c: 173: PRODH = 0xFE;
+   406  01FEC8  0EFE               	movlw	254
+   407  01FECA  6EF4               	movwf	prodh,c	;volatile
+   408                           
+   409                           ; BSR set to: 0
+   410                           ;CLASSB_RAMMarchBTest.c: 174: for (TBLPTRL = 0; TBLPTRL < 8; TBLPTRL++)
+   411  01FECC  6AF6               	clrf	tblptrl,c	;volatile
+   412  01FECE                     l926:
+   413  01FECE  0E07               	movlw	7
+   414  01FED0  64F6               	cpfsgt	tblptrl,c	;volatile
+   415  01FED2  D001               	goto	l60
+   416  01FED4  D014               	goto	l940
+   417  01FED6                     l60:
+   418  01FED6  C060 FFE1          	movff	96,fsr1l	;# 
+   419  01FEDA  C061 FFE2          	movff	97,fsr1h	;# 
+   420  01FEDE  50E7               	movf	indf1,w,c	;# 
+   421  01FEE0  18F3               	xorwf	prodl,w,c	;# 
+   422  01FEE2  0E01               	movlw	1	;# 
+   423  01FEE4  A4D8               	btfss	status,2,c	;# 
+   424  01FEE6  6EF7               	movwf	tblptrh,c	;# 
+   425  01FEE8  CFF4 FFE7          	movff	prodh,indf1	;# 
+   426  01FEEC  80D8               	bsf	status,0,c	;# 
+   427  01FEEE  36F4               	rlcf	prodh,f,c	;# 
+   428  01FEF0  CFF3 FFE7          	movff	prodl,indf1	;# 
+   429                           
+   430                           ;CLASSB_RAMMarchBTest.c: 195: if(TBLPTRH)
+   431  01FEF4  50F7               	movf	tblptrh,w,c	;volatile
+   432  01FEF6  E001 D77D          	bnz	l884
+   433  01FEFA  2AF6               	incf	tblptrl,f,c	;volatile
+   434  01FEFC  D7E8               	goto	l926
+   435  01FEFE                     l940:
+   436                           
+   437                           ;CLASSB_RAMMarchBTest.c: 197: }
+   438                           ;CLASSB_RAMMarchBTest.c: 198: CLASSB_MarchstartAddress++;
+   439  01FEFE  0100               	movlb	0	; () banked
+   440  01FF00  4B60               	infsnz	96,f,b
+   441  01FF02  2B61               	incf	97,f,b
+   442  01FF04  4B66               	infsnz	102,f,b
+   443  01FF06  2B67               	incf	103,f,b
+   444  01FF08                     l942:
+   445                           
+   446                           ; BSR set to: 0
+   447  01FF08  5168               	movf	104,w,b
+   448  01FF0A  5D66               	subwf	102,w,b
+   449  01FF0C  5169               	movf	105,w,b
+   450  01FF0E  5967               	subwfb	103,w,b
+   451  01FF10  E3DA               	bnc	l59
+   452                           
+   453                           ; BSR set to: 0
+   454                           ;CLASSB_RAMMarchBTest.c: 199: }
+   455                           ;CLASSB_RAMMarchBTest.c: 204: CLASSB_MarchstartAddress--;
+   456  01FF12  0760               	decf	96,f,b
+   457  01FF14  A0D8               	btfss	status,0,c
+   458  01FF16  0761               	decf	97,f,b
+   459                           
+   460                           ; BSR set to: 0
+   461                           ;CLASSB_RAMMarchBTest.c: 205: CLASSB_MarchtempAddress = CLASSB_MarchstartAddress;
+   462  01FF18  C060 F064          	movff	96,100
+   463  01FF1C  C061 F065          	movff	97,101
+   464                           
+   465                           ; BSR set to: 0
+   466                           ;CLASSB_RAMMarchBTest.c: 206: for (CLASSB_MarchIndex = CLASSB_MarchLength; CLASSB_MarchI
+      +                          ndex > 0; CLASSB_MarchIndex--)
+   467  01FF20  C068 F066          	movff	104,102
+   468  01FF24  C069 F067          	movff	105,103
+   469  01FF28  D027               	goto	l970
+   470  01FF2A                     l65:
+   471                           
+   472                           ; BSR set to: 0
+   473                           ;CLASSB_RAMMarchBTest.c: 207: {
+   474                           ;CLASSB_RAMMarchBTest.c: 208: PRODL = 0xFF;
+   475  01FF2A  68F3               	setf	prodl,c	;volatile
+   476                           
+   477                           ; BSR set to: 0
+   478                           ;CLASSB_RAMMarchBTest.c: 209: PRODH = 0x7F;
+   479  01FF2C  0E7F               	movlw	127
+   480  01FF2E  6EF4               	movwf	prodh,c	;volatile
+   481                           
+   482                           ; BSR set to: 0
+   483                           ;CLASSB_RAMMarchBTest.c: 210: for (TBLPTRL = 0; TBLPTRL < 8; TBLPTRL++)
+   484  01FF30  6AF6               	clrf	tblptrl,c	;volatile
+   485  01FF32                     l954:
+   486  01FF32  0E07               	movlw	7
+   487  01FF34  64F6               	cpfsgt	tblptrl,c	;volatile
+   488  01FF36  D001               	goto	l66
+   489  01FF38  D018               	goto	l968
+   490  01FF3A                     l66:
+   491  01FF3A  C060 FFE1          	movff	96,fsr1l	;# 
+   492  01FF3E  C061 FFE2          	movff	97,fsr1h	;# 
+   493  01FF42  50E7               	movf	indf1,w,c	;# 
+   494  01FF44  18F3               	xorwf	prodl,w,c	;# 
+   495  01FF46  0E01               	movlw	1	;# 
+   496  01FF48  A4D8               	btfss	status,2,c	;# 
+   497  01FF4A  6EF7               	movwf	tblptrh,c	;# 
+   498  01FF4C  CFF4 FFE7          	movff	prodh,indf1	;# 
+   499  01FF50  CFF3 FFE7          	movff	prodl,indf1	;# 
+   500  01FF54  CFF4 FFE7          	movff	prodh,indf1	;# 
+   501  01FF58  90D8               	bcf	status,0,c	;# 
+   502  01FF5A  32F4               	rrcf	prodh,f,c	;# 
+   503  01FF5C  90D8               	bcf	status,0,c	;# 
+   504  01FF5E  32F3               	rrcf	prodl,f,c	;# 
+   505                           
+   506                           ;CLASSB_RAMMarchBTest.c: 234: if(TBLPTRH)
+   507  01FF60  50F7               	movf	tblptrh,w,c	;volatile
+   508  01FF62  E001 D747          	bnz	l884
+   509  01FF66  2AF6               	incf	tblptrl,f,c	;volatile
+   510  01FF68  D7E4               	goto	l954
+   511  01FF6A                     l968:
+   512                           
+   513                           ;CLASSB_RAMMarchBTest.c: 236: }
+   514                           ;CLASSB_RAMMarchBTest.c: 237: CLASSB_MarchstartAddress--;
+   515  01FF6A  0100               	movlb	0	; () banked
+   516  01FF6C  0760               	decf	96,f,b
+   517  01FF6E  A0D8               	btfss	status,0,c
+   518  01FF70  0761               	decf	97,f,b
+   519  01FF72  0766               	decf	102,f,b
+   520  01FF74  A0D8               	btfss	status,0,c
+   521  01FF76  0767               	decf	103,f,b
+   522  01FF78                     l970:
+   523                           
+   524                           ; BSR set to: 0
+   525  01FF78  5167               	movf	103,w,b
+   526  01FF7A  1166               	iorwf	102,w,b
+   527  01FF7C  E1D6               	bnz	l65
+   528                           
+   529                           ; BSR set to: 0
+   530                           ;CLASSB_RAMMarchBTest.c: 238: }
+   531                           ;CLASSB_RAMMarchBTest.c: 243: CLASSB_MarchstartAddress = CLASSB_MarchtempAddress;
+   532  01FF7E  C064 F060          	movff	100,96
+   533  01FF82  C065 F061          	movff	101,97
+   534                           
+   535                           ;CLASSB_RAMMarchBTest.c: 244: for (CLASSB_MarchIndex = CLASSB_MarchLength; CLASSB_MarchI
+      +                          ndex > 0; CLASSB_MarchIndex--)
+   536  01FF86  C068 F066          	movff	104,102
+   537  01FF8A  C069 F067          	movff	105,103
+   538  01FF8E  D023               	goto	l992
+   539  01FF90                     l71:
+   540                           
+   541                           ; BSR set to: 0
+   542                           ;CLASSB_RAMMarchBTest.c: 245: {
+   543                           ;CLASSB_RAMMarchBTest.c: 246: PRODL = 0x00;
+   544  01FF90  6AF3               	clrf	prodl,c	;volatile
+   545                           
+   546                           ; BSR set to: 0
+   547                           ;CLASSB_RAMMarchBTest.c: 247: PRODH = 0x80;
+   548  01FF92  0E80               	movlw	128
+   549  01FF94  6EF4               	movwf	prodh,c	;volatile
+   550                           
+   551                           ; BSR set to: 0
+   552                           ;CLASSB_RAMMarchBTest.c: 248: for (TBLPTRL = 0; TBLPTRL < 8; TBLPTRL++)
+   553  01FF96  6AF6               	clrf	tblptrl,c	;volatile
+   554  01FF98                     l976:
+   555  01FF98  0E07               	movlw	7
+   556  01FF9A  64F6               	cpfsgt	tblptrl,c	;volatile
+   557  01FF9C  D001               	goto	l72
+   558  01FF9E  D014               	goto	l990
+   559  01FFA0                     l72:
+   560  01FFA0  C060 FFE1          	movff	96,fsr1l	;# 
+   561  01FFA4  C061 FFE2          	movff	97,fsr1h	;# 
+   562  01FFA8  50E7               	movf	indf1,w,c	;# 
+   563  01FFAA  18F3               	xorwf	prodl,w,c	;# 
+   564  01FFAC  0E01               	movlw	1	;# 
+   565  01FFAE  A4D8               	btfss	status,2,c	;# 
+   566  01FFB0  6EF7               	movwf	tblptrh,c	;# 
+   567  01FFB2  CFF4 FFE7          	movff	prodh,indf1	;# 
+   568  01FFB6  CFF3 FFE7          	movff	prodl,indf1	;# 
+   569  01FFBA  90D8               	bcf	status,0,c	;# 
+   570  01FFBC  32F4               	rrcf	prodh,f,c	;# 
+   571                           
+   572                           ;CLASSB_RAMMarchBTest.c: 268: if(TBLPTRH)
+   573  01FFBE  50F7               	movf	tblptrh,w,c	;volatile
+   574  01FFC0  E001 D718          	bnz	l884
+   575  01FFC4  2AF6               	incf	tblptrl,f,c	;volatile
+   576  01FFC6  D7E8               	goto	l976
+   577  01FFC8                     l990:
+   578                           
+   579                           ;CLASSB_RAMMarchBTest.c: 270: }
+   580                           ;CLASSB_RAMMarchBTest.c: 271: CLASSB_MarchstartAddress--;
+   581  01FFC8  0100               	movlb	0	; () banked
+   582  01FFCA  0760               	decf	96,f,b
+   583  01FFCC  A0D8               	btfss	status,0,c
+   584  01FFCE  0761               	decf	97,f,b
+   585  01FFD0  0766               	decf	102,f,b
+   586  01FFD2  A0D8               	btfss	status,0,c
+   587  01FFD4  0767               	decf	103,f,b
+   588  01FFD6                     l992:
+   589                           
+   590                           ; BSR set to: 0
+   591  01FFD6  5167               	movf	103,w,b
+   592  01FFD8  1166               	iorwf	102,w,b
+   593  01FFDA  E1DA               	bnz	l71
+   594                           
+   595                           ; BSR set to: 0
+   596                           ;CLASSB_RAMMarchBTest.c: 272: }
+   597                           ;CLASSB_RAMMarchBTest.c: 278: if (CLASSB_MarchbufferAddress != (0))
+   598  01FFDC  5163               	movf	99,w,b
+   599  01FFDE  1162               	iorwf	98,w,b
+   600  01FFE0  E00E               	bz	l998
+   601                           
+   602                           ; BSR set to: 0
+   603                           ;CLASSB_RAMMarchBTest.c: 279: memcpy(CLASSB_MarchtempAddress, CLASSB_MarchbufferAddress,
+      +                           CLASSB_MarchLength);
+   604  01FFE2  C064 F001          	movff	100,?_memcpy
+   605  01FFE6  C065 F002          	movff	101,?_memcpy+1
+   606  01FFEA  C062 F003          	movff	98,?_memcpy+2
+   607  01FFEE  C063 F004          	movff	99,?_memcpy+3
+   608  01FFF2  C068 F005          	movff	104,?_memcpy+4
+   609  01FFF6  C069 F006          	movff	105,?_memcpy+5
+   610  01FFFA  EC25  F0FE         	call	_memcpy	;wreg free
+   611  01FFFE                     l998:
+   612                           
+   613                           ;CLASSB_RAMMarchBTest.c: 280: return CLASSB_TEST_PASS;
+   614  01FFFE  0C00               	retlw	0
+   615  020000                     __end_of_CLASSB_RAMMarchBTest:
+   616                           	opt stack 0
+   617                           tblptrh	equ	0xFF7
+   618                           tblptrl	equ	0xFF6
+   619                           prodh	equ	0xFF4
+   620                           prodl	equ	0xFF3
+   621                           indf1	equ	0xFE7
+   622                           fsr1h	equ	0xFE2
+   623                           fsr1l	equ	0xFE1
+   624                           indf2	equ	0xFDF
+   625                           fsr2h	equ	0xFDA
+   626                           fsr2l	equ	0xFD9
+   627                           status	equ	0xFD8
+   628                           
+   629 ;; *************** function _memcpy *****************
+   630 ;; Defined at:
+   631 ;;		line 13 in file "C:\Program Files (x86)\Microchip\xc8\v1.12\sources\memcpy.c"
+   632 ;; Parameters:    Size  Location     Type
+   633 ;;  d1              2    0[COMRAM] PTR void 
+   634 ;;		 -> RAM(3827), 
+   635 ;;  s1              2    2[COMRAM] PTR const void 
+   636 ;;		 -> RAM(3827), 
+   637 ;;  n               2    4[COMRAM] unsigned int 
+   638 ;; Auto vars:     Size  Location     Type
+   639 ;;  s               2    8[COMRAM] PTR const unsigned char 
+   640 ;;		 -> RAM(3827), 
+   641 ;;  d               2    6[COMRAM] PTR unsigned char 
+   642 ;;		 -> RAM(3827), 
+   643 ;; Return value:  Size  Location     Type
+   644 ;;                  2    wreg      PTR void 
+   645 ;; Registers used:
+   646 ;;		wreg, fsr1l, fsr1h, fsr2l, fsr2h, status,2, status,0
+   647 ;; Tracked objects:
+   648 ;;		On entry : F/0
+   649 ;;		On exit  : 0/0
+   650 ;;		Unchanged: FFFFFFF0/0
+   651 ;; Data sizes:     COMRAM  BANK0h   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK1
+      +1  BANK12  BANK13  BANK14
+   652 ;;      Params:         6       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+   653 ;;      Locals:         4       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+   654 ;;      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+   655 ;;      Totals:        10       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+   656 ;;Total ram usage:       10 bytes
+   657 ;; Hardware stack levels used:    1
+   658 ;; This function calls:
+   659 ;;		Nothing
+   660 ;; This function is called by:
+   661 ;;		_CLASSB_RAMMarchBTest
+   662 ;; This function uses a non-reentrant model
+   663 ;;
+   664                           
+   665                           	psect	text2
+   666  01FC4A                     __ptext2:
+   667                           	opt stack 0
+   668  01FC4A                     _memcpy:
+   669                           	opt stack 29
+   670                           
+   671                           ; BSR set to: 0
+   672  01FC4A  C003  F009         	movff	memcpy@s1,memcpy@s
+   673  01FC4E  C004  F00A         	movff	memcpy@s1+1,memcpy@s+1
+   674  01FC52  C001  F007         	movff	memcpy@d1,memcpy@d
+   675  01FC56  C002  F008         	movff	memcpy@d1+1,memcpy@d+1
+   676  01FC5A  D00E               	goto	l710
+   677  01FC5C                     l704:
+   678  01FC5C  C009  FFD9         	movff	memcpy@s,fsr2l
+   679  01FC60  C00A  FFDA         	movff	memcpy@s+1,fsr2h
+   680  01FC64  C007  FFE1         	movff	memcpy@d,fsr1l
+   681  01FC68  C008  FFE2         	movff	memcpy@d+1,fsr1h
+   682  01FC6C  CFDF FFE7          	movff	indf2,indf1
+   683  01FC70  4A09               	infsnz	memcpy@s,f,c
+   684  01FC72  2A0A               	incf	memcpy@s+1,f,c
+   685  01FC74  4A07               	infsnz	memcpy@d,f,c
+   686  01FC76  2A08               	incf	memcpy@d+1,f,c
+   687  01FC78                     l710:
+   688  01FC78  0605               	decf	memcpy@n,f,c
+   689  01FC7A  A0D8               	btfss	status,0,c
+   690  01FC7C  0606               	decf	memcpy@n+1,f,c
+   691  01FC7E  2805               	incf	memcpy@n& (0+255),w,c
+   692  01FC80  B4D8               	btfsc	status,2,c
+   693  01FC82  2806               	incf	(memcpy@n+1)& (0+255),w,c
+   694  01FC84  B4D8               	btfsc	status,2,c
+   695  01FC86  0012               	return	
+   696  01FC88  D7E9               	goto	l704
+   697  01FC8A                     __end_of_memcpy:
+   698                           	opt stack 0
+   699                           tblptrh	equ	0xFF7
+   700                           tblptrl	equ	0xFF6
+   701                           prodh	equ	0xFF4
+   702                           prodl	equ	0xFF3
+   703                           indf1	equ	0xFE7
+   704                           fsr1h	equ	0xFE2
+   705                           fsr1l	equ	0xFE1
+   706                           indf2	equ	0xFDF
+   707                           fsr2h	equ	0xFDA
+   708                           fsr2l	equ	0xFD9
+   709                           status	equ	0xFD8
+   710                           
+   711 ;; *************** function _MarchBGlobalTest *****************
+   712 ;; Defined at:
+   713 ;;		line 292 in file "CLASSB_RAMMarchBTest.c"
+   714 ;; Parameters:    Size  Location     Type
+   715 ;;		None
+   716 ;; Auto vars:     Size  Location     Type
+   717 ;;  bitMask         1    2[COMRAM] unsigned char 
+   718 ;;  r               1    1[COMRAM] unsigned char 
+   719 ;;  i               1    0[COMRAM] unsigned char 
+   720 ;; Return value:  Size  Location     Type
+   721 ;;                  1    wreg      enum E11556
+   722 ;; Registers used:
+   723 ;;		wreg, status,2, status,0
+   724 ;; Tracked objects:
+   725 ;;		On entry : F/0
+   726 ;;		On exit  : 0/0
+   727 ;;		Unchanged: 0/0
+   728 ;; Data sizes:     COMRAM  BANK0h   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK1
+      +1  BANK12  BANK13  BANK14
+   729 ;;      Params:         0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+   730 ;;      Locals:         3       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+   731 ;;      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+   732 ;;      Totals:         3       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+   733 ;;Total ram usage:        3 bytes
+   734 ;; Hardware stack levels used:    1
+   735 ;; This function calls:
+   736 ;;		Nothing
+   737 ;; This function is called by:
+   738 ;;		_CLASSB_RAMMarchBTest
+   739 ;; This function uses a non-reentrant model
+   740 ;;
+   741                           
+   742                           	psect	text3
+   743  01FC8A                     __ptext3:
+   744                           	opt stack 0
+   745  01FC8A                     _MarchBGlobalTest:
+   746                           	opt stack 29
+   747                           
+   748                           ; BSR set to: 0
+   749  01FC8A  C060 FFF3          	movff	96,prodl	;# 
+   750  01FC8E  C061 FFF4          	movff	97,prodh	;# 
+   751  01FC92  C062 FFF6          	movff	98,tblptrl	;# 
+   752  01FC96  C063 FFF7          	movff	99,tblptrh	;# 
+   753  01FC9A  C068 FFE9          	movff	104,fsr0l	;# 
+   754  01FC9E  C069 FFEA          	movff	105,fsr0h	;# 
+   755                           
+   756                           ;CLASSB_RAMMarchBTest.c: 302: uint8_t r;
+   757                           ;CLASSB_RAMMarchBTest.c: 303: uint8_t i;
+   758                           ;CLASSB_RAMMarchBTest.c: 304: uint8_t bitMask;
+   759                           ;CLASSB_RAMMarchBTest.c: 306: FSR1 = 0x60;
+   760  01FCA2  6AE2               	clrf	fsr1h,c	;volatile
+   761  01FCA4  0E60               	movlw	96
+   762  01FCA6  6EE1               	movwf	fsr1l,c	;volatile
+   763                           
+   764                           ;CLASSB_RAMMarchBTest.c: 309: for(r = 0; r < 10; r++)
+   765  01FCA8  6A02               	clrf	MarchBGlobalTest@r,c
+   766  01FCAA                     l79:
+   767                           
+   768                           ;CLASSB_RAMMarchBTest.c: 310: {
+   769                           ;CLASSB_RAMMarchBTest.c: 311: INDF1 = 0;
+   770  01FCAA  6AE7               	clrf	indf1,c	;volatile
+   771                           
+   772                           ;CLASSB_RAMMarchBTest.c: 312: FSR1++;
+   773  01FCAC  4AE1               	infsnz	fsr1l,f,c	;volatile
+   774  01FCAE  2AE2               	incf	fsr1h,f,c	;volatile
+   775  01FCB0  2A02               	incf	MarchBGlobalTest@r,f,c
+   776  01FCB2  0E09               	movlw	9
+   777  01FCB4  6402               	cpfsgt	MarchBGlobalTest@r,c
+   778  01FCB6  D7F9               	goto	l79
+   779                           
+   780                           ;CLASSB_RAMMarchBTest.c: 313: }
+   781                           ;CLASSB_RAMMarchBTest.c: 316: FSR1 = 0x60;
+   782  01FCB8  6AE2               	clrf	fsr1h,c	;volatile
+   783  01FCBA  0E60               	movlw	96
+   784  01FCBC  6EE1               	movwf	fsr1l,c	;volatile
+   785                           
+   786                           ;CLASSB_RAMMarchBTest.c: 317: for(r = 0; r < 10; r++)
+   787  01FCBE  6A02               	clrf	MarchBGlobalTest@r,c
+   788  01FCC0                     l734:
+   789                           
+   790                           ;CLASSB_RAMMarchBTest.c: 318: {
+   791                           ;CLASSB_RAMMarchBTest.c: 319: bitMask = 0x01;
+   792  01FCC0  0E01               	movlw	1
+   793  01FCC2  6E03               	movwf	MarchBGlobalTest@bitMask,c
+   794                           
+   795                           ;CLASSB_RAMMarchBTest.c: 320: for (i = 0; i < 8; i++)
+   796  01FCC4  6A01               	clrf	MarchBGlobalTest@i,c
+   797  01FCC6                     l742:
+   798                           
+   799                           ;CLASSB_RAMMarchBTest.c: 321: {
+   800                           ;CLASSB_RAMMarchBTest.c: 322: if (INDF1 & bitMask)
+   801  01FCC6  50E7               	movf	indf1,w,c	;volatile
+   802  01FCC8  1403               	andwf	MarchBGlobalTest@bitMask,w,c
+   803  01FCCA  E001               	bz	l750
+   804  01FCCC                     l744:
+   805                           
+   806                           ;CLASSB_RAMMarchBTest.c: 323: {
+   807                           ;CLASSB_RAMMarchBTest.c: 324: return CLASSB_TEST_FAIL;
+   808  01FCCC  0C01               	retlw	1
+   809  01FCCE                     l750:
+   810                           
+   811                           ;CLASSB_RAMMarchBTest.c: 326: else
+   812                           ;CLASSB_RAMMarchBTest.c: 327: {
+   813                           ;CLASSB_RAMMarchBTest.c: 328: INDF1 |= bitMask;
+   814  01FCCE  5003               	movf	MarchBGlobalTest@bitMask,w,c
+   815  01FCD0  12E7               	iorwf	indf1,f,c	;volatile
+   816                           
+   817                           ;CLASSB_RAMMarchBTest.c: 329: }
+   818                           ;CLASSB_RAMMarchBTest.c: 330: if(INDF1 & bitMask)
+   819  01FCD2  50E7               	movf	indf1,w,c	;volatile
+   820  01FCD4  1403               	andwf	MarchBGlobalTest@bitMask,w,c
+   821  01FCD6  E0FA               	bz	l744
+   822                           
+   823                           ;CLASSB_RAMMarchBTest.c: 331: {
+   824                           ;CLASSB_RAMMarchBTest.c: 332: INDF1 &= ~bitMask;
+   825  01FCD8  1C03               	comf	MarchBGlobalTest@bitMask,w,c
+   826  01FCDA  16E7               	andwf	indf1,f,c	;volatile
+   827                           
+   828                           ;CLASSB_RAMMarchBTest.c: 337: }
+   829                           ;CLASSB_RAMMarchBTest.c: 338: if(INDF1 & bitMask)
+   830                           
+   831                           ;CLASSB_RAMMarchBTest.c: 333: }
+   832  01FCDC  50E7               	movf	indf1,w,c	;volatile
+   833  01FCDE  1403               	andwf	MarchBGlobalTest@bitMask,w,c
+   834  01FCE0  E1F5               	bnz	l744
+   835                           
+   836                           ;CLASSB_RAMMarchBTest.c: 342: else
+   837                           ;CLASSB_RAMMarchBTest.c: 343: {
+   838                           ;CLASSB_RAMMarchBTest.c: 344: INDF1 |= bitMask;
+   839  01FCE2  5003               	movf	MarchBGlobalTest@bitMask,w,c
+   840  01FCE4  12E7               	iorwf	indf1,f,c	;volatile
+   841                           
+   842                           ;CLASSB_RAMMarchBTest.c: 345: }
+   843                           ;CLASSB_RAMMarchBTest.c: 346: bitMask <<= 1;
+   844  01FCE6  90D8               	bcf	status,0,c
+   845  01FCE8  3603               	rlcf	MarchBGlobalTest@bitMask,f,c
+   846  01FCEA  2A01               	incf	MarchBGlobalTest@i,f,c
+   847  01FCEC  0E07               	movlw	7
+   848  01FCEE  6401               	cpfsgt	MarchBGlobalTest@i,c
+   849  01FCF0  D7EA               	goto	l742
+   850                           
+   851                           ;CLASSB_RAMMarchBTest.c: 347: }
+   852                           ;CLASSB_RAMMarchBTest.c: 348: FSR1++;
+   853  01FCF2  4AE1               	infsnz	fsr1l,f,c	;volatile
+   854  01FCF4  2AE2               	incf	fsr1h,f,c	;volatile
+   855  01FCF6  2A02               	incf	MarchBGlobalTest@r,f,c
+   856  01FCF8  0E09               	movlw	9
+   857  01FCFA  6402               	cpfsgt	MarchBGlobalTest@r,c
+   858  01FCFC  D7E1               	goto	l734
+   859                           
+   860                           ;CLASSB_RAMMarchBTest.c: 349: }
+   861                           ;CLASSB_RAMMarchBTest.c: 352: FSR1 = 0x60;
+   862  01FCFE  6AE2               	clrf	fsr1h,c	;volatile
+   863  01FD00  0E60               	movlw	96
+   864  01FD02  6EE1               	movwf	fsr1l,c	;volatile
+   865                           
+   866                           ;CLASSB_RAMMarchBTest.c: 353: for(r = 0; r < 10; r++)
+   867  01FD04  6A02               	clrf	MarchBGlobalTest@r,c
+   868  01FD06                     l782:
+   869                           
+   870                           ;CLASSB_RAMMarchBTest.c: 354: {
+   871                           ;CLASSB_RAMMarchBTest.c: 355: bitMask = 0x01;
+   872  01FD06  0E01               	movlw	1
+   873  01FD08  6E03               	movwf	MarchBGlobalTest@bitMask,c
+   874                           
+   875                           ;CLASSB_RAMMarchBTest.c: 356: for (i=0; i<8; i++)
+   876  01FD0A  6A01               	clrf	MarchBGlobalTest@i,c
+   877  01FD0C                     l790:
+   878                           
+   879                           ;CLASSB_RAMMarchBTest.c: 357: {
+   880                           ;CLASSB_RAMMarchBTest.c: 358: if (INDF1 & bitMask)
+   881  01FD0C  50E7               	movf	indf1,w,c	;volatile
+   882  01FD0E  1403               	andwf	MarchBGlobalTest@bitMask,w,c
+   883  01FD10  E0DD               	bz	l744
+   884                           
+   885                           ;CLASSB_RAMMarchBTest.c: 359: {
+   886                           ;CLASSB_RAMMarchBTest.c: 360: INDF1 &= ~bitMask;
+   887  01FD12  1C03               	comf	MarchBGlobalTest@bitMask,w,c
+   888  01FD14  16E7               	andwf	indf1,f,c	;volatile
+   889                           
+   890                           ;CLASSB_RAMMarchBTest.c: 361: INDF1 |= bitMask;
+   891  01FD16  5003               	movf	MarchBGlobalTest@bitMask,w,c
+   892  01FD18  12E7               	iorwf	indf1,f,c	;volatile
+   893                           
+   894                           ;CLASSB_RAMMarchBTest.c: 366: }
+   895                           ;CLASSB_RAMMarchBTest.c: 367: bitMask<<=1;
+   896                           
+   897                           ;CLASSB_RAMMarchBTest.c: 362: }
+   898  01FD1A  90D8               	bcf	status,0,c
+   899  01FD1C  3603               	rlcf	MarchBGlobalTest@bitMask,f,c
+   900  01FD1E  2A01               	incf	MarchBGlobalTest@i,f,c
+   901  01FD20  0E07               	movlw	7
+   902  01FD22  6401               	cpfsgt	MarchBGlobalTest@i,c
+   903  01FD24  D7F3               	goto	l790
+   904                           
+   905                           ;CLASSB_RAMMarchBTest.c: 368: }
+   906                           ;CLASSB_RAMMarchBTest.c: 369: FSR1++;
+   907  01FD26  4AE1               	infsnz	fsr1l,f,c	;volatile
+   908  01FD28  2AE2               	incf	fsr1h,f,c	;volatile
+   909  01FD2A  2A02               	incf	MarchBGlobalTest@r,f,c
+   910  01FD2C  0E09               	movlw	9
+   911  01FD2E  6402               	cpfsgt	MarchBGlobalTest@r,c
+   912  01FD30  D7EA               	goto	l782
+   913                           
+   914                           ;CLASSB_RAMMarchBTest.c: 370: }
+   915                           ;CLASSB_RAMMarchBTest.c: 373: FSR1 = 0x69;
+   916  01FD32  6AE2               	clrf	fsr1h,c	;volatile
+   917  01FD34  0E69               	movlw	105
+   918  01FD36  6EE1               	movwf	fsr1l,c	;volatile
+   919                           
+   920                           ;CLASSB_RAMMarchBTest.c: 374: for (r = 0; r < 10; r++)
+   921  01FD38  6A02               	clrf	MarchBGlobalTest@r,c
+   922  01FD3A                     l814:
+   923                           
+   924                           ;CLASSB_RAMMarchBTest.c: 375: {
+   925                           ;CLASSB_RAMMarchBTest.c: 376: bitMask = 0x80;
+   926  01FD3A  0E80               	movlw	128
+   927  01FD3C  6E03               	movwf	MarchBGlobalTest@bitMask,c
+   928                           
+   929                           ;CLASSB_RAMMarchBTest.c: 377: for (i=0; i<8; i++)
+   930  01FD3E  6A01               	clrf	MarchBGlobalTest@i,c
+   931  01FD40                     l822:
+   932                           
+   933                           ;CLASSB_RAMMarchBTest.c: 378: {
+   934                           ;CLASSB_RAMMarchBTest.c: 379: if (INDF1 & bitMask)
+   935  01FD40  50E7               	movf	indf1,w,c	;volatile
+   936  01FD42  1403               	andwf	MarchBGlobalTest@bitMask,w,c
+   937  01FD44  E0C3               	bz	l744
+   938                           
+   939                           ;CLASSB_RAMMarchBTest.c: 380: {
+   940                           ;CLASSB_RAMMarchBTest.c: 381: INDF1 &= ~bitMask;
+   941  01FD46  1C03               	comf	MarchBGlobalTest@bitMask,w,c
+   942  01FD48  16E7               	andwf	indf1,f,c	;volatile
+   943                           
+   944                           ;CLASSB_RAMMarchBTest.c: 382: INDF1 |= bitMask;
+   945  01FD4A  5003               	movf	MarchBGlobalTest@bitMask,w,c
+   946  01FD4C  12E7               	iorwf	indf1,f,c	;volatile
+   947                           
+   948                           ;CLASSB_RAMMarchBTest.c: 383: INDF1 &= ~bitMask;
+   949  01FD4E  1C03               	comf	MarchBGlobalTest@bitMask,w,c
+   950  01FD50  16E7               	andwf	indf1,f,c	;volatile
+   951                           
+   952                           ;CLASSB_RAMMarchBTest.c: 388: }
+   953                           ;CLASSB_RAMMarchBTest.c: 389: bitMask>>=1;
+   954                           
+   955                           ;CLASSB_RAMMarchBTest.c: 384: }
+   956  01FD52  90D8               	bcf	status,0,c
+   957  01FD54  3203               	rrcf	MarchBGlobalTest@bitMask,f,c
+   958  01FD56  2A01               	incf	MarchBGlobalTest@i,f,c
+   959  01FD58  0E07               	movlw	7
+   960  01FD5A  6401               	cpfsgt	MarchBGlobalTest@i,c
+   961  01FD5C  D7F1               	goto	l822
+   962                           
+   963                           ;CLASSB_RAMMarchBTest.c: 390: }
+   964                           ;CLASSB_RAMMarchBTest.c: 391: FSR1--;
+   965  01FD5E  06E1               	decf	fsr1l,f,c	;volatile
+   966  01FD60  A0D8               	btfss	status,0,c
+   967  01FD62  06E2               	decf	fsr1h,f,c	;volatile
+   968  01FD64  2A02               	incf	MarchBGlobalTest@r,f,c
+   969  01FD66  0E09               	movlw	9
+   970  01FD68  6402               	cpfsgt	MarchBGlobalTest@r,c
+   971  01FD6A  D7E7               	goto	l814
+   972                           
+   973                           ;CLASSB_RAMMarchBTest.c: 392: }
+   974                           ;CLASSB_RAMMarchBTest.c: 395: FSR1 = 0x69;
+   975  01FD6C  6AE2               	clrf	fsr1h,c	;volatile
+   976  01FD6E  0E69               	movlw	105
+   977  01FD70  6EE1               	movwf	fsr1l,c	;volatile
+   978                           
+   979                           ;CLASSB_RAMMarchBTest.c: 396: for (r = 0; r < 10; r++)
+   980  01FD72  6A02               	clrf	MarchBGlobalTest@r,c
+   981  01FD74                     l846:
+   982                           
+   983                           ;CLASSB_RAMMarchBTest.c: 397: {
+   984                           ;CLASSB_RAMMarchBTest.c: 398: bitMask = 0x80;
+   985  01FD74  0E80               	movlw	128
+   986  01FD76  6E03               	movwf	MarchBGlobalTest@bitMask,c
+   987                           
+   988                           ;CLASSB_RAMMarchBTest.c: 399: for (i=0; i<8; i++)
+   989  01FD78  6A01               	clrf	MarchBGlobalTest@i,c
+   990  01FD7A                     l854:
+   991                           
+   992                           ;CLASSB_RAMMarchBTest.c: 400: {
+   993                           ;CLASSB_RAMMarchBTest.c: 401: if (INDF1 & bitMask)
+   994  01FD7A  50E7               	movf	indf1,w,c	;volatile
+   995  01FD7C  1403               	andwf	MarchBGlobalTest@bitMask,w,c
+   996  01FD7E  E1A6               	bnz	l744
+   997                           
+   998                           ;CLASSB_RAMMarchBTest.c: 403: else
+   999                           ;CLASSB_RAMMarchBTest.c: 404: {
+  1000                           ;CLASSB_RAMMarchBTest.c: 405: INDF1 |= bitMask;
+  1001  01FD80  5003               	movf	MarchBGlobalTest@bitMask,w,c
+  1002  01FD82  12E7               	iorwf	indf1,f,c	;volatile
+  1003                           
+  1004                           ;CLASSB_RAMMarchBTest.c: 406: INDF1 &= ~bitMask;
+  1005  01FD84  1C03               	comf	MarchBGlobalTest@bitMask,w,c
+  1006  01FD86  16E7               	andwf	indf1,f,c	;volatile
+  1007                           
+  1008                           ;CLASSB_RAMMarchBTest.c: 407: }
+  1009                           ;CLASSB_RAMMarchBTest.c: 408: bitMask>>=1;
+  1010  01FD88  90D8               	bcf	status,0,c
+  1011  01FD8A  3203               	rrcf	MarchBGlobalTest@bitMask,f,c
+  1012  01FD8C  2A01               	incf	MarchBGlobalTest@i,f,c
+  1013  01FD8E  0E07               	movlw	7
+  1014  01FD90  6401               	cpfsgt	MarchBGlobalTest@i,c
+  1015  01FD92  D7F3               	goto	l854
+  1016                           
+  1017                           ;CLASSB_RAMMarchBTest.c: 409: }
+  1018                           ;CLASSB_RAMMarchBTest.c: 410: FSR1--;
+  1019  01FD94  06E1               	decf	fsr1l,f,c	;volatile
+  1020  01FD96  A0D8               	btfss	status,0,c
+  1021  01FD98  06E2               	decf	fsr1h,f,c	;volatile
+  1022  01FD9A  2A02               	incf	MarchBGlobalTest@r,f,c
+  1023  01FD9C  0E09               	movlw	9
+  1024  01FD9E  6402               	cpfsgt	MarchBGlobalTest@r,c
+  1025  01FDA0  D7E9               	goto	l846
+  1026  01FDA2  CFEA F069          	movff	fsr0h,105	;# 
+  1027  01FDA6  CFE9 F068          	movff	fsr0l,104	;# 
+  1028  01FDAA  CFF7 F063          	movff	tblptrh,99	;# 
+  1029  01FDAE  CFF6 F062          	movff	tblptrl,98	;# 
+  1030  01FDB2  CFF4 F061          	movff	prodh,97	;# 
+  1031  01FDB6  CFF3 F060          	movff	prodl,96	;# 
+  1032                           
+  1033                           ;CLASSB_RAMMarchBTest.c: 422: return CLASSB_TEST_PASS;
+  1034  01FDBA  0C00               	retlw	0
+  1035  01FDBC                     __end_of_MarchBGlobalTest:
+  1036                           	opt stack 0
+  1037  0000                     tblptrh	equ	0xFF7
+  1038                           tblptrl	equ	0xFF6
+  1039                           prodh	equ	0xFF4
+  1040                           prodl	equ	0xFF3
+  1041                           fsr0h	equ	0xFEA
+  1042                           fsr0l	equ	0xFE9
+  1043                           indf1	equ	0xFE7
+  1044                           fsr1h	equ	0xFE2
+  1045                           fsr1l	equ	0xFE1
+  1046                           indf2	equ	0xFDF
+  1047                           fsr2h	equ	0xFDA
+  1048                           fsr2l	equ	0xFD9
+  1049                           status	equ	0xFD8
+  1050                           tblptrh	equ	0xFF7
+  1051                           tblptrl	equ	0xFF6
+  1052                           prodh	equ	0xFF4
+  1053                           prodl	equ	0xFF3
+  1054                           fsr0h	equ	0xFEA
+  1055                           fsr0l	equ	0xFE9
+  1056                           indf1	equ	0xFE7
+  1057                           fsr1h	equ	0xFE2
+  1058                           fsr1l	equ	0xFE1
+  1059                           indf2	equ	0xFDF
+  1060                           fsr2h	equ	0xFDA
+  1061                           fsr2l	equ	0xFD9
+  1062                           status	equ	0xFD8
+  1063                           
+  1064                           	psect	text4
+  1065  000000                     __ptext4:
+  1066                           	opt stack 0
+  1067                           tblptrh	equ	0xFF7
+  1068                           tblptrl	equ	0xFF6
+  1069                           prodh	equ	0xFF4
+  1070                           prodl	equ	0xFF3
+  1071                           fsr0h	equ	0xFEA
+  1072                           fsr0l	equ	0xFE9
+  1073                           indf1	equ	0xFE7
+  1074                           fsr1h	equ	0xFE2
+  1075                           fsr1l	equ	0xFE1
+  1076                           indf2	equ	0xFDF
+  1077                           fsr2h	equ	0xFDA
+  1078                           fsr2l	equ	0xFD9
+  1079                           status	equ	0xFD8
+  1080                           
+  1081                           	psect	rparam
+  1082  0000                     tblptrh	equ	0xFF7
+  1083                           tblptrl	equ	0xFF6
+  1084                           prodh	equ	0xFF4
+  1085                           prodl	equ	0xFF3
+  1086                           fsr0h	equ	0xFEA
+  1087                           fsr0l	equ	0xFE9
+  1088                           indf1	equ	0xFE7
+  1089                           fsr1h	equ	0xFE2
+  1090                           fsr1l	equ	0xFE1
+  1091                           indf2	equ	0xFDF
+  1092                           fsr2h	equ	0xFDA
+  1093                           fsr2l	equ	0xFD9
+  1094                           status	equ	0xFD8
+
+
+Data Sizes:
+    Strings     0
+    Constant    0
+    Data        0
+    BSS         0
+    Persistent  0
+    Stack       0
+
+Auto Spaces:
+    Space          Size  Autos    Used
+    COMRAM           95     14      14
+    BANK0h          150      0       0
+    BANK1           256      0       0
+    BANK2           256      0       0
+    BANK3           256      0       0
+    BANK4           256      0       0
+    BANK5           256      0       0
+    BANK6           256      0       0
+    BANK7           256      0       0
+    BANK8           256      0       0
+    BANK9           256      0       0
+    BANK10          256      0       0
+    BANK11          256      0       0
+    BANK12          256      0       0
+    BANK13          256      0       0
+    BANK14          244      0       0
+
+Pointer List with Targets:
+
+    ?_memcpy	PTR void  size(2) Largest target is 3827
+		 -> RAM(DATA[3827]), 
+
+    memcpy@d1	PTR void  size(2) Largest target is 3827
+		 -> RAM(DATA[3827]), 
+
+    memcpy@d	PTR unsigned char  size(2) Largest target is 3827
+		 -> RAM(DATA[3827]), 
+
+    memcpy@s1	PTR const void  size(2) Largest target is 3827
+		 -> RAM(DATA[3827]), 
+
+    memcpy@s	PTR const unsigned char  size(2) Largest target is 3827
+		 -> RAM(DATA[3827]), 
+
+    CLASSB_MarchtempAddress	PTR unsigned char  size(2) Largest target is 3827
+		 -> RAM(DATA[3827]), 
+
+    sp__memcpy	PTR void  size(2) Largest target is 3827
+		 -> RAM(DATA[3827]), 
+
+    CLASSB_MarchbufferAddress	PTR unsigned char  size(2) Largest target is 3827
+		 -> RAM(DATA[3827]), 
+
+    CLASSB_MarchstartAddress	PTR unsigned char  size(2) Largest target is 3827
+		 -> RAM(DATA[3827]), 
+
+
+Critical Paths under _main in COMRAM
+
+    _main->_CLASSB_RAMMarchBTest
+    _CLASSB_RAMMarchBTest->_memcpy
+
+Critical Paths under _main in BANK0h
+
+    None.
+
+Critical Paths under _main in BANK1
+
+    None.
+
+Critical Paths under _main in BANK2
+
+    None.
+
+Critical Paths under _main in BANK3
+
+    None.
+
+Critical Paths under _main in BANK4
+
+    None.
+
+Critical Paths under _main in BANK5
+
+    None.
+
+Critical Paths under _main in BANK6
+
+    None.
+
+Critical Paths under _main in BANK7
+
+    None.
+
+Critical Paths under _main in BANK8
+
+    None.
+
+Critical Paths under _main in BANK9
+
+    None.
+
+Critical Paths under _main in BANK10
+
+    None.
+
+Critical Paths under _main in BANK11
+
+    None.
+
+Critical Paths under _main in BANK12
+
+    None.
+
+Critical Paths under _main in BANK13
+
+    None.
+
+Critical Paths under _main in BANK14
+
+    None.
+
+Call Graph Tables:
+
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (0) _main                                                 1     1      0     620
+                                             13 COMRAM     1     1      0
+               _CLASSB_RAMMarchBTest
+ ---------------------------------------------------------------------------------
+ (1) _CLASSB_RAMMarchBTest                                 3     3      0     605
+                                             10 COMRAM     3     3      0
+                             _memcpy
+                   _MarchBGlobalTest
+ ---------------------------------------------------------------------------------
+ (2) _memcpy                                              10     4      6      80
+                                              0 COMRAM    10     4      6
+ ---------------------------------------------------------------------------------
+ (2) _MarchBGlobalTest                                     3     3      0     510
+                                              0 COMRAM     3     3      0
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 2
+ ---------------------------------------------------------------------------------
+
+ Call Graph Graphs:
+
+ _main (ROOT)
+   _CLASSB_RAMMarchBTest
+     _memcpy
+     _MarchBGlobalTest
+
+ Address spaces:
+Name               Size   Autos  Total    Cost      Usage
+BITCOMRAM           5F      0       0       0        0.0%
+EEDATA             400      0       0       0        0.0%
+NULL                 0      0       0       0        0.0%
+CODE                 0      0       0       0        0.0%
+COMRAM              5F      E       E       1       14.7%
+STACK                0      0       2       2        0.0%
+DATA                 0      0       0       3        0.0%
+BITBANK0h           96      0       0       4        0.0%
+BANK0h              96      0       0       5        0.0%
+ABS                  0      0       0       6        0.0%
+BITBANK1           100      0       0       7        0.0%
+BANK1              100      0       0       8        0.0%
+BITBANK2           100      0       0       9        0.0%
+BANK2              100      0       0      10        0.0%
+BITBANK3           100      0       0      11        0.0%
+BANK3              100      0       0      12        0.0%
+BITBANK4           100      0       0      13        0.0%
+BANK4              100      0       0      14        0.0%
+BITBANK5           100      0       0      15        0.0%
+BANK5              100      0       0      16        0.0%
+BITBANK6           100      0       0      17        0.0%
+BANK6              100      0       0      18        0.0%
+BITBANK7           100      0       0      19        0.0%
+BANK7              100      0       0      20        0.0%
+BITBANK8           100      0       0      21        0.0%
+BANK8              100      0       0      22        0.0%
+BITBANK9           100      0       0      23        0.0%
+BANK9              100      0       0      24        0.0%
+BITBANK10          100      0       0      25        0.0%
+BANK10             100      0       0      26        0.0%
+BITBANK11          100      0       0      27        0.0%
+BANK11             100      0       0      28        0.0%
+BITBANK12          100      0       0      29        0.0%
+BANK12             100      0       0      30        0.0%
+BITBANK13          100      0       0      31        0.0%
+BANK13             100      0       0      32        0.0%
+BITBANK14           F4      0       0      33        0.0%
+BANK14              F4      0       0      34        0.0%
+BIGRAMhh           E8A      0       0      35        0.0%
+BIGRAMl             5F      0       0      36        0.0%
+BITSFR_2             0      0       0      40        0.0%
+SFR_2                0      0       0      40        0.0%
+BITSFR_1             0      0       0      40        0.0%
+SFR_1                0      0       0      40        0.0%
+BITSFR               0      0       0      40        0.0%
+SFR                  0      0       0      40        0.0%
+
+
+Microchip Technology PIC18 Macro Assembler V1.12 build 49521 
+Symbol Table                                                                                   Wed May 21 13:38:44 2014
+
+                            l11 FC46                              l13 FC48                              l60 FED6  
+                            l53 FE4C                              l54 FE58                              l71 FF90  
+                            l72 FFA0                              l65 FF2A                              l66 FF3A  
+                            l59 FEC6                              l79 FCAA                     __CFG_BORV$3 000000  
+                  __CFG_CP0$OFF 000000                    __CFG_CP1$OFF 000000                    __CFG_CP2$OFF 000000  
+                  __CFG_CP3$OFF 000000                    __CFG_CP4$OFF 000000                    __CFG_CP5$OFF 000000  
+                  __CFG_CP6$OFF 000000                    __CFG_CP7$OFF 000000                             l710 FC78  
+                           l704 FC5C                             l822 FD40                             l814 FD3A  
+                           l750 FCCE                             l742 FCC6                             l734 FCC0  
+                           l902 FE34                             l744 FCCC                             l904 FE50  
+                           l920 FEAE                             l940 FEFE                             l854 FD7A  
+                           l846 FD74                             l790 FD0C                             l782 FD06  
+                           l926 FECE                             l942 FF08                             l918 FEA4  
+                           l954 FF32                             l970 FF78                             l884 FDF4  
+                           l892 FE14                             l990 FFC8                             l878 FDDE  
+                           l976 FF98                             l992 FFD6                             l968 FF6A  
+                           l896 FE22                             l888 FDF6                             l998 FFFE  
+                  __CFG_CPB$OFF 000000                    __CFG_CPD$OFF 000000         MarchBGlobalTest@bitMask 0003  
+                          INDF1 000FE7                            FSR0H 000FEA                            FSR1H 000FE2  
+                          FSR0L 000FE9                            FSR1L 000FE1                            PRODH 000FF4  
+                          PRODL 000FF3        _CLASSB_MarchstartAddress 000060                            _FSR1 000FE1  
+             MarchBGlobalTest@i 0001               MarchBGlobalTest@r 0002                            _main FC26  
+                          fsr1h 000FE2                            fsr2h 000FDA                            indf1 000FE7  
+                          fsr1l 000FE1                            indf2 000FDF                            fsr2l 000FD9  
+                          start 0000                   __CFG_IESO$OFF 000000                   __CFG_MCLRE$ON 000000  
+                 __CFG_RETEN$ON 000000                           STATUS 000FD8                           ?_main 0001  
+                         _INDF1 000FE7                           _PRODH 000FF4                           _PRODL 000FF3  
+                 __CFG_WRT0$OFF 000000                   __CFG_WRT1$OFF 000000                   __CFG_WRT2$OFF 000000  
+                 __CFG_WRT3$OFF 000000                   __CFG_WRT4$OFF 000000                  __CFG_EBRT0$OFF 000000  
+                 __CFG_WRT5$OFF 000000                  __CFG_EBRT1$OFF 000000                   __CFG_WRT6$OFF 000000  
+                __CFG_EBRT2$OFF 000000                   __CFG_WRT7$OFF 000000                  __CFG_EBRT3$OFF 000000  
+                __CFG_EBRT4$OFF 000000                  __CFG_FCMEN$OFF 000000                  __CFG_EBRT5$OFF 000000  
+                __CFG_EBRT6$OFF 000000                  __CFG_EBRT7$OFF 000000                   __CFG_WRTB$OFF 000000  
+                 __CFG_WRTC$OFF 000000                   __CFG_WRTD$OFF 000000                  __CFG_EBRTB$OFF 000000  
+                         status 000FD8                 __initialization FC20                    __end_of_main FDBC  
+                        ??_main 000E                   __activetblptr 000000                          TBLPTRH 000FF7  
+                        TBLPTRL 000FF6                 __CFG_BBSIZ$BB2K 000000                  __CFG_WDTEN$OFF 000000  
+              _MarchBGlobalTest FC8A                  __CFG_XINST$OFF 000000                  __CFG_STVREN$ON 000000  
+                        _memcpy FC4A                      __accesstop 0060         __end_of__initialization FC20  
+                __pcstackCOMRAM 0001   __size_of_CLASSB_RAMMarchBTest 0244                 __CFG_PLLCFG$OFF 000000  
+                       ?_memcpy 0001                         _TBLPTRH 000FF7                         _TBLPTRL 000FF6  
+               __CFG_PWRTEN$OFF 000000                         __Hparam 0000                         __Lparam 0000  
+             _CLASSB_MarchIndex 000066                         __pcinit FC20                 __size_of_memcpy 0040  
+      __end_of_MarchBGlobalTest FDBC                         __ramtop 0F00                         __ptext0 FC26  
+                       __ptext1 FDBC                         __ptext2 FC4A                         __ptext3 FC8A  
+                       __ptext4 0000               __CFG_MSSPMSK$MSK7 000000            end_of_initialization FC20  
+                       memcpy@d 0007                         memcpy@n 0005                         memcpy@s 0009  
+                main@testResult 000E                __CFG_FOSC$INTIO2 000000  CLASSB_RAMMarchBTest@testResult 000D  
+             __CFG_SOSCSEL$HIGH 000000       _CLASSB_MarchbufferAddress 000062                  __end_of_memcpy FC8A  
+           start_initialization FC20    __end_of_CLASSB_RAMMarchBTest 0000                        ??_memcpy 0007  
+             __CFG_CCP2MX$PORTC 000000               ?_MarchBGlobalTest 0001              ??_MarchBGlobalTest 0001  
+             __CFG_ECCPMX$PORTE 000000            _CLASSB_RAMMarchBTest FDBC                        __Hrparam 0000  
+                      __Lrparam 0000              __CFG_BOREN$SBORDIS 000000              _CLASSB_MarchLength 000068  
+         ?_CLASSB_RAMMarchBTest 0001                   __size_of_main 0196             __CFG_RTCOSC$SOSCREF 000000  
+           __CFG_INTOSCSEL$HIGH 000000                        memcpy@d1 0001                        memcpy@s1 0003  
+       _CLASSB_MarchtempAddress 000064              __CFG_WDTPS$1048576 000000          ??_CLASSB_RAMMarchBTest 000B  
+     __size_of_MarchBGlobalTest 0132             __CFG_BORPWR$ZPBORMV 000000  

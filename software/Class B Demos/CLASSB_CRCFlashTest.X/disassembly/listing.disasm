@@ -1,0 +1,452 @@
+Disassembly Listing for CLASSB_CRCFlashTest
+Generated From:
+C:/Users/C13819/Documents/Class_B/Class B/CLASSB PIC18 Library Version 2.00/Beta PIC18 V2.00/Demo Projects/CLASSB_CRCFlashTest.X/dist/default/production/CLASSB_CRCFlashTest.X.production.cof
+May 14, 2014 3:39:12 PM
+
+---  C:/Users/C13819/Documents/Class_B/Class B/CLASSB PIC18 Library Version 2.00/Beta PIC18 V2.00/Microchip/src file/CLASSB_CRCFlashTest.c
+1:             /*****************************************************************************************
+2:             * © 2013  Microchip Technology Inc.
+3:             * 
+4:             * FileName:	CLASSB_CRCFlashTest.c
+5:             * Dependencies: Header (.h) files if applicable, see below
+6:             * Processor:	PIC18F
+7:             * Compiler:	XC8 v1.11 or higher
+8:             * Company:	Microchip Technology, Inc.
+9:             * Version :     1.1
+10:            * Date :        29/05/13   (mm/dd/yy)
+11:            * Author:       Arpitha P
+12:            *
+13:            * Software License Agreement:
+14:            *
+15:            * Microchip licenses this software to you solely for use with Microchip products.
+16:            * The software is owned by Microchip and its licensors, and is protected under
+17:            * applicable copyright laws.  All rights reserved.
+18:            * SOFTWARE IS PROVIDED ?AS IS.?  MICROCHIP EXPRESSLY DISCLAIMS ANY WARRANTY OF ANY
+19:            * KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO, THE IMPLIED
+20:            * WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT.
+21:            * IN NO EVENT SHALL MICROCHIP BE LIABLE FOR ANY INCIDENTAL, SPECIAL, INDIRECT OR
+22:            * CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, HARM TO YOUR EQUIPMENT, COST
+23:            * OF PROCUREMENT OF SUBSTITUTE GOODS, TECHNOLOGY OR SERVICES, ANY CLAIMS BY THIRD
+24:            * PARTIES (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), ANY CLAIMS FOR INDEMNITY
+25:            * OR CONTRIBUTION, OR OTHER SIMILAR COSTS.
+26:            * To the fullest extent allowed by law, Microchip and its licensors liability shall
+27:            * not exceed the amount of fees, if any, that you have paid directly to Microchip
+28:            * to use this software.
+29:            * MICROCHIP PROVIDES THIS SOFTWARE CONDITIONALLY UPON YOUR ACCEPTANCE OF THESE TERMS.
+30:            *
+31:            *
+32:            * REVISION HISTORY:
+33:            *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+34:            * Author            Date      Comments on this revision
+35:            *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+36:            * AKA                         First release of include file
+37:            * AP	                      Second release compatable with XC8
+38:            *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+39:            * ADDITIONAL NOTES:
+40:            *
+41:            **********************************************************************/
+42:            
+43:            #include "CLASSB_CRCFlashTest.h"
+44:            #include "CLASSB_Typedef.h"
+45:            
+46:            unsigned int crcreg;            //the current remainder of the CRC calculation
+47:            unsigned char parity;           //the parity bit for CRC calculation
+48:            unsigned char dataXorCrcHigh;   //Data XOR'd with the current CRC High byte
+49:            
+50:            /********************************************************************
+51:              * Description:
+52:              *     This function computes the periodic checksum using the Cyclic Redundancy
+53:              *     Check (CRC). It detects the single bit Faults in the invariable memory.
+54:              *     This function returns the final CRC Value.
+55:              *     CRC-16 is used as a divisor.
+56:              *
+57:              *     CRC-16 = 1 1000 0000 0000 0101= 8005(hex)
+58:              * Input:
+59:              *     startAddress :  start Address from which the CRC needs to be calculated
+60:              *     length       :  the number of Flash addresses to be tested NOTE: ((end address - start address) / 2) + 1
+61:              *     crcSeed      :  the initial value of the CRC calculation
+62:              *
+63:              * Return Values:
+64:              *     testResult   :  Returns the final CRC result.
+65:              *
+66:              ********************************************************************/
+67:            
+68:            uint16_t CLASSB_CRCFlashTest(uint32_t startAddress, uint16_t length, uint16_t crcSeed)
+69:            {
+70:            
+71:                volatile unsigned int testResult;
+72:                int i;
+73:                uint8_t dataSequence0,dataSequence1;
+74:                crcreg = crcSeed;
+0F02  C008     MOVFF crcSeed, crcreg
+0F04  F016     NOP
+0F06  C009     MOVFF 0x9, 0x17
+0F08  F017     NOP
+75:            
+76:                TBLPTR = startAddress;                         // put the starting address of flash memory in pointer register
+0F0A  C002     MOVFF startAddress, TBLPTRL
+0F0C  FFF6     NOP
+0F0E  C003     MOVFF 0x3, TBLPTRH
+0F10  FFF7     NOP
+0F12  C004     MOVFF testFlashVar1, TBLPTRU
+0F14  FFF8     NOP
+77:            
+78:                for(i=0; i<length; i++)
+0F16  6A0A     CLRF i, ACCESS
+0F18  6A0B     CLRF 0xB, ACCESS
+0F1A  D00E     BRA 0xF38
+0F34  4A0A     INFSNZ i, F, ACCESS
+0F36  2A0B     INCF 0xB, F, ACCESS
+0F38  5006     MOVF length, W, ACCESS
+0F3A  5C0A     SUBWF i, W, ACCESS
+0F3C  5007     MOVF 0x7, W, ACCESS
+0F3E  580B     SUBWFB 0xB, W, ACCESS
+0F40  E3ED     BNC 0xF1C
+79:                {        
+80:                    #asm                                        // AP -changed the synatx for XC8
+81:                    TBLRDPOSTINC                                // read the flash byte
+82:                    #endasm                                     // AP -changed the synatx for XC8
+0F1C  0009     TBLRD*+
+83:            
+84:                    dataSequence0 = TABLAT;                     //put the read data in buffer
+0F1E  CFF5     MOVFF TABLAT, dataSequence0
+0F20  F00C     NOP
+85:            
+86:                    #asm                                        // AP-changed the synatx for XC8
+87:                    TBLRDPOSTINC                                //read the next byte
+88:                    #endasm                                     // AP-changed the synatx for XC8
+0F22  0009     TBLRD*+
+89:            
+90:                    dataSequence1= TABLAT;                      // put the read data in another buffer
+0F24  CFF5     MOVFF TABLAT, dataSequence1
+0F26  F00D     NOP
+91:            
+92:                    crcByte_FLASH(dataSequence1);
+0F28  500D     MOVF dataSequence1, W, ACCESS
+0F2A  ECAA     CALL 0xF54, 0
+0F2C  F007     NOP
+93:                    crcByte_FLASH(dataSequence0);
+0F2E  500C     MOVF dataSequence0, W, ACCESS
+0F30  ECAA     CALL 0xF54, 0
+0F32  F007     NOP
+94:                }
+95:                
+96:                testResult = crcreg;
+0F42  C016     MOVFF crcreg, testResult
+0F44  F00E     NOP
+0F46  C017     MOVFF 0x17, 0xF
+0F48  F00F     NOP
+97:                return testResult;
+0F4A  C00E     MOVFF testResult, startAddress
+0F4C  F002     NOP
+0F4E  C00F     MOVFF 0xF, 0x3
+0F50  F003     NOP
+98:            
+99:               }
+0F52  0012     RETURN 0
+100:           
+101:           /******************************************************************************
+102:           * Description:
+103:           *     This function does the CRC calculation of a single byte.
+104:           * Input:
+105:           *     dataSequence0 & datasequence1 :  the byte to be tested
+106:           *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+107:           
+108:           C is current crc value (seed or previous iteration)
+109:           D is the current data sequence
+110:           S is the data sequence XOR'd with the high byte of the current crc value
+111:           P is the parity bit
+112:           
+113:           S[i] = C8^D0, C9^D1, C10^D2, C11^D3... etc
+114:           
+115:           parity = C8^C9^C10^C11^C12^C13^C14^C15 ^ D7^D6^D5^D4^D3^D2^D1^D0
+116:           
+117:           crcreg[0]  =      P
+118:           crcreg[1]  =      S0 ^ P
+119:           crcreg[2]  =      S1 ^ S0
+120:           crcreg[3]  =      S2 ^ S1
+121:           crcreg[4]  =      S3 ^ S2
+122:           crcreg[5]  =      S4 ^ S3
+123:           crcreg[6]  =      S5 ^ S4
+124:           crcreg[7]  =      S6 ^ S5
+125:           crcreg[8]  = C0 ^ S7 ^ S6
+126:           crcreg[9]  = C1      ^ S7
+127:           crcreg[10] = C2
+128:           crcreg[11] = C3
+129:           crcreg[12] = C4
+130:           crcreg[13] = C5
+131:           crcreg[14] = C6
+132:           crcreg[15] = C7 ^ P
+133:           ******************************************************************************/
+134:           void crcByte_FLASH(uint8_t dataSequence)
+135:           {
+136:               WREG = dataSequence;
+0F58  5001     MOVF 0x1, W, ACCESS
+137:           
+138:               #asm
+139:               banksel BANKMASK(_crcreg)
+140:               xorwf   BANKMASK(_crcreg)+1,w           //XOR the upper byte of CRCREG
+0F5A  0100     MOVLB 0x0
+141:                                                       //with the input data sequence
+0F5C  1917     XORWF 0x17, W, BANKED
+142:                                                       //This creates S[i]
+143:           
+144:               movwf   BANKMASK(_dataXorCrcHigh)
+145:               movwf   BANKMASK(_parity)
+0F5E  6F18     MOVWF dataXorCrcHigh, BANKED
+146:           
+0F60  6F19     MOVWF parity, BANKED
+147:               //The following section finds the parity of the CRCREG and the Data sequence
+148:               swapf   BANKMASK(_parity),w
+149:               xorwf   BANKMASK(_parity),f         //S0^S4, S1^S5... etc
+0F62  3919     SWAPF parity, W, BANKED
+150:               BCF     STATUS,0
+0F64  1B19     XORWF parity, F, BANKED
+151:               RRCF    BANKMASK(_parity),w         //the upper 4 bits are unnecessary
+0F66  90D8     BCF STATUS, 0, ACCESS
+152:               BCF     STATUS,0
+0F68  3119     RRCF parity, W, BANKED
+153:               RRCF    WREG
+0F6A  90D8     BCF STATUS, 0, ACCESS
+154:               BCF     STATUS,0
+0F6C  32E8     RRCF WREG, F, ACCESS
+155:               xorwf   BANKMASK(_parity),f         //S0^S4^S1^S5, S2^S6^S3^S7
+0F6E  90D8     BCF STATUS, 0, ACCESS
+156:               RRCF    BANKMASK(_parity),w         //the upper 6 bits are unnecessary
+0F70  1B19     XORWF parity, F, BANKED
+157:               xorwf   BANKMASK(_parity),f         //P = S0^S4^S1^S5^S2^S6^S3^S7
+0F72  3119     RRCF parity, W, BANKED
+158:                                                   //the upper 7 bits are unnecessary
+0F74  1B19     XORWF parity, F, BANKED
+159:           
+160:               BCF     STATUS,0
+161:               RLCF    BANKMASK(_dataXorCrcHigh),w
+0F76  90D8     BCF STATUS, 0, ACCESS
+162:               xorwf   BANKMASK(_dataXorCrcHigh),f     //S0,S1^S0,S2^S1...etc
+0F78  3518     RLCF dataXorCrcHigh, W, BANKED
+163:           
+0F7A  1B18     XORWF dataXorCrcHigh, F, BANKED
+164:               movf    BANKMASK(_crcreg),w         //Puts the lower byte of the CRC into W
+165:                                                   //use this to solve for the upper byte
+0F7C  5116     MOVF crcreg, W, BANKED
+166:               btfsc   BANKMASK(_parity),0
+167:               xorlw   80h                         //0x80 is used to position the parity bit
+0F7E  B119     BTFSC parity, 0, BANKED
+168:                                                   //on C7 if it is high. Solves for C15
+0F80  0A80     XORLW 0x80
+169:           
+170:               btfsc   STATUS,0                    //The Carry bit is currently S7
+171:               xorlw   02h                         //0x02 positions S7 on C1 if it is high
+0F82  B0D8     BTFSC STATUS, 0, ACCESS
+172:                                                   //Solves for C9
+0F84  0A02     XORLW 0x2
+173:           
+174:               btfsc   BANKMASK(_dataXorCrcHigh),7 //S7 currently holds S7^S6
+175:               xorlw   01h                         //0x01 positions S7^S6 on C0
+0F86  BF18     BTFSC dataXorCrcHigh, 7, BANKED
+176:                                                   //Solves for C8
+0F88  0A01     XORLW 0x1
+177:           
+178:               movwf   BANKMASK(_crcreg)+1         //Saves the high byte of CRCREG
+179:           
+0F8A  6F17     MOVWF 0x17, BANKED
+180:               BCF     STATUS,0
+181:               RLCF    BANKMASK(_dataXorCrcHigh),w //This shifts S[i] over to position it
+0F8C  90D8     BCF STATUS, 0, ACCESS
+182:                                                   //on C1:C7
+0F8E  3518     RLCF dataXorCrcHigh, W, BANKED
+183:               btfsc   BANKMASK(_parity),0
+184:               xorlw   03h                         //0x03 is used to position the parity bit
+0F90  B119     BTFSC parity, 0, BANKED
+185:                                                   //on C0 and C1. Solves for C0:C7
+0F92  0A03     XORLW 0x3
+186:           
+187:               movwf   BANKMASK(_crcreg)           //Saves the low byte of CRCREG
+188:           
+0F94  6F16     MOVWF crcreg, BANKED
+189:           #endasm
+190:           }
+0F00  0000     NOP
+0F96  0012     RETURN 0
+---  C:/Users/C13819/Documents/Class_B/Class B/CLASSB PIC18 Library Version 2.00/Beta PIC18 V2.00/Demo Projects/CLASSB_CRCFlashTest.X/main.c
+1:             /**********************************************************************
+2:              * © 2014 Microchip Technology Inc.
+3:              *
+4:              * Project Name:     Class B Library
+5:              * FileName:         CLASSB_CRCFlashTest.c
+6:              * Dependencies:     CLASSB_CRCFlashTest.h
+7:              * Processor:        PIC18F
+8:              * Compiler:         XC8
+9:              * IDE:              MPLAB® IDE or MPLAB® X
+10:             * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+11:             * Description:     This file contains functions to test Flash with CRC Test.
+12:             *
+13:             **************************************************************************
+14:             * MICROCHIP SOFTWARE NOTICE AND DISCLAIMER: You may use this software, and
+15:             * any derivatives created by any person or entity by or on your behalf,
+16:             * exclusively with Microchip's products in accordance with applicable
+17:             * software license terms and conditions, a copy of which is provided for
+18:             * your referencein accompanying documentation. Microchip and its licensors
+19:             * retain all ownership and intellectual property rights in the
+20:             * accompanying software and in all derivatives hereto.
+21:             *
+22:             * This software and any accompanying information is for suggestion only.
+23:             * It does not modify Microchip's standard warranty for its products. You
+24:             * agree that you are solely responsible for testing the software and
+25:             * determining its suitability. Microchip has no obligation to modify,
+26:             * test, certify, or support the software.
+27:             *
+28:             * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
+29:             * EXPRESS, IMPLIED OR STATUTORY, INCLUDING, BUT NOT LIMITED TO, IMPLIED
+30:             * WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
+31:             * PARTICULAR PURPOSE APPLY TO THIS SOFTWARE, ITS INTERACTION WITH
+32:             * MICROCHIP'S PRODUCTS, COMBINATION WITH ANY OTHER PRODUCTS, OR USE IN ANY
+33:             * APPLICATION.
+34:             *
+35:             * IN NO EVENT, WILL MICROCHIP BE LIABLE, WHETHER IN CONTRACT, WARRANTY,
+36:             * TORT (INCLUDING NEGLIGENCE OR BREACH OF STATUTORY DUTY), STRICT
+37:             * LIABILITY, INDEMNITY, CONTRIBUTION, OR OTHERWISE, FOR ANY INDIRECT,
+38:             * SPECIAL, PUNITIVE, EXEMPLARY, INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE,
+39:             * FOR COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE SOFTWARE,
+40:             * HOWSOEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE POSSIBILITY
+41:             * OR THE DAMAGES ARE FORESEEABLE. TO THE FULLEST EXTENT ALLOWABLE BY LAW,
+42:             * MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY RELATED TO THIS
+43:             * SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY, THAT YOU HAVE PAID
+44:             * DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
+45:             *
+46:             * MICROCHIP PROVIDES THIS SOFTWARE CONDITIONALLY UPON YOUR ACCEPTANCE OF
+47:             * THESE TERMS.
+48:             *************************************************************************
+49:             *
+50:             * REVISION HISTORY:
+51:             *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+52:             * Author            Date         Comments on this revision
+53:             *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+54:             * Corey Simoncic    May 12, 2014   First release
+55:             *
+56:             * Version 1.00
+57:             *
+58:             *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+59:             * ADDITIONAL NOTES:
+60:             *
+61:             **********************************************************************/
+62:            #include <stdint.h>
+63:            #include "CLASSB_config.h"
+64:            #include "CLASSB.h"
+65:            #include <xc.h>
+66:            
+67:            // #pragma config statements should precede project file includes.
+68:            // Use project enums instead of #define for ON and OFF.
+69:            
+70:            // CONFIG1L
+71:            #pragma config RETEN = ON       // VREG Sleep Enable bit (Enabled)
+72:            #pragma config INTOSCSEL = HIGH // LF-INTOSC Low-power Enable bit (LF-INTOSC in High-power mode during Sleep)
+73:            #pragma config SOSCSEL = HIGH   // SOSC Power Selection and mode Configuration bits (High Power SOSC circuit selected)
+74:            #pragma config XINST = OFF      // Extended Instruction Set (Disabled)
+75:            
+76:            // CONFIG1H
+77:            #pragma config FOSC = INTIO2    // Oscillator (Internal RC oscillator)
+78:            #pragma config PLLCFG = OFF     // PLL x4 Enable bit (Disabled)
+79:            #pragma config FCMEN = OFF      // Fail-Safe Clock Monitor (Disabled)
+80:            #pragma config IESO = OFF       // Internal External Oscillator Switch Over Mode (Disabled)
+81:            
+82:            // CONFIG2L
+83:            #pragma config PWRTEN = OFF     // Power Up Timer (Disabled)
+84:            #pragma config BOREN = SBORDIS  // Brown Out Detect (Enabled in hardware, SBOREN disabled)
+85:            #pragma config BORV = 3         // Brown-out Reset Voltage bits (1.8V)
+86:            #pragma config BORPWR = ZPBORMV // BORMV Power level (ZPBORMV instead of BORMV is selected)
+87:            
+88:            // CONFIG2H
+89:            #pragma config WDTEN = OFF      // Watchdog Timer (WDT disabled in hardware; SWDTEN bit disabled)
+90:            #pragma config WDTPS = 1048576  // Watchdog Postscaler (1:1048576)
+91:            
+92:            // CONFIG3L
+93:            #pragma config RTCOSC = SOSCREF // RTCC Clock Select (RTCC uses SOSC)
+94:            
+95:            // CONFIG3H
+96:            #pragma config CCP2MX = PORTC   // CCP2 Mux (RC1)
+97:            #pragma config ECCPMX = PORTE   // ECCP Mux (Enhanced CCP1/3 [P1B/P1C/P3B/P3C] muxed with RE6/RE5/RE4/RE3)
+98:            #pragma config MSSPMSK = MSK7   // MSSP address masking (7 Bit address masking mode)
+99:            #pragma config MCLRE = ON       // Master Clear Enable (MCLR Enabled, RG5 Disabled)
+100:           
+101:           // CONFIG4L
+102:           #pragma config STVREN = ON      // Stack Overflow Reset (Enabled)
+103:           #pragma config BBSIZ = BB2K     // Boot Block Size (2K word Boot Block size)
+104:           
+105:           // CONFIG5L
+106:           #pragma config CP0 = OFF        // Code Protect 00800-03FFF (Disabled)
+107:           #pragma config CP1 = OFF        // Code Protect 04000-07FFF (Disabled)
+108:           #pragma config CP2 = OFF        // Code Protect 08000-0BFFF (Disabled)
+109:           #pragma config CP3 = OFF        // Code Protect 0C000-0FFFF (Disabled)
+110:           #pragma config CP4 = OFF        // Code Protect 10000-13FFF (Disabled)
+111:           #pragma config CP5 = OFF        // Code Protect 14000-17FFF (Disabled)
+112:           #pragma config CP6 = OFF        // Code Protect 18000-1BFFF (Disabled)
+113:           #pragma config CP7 = OFF        // Code Protect 1C000-1FFFF (Disabled)
+114:           
+115:           // CONFIG5H
+116:           #pragma config CPB = OFF        // Code Protect Boot (Disabled)
+117:           #pragma config CPD = OFF        // Data EE Read Protect (Disabled)
+118:           
+119:           // CONFIG6L
+120:           #pragma config WRT0 = OFF       // Table Write Protect 00800-03FFF (Disabled)
+121:           #pragma config WRT1 = OFF       // Table Write Protect 04000-07FFF (Disabled)
+122:           #pragma config WRT2 = OFF       // Table Write Protect 08000-0BFFF (Disabled)
+123:           #pragma config WRT3 = OFF       // Table Write Protect 0C000-0FFFF (Disabled)
+124:           #pragma config WRT4 = OFF       // Table Write Protect 10000-13FFF (Disabled)
+125:           #pragma config WRT5 = OFF       // Table Write Protect 14000-17FFF (Disabled)
+126:           #pragma config WRT6 = OFF       // Table Write Protect 18000-1BFFF (Disabled)
+127:           #pragma config WRT7 = OFF       // Table Write Protect 1C000-1FFFF (Disabled)
+128:           
+129:           // CONFIG6H
+130:           #pragma config WRTC = OFF       // Config. Write Protect (Disabled)
+131:           #pragma config WRTB = OFF       // Table Write Protect Boot (Disabled)
+132:           #pragma config WRTD = OFF       // Data EE Write Protect (Disabled)
+133:           
+134:           // CONFIG7L
+135:           #pragma config EBRT0 = OFF      // Table Read Protect 00800-03FFF (Disabled)
+136:           #pragma config EBRT1 = OFF      // Table Read Protect 04000-07FFF (Disabled)
+137:           #pragma config EBRT2 = OFF      // Table Read Protect 08000-0BFFF (Disabled)
+138:           #pragma config EBRT3 = OFF      // Table Read Protect 0C000-0FFFF (Disabled)
+139:           #pragma config EBRT4 = OFF      // Table Read Protect 10000-13FFF (Disabled)
+140:           #pragma config EBRT5 = OFF      // Table Read Protect 14000-17FFF (Disabled)
+141:           #pragma config EBRT6 = OFF      // Table Read Protect 18000-1BFFF (Disabled)
+142:           #pragma config EBRT7 = OFF      // Table Read Protect 1C000-1FFFF (Disabled)
+143:           
+144:           // CONFIG7H
+145:           #pragma config EBRTB = OFF      // Table Read Protect Boot (Disabled)
+146:           
+147:           const uint8_t testFlashVar1 @ 0x04 = 0x11;
+148:           const uint8_t testFlashVar2 @ 0x06 = 0x22;
+149:           const uint8_t testFlashVar3 @ 0x08 = 0x33;
+150:           const uint8_t testFlashVar4 @ 0x0A = 0x44;
+151:           
+152:           void main(void)
+153:           {
+154:               uint16_t myAddress = 0x04;
+155:               uint16_t length = 4;
+0F98  6A15     CLRF 0x15, ACCESS
+0F9A  0E04     MOVLW 0x4
+0F9C  6E14     MOVWF length, ACCESS
+156:               uint16_t crcSeed = 0xFFFF;
+157:               volatile unsigned int testResult;
+158:           
+159:               testResult = CLASSB_CRCFlashTest(myAddress,length,crcSeed);
+0F9E  6E02     MOVWF startAddress, ACCESS
+0FA0  6A03     CLRF 0x3, ACCESS
+0FA2  6A04     CLRF testFlashVar1, ACCESS
+0FA4  6A05     CLRF 0x5, ACCESS
+0FA6  6A07     CLRF 0x7, ACCESS
+0FA8  6E06     MOVWF length, ACCESS
+0FAA  0EFF     MOVLW 0xFF
+0FAC  6809     SETF 0x9, ACCESS
+0FAE  6808     SETF crcSeed, ACCESS
+0FB0  EC81     CALL 0xF02, 0
+0FB2  F007     NOP
+0FB4  C002     MOVFF startAddress, testResult
+0FB6  F010     NOP
+0FB8  C003     MOVFF 0x3, 0x11
+0FBA  F011     NOP
+160:           
+161:               while(1);
+0FBC  D7FF     BRA 0xFBC
+162:           }

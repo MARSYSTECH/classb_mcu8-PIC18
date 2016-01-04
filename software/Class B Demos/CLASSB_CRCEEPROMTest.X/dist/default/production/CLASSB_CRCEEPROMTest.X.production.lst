@@ -1,0 +1,623 @@
+
+
+Microchip Technology PIC18 PRO Macro Assembler V1.12 build 49521 
+                                                                                               Wed May 21 13:40:21 2014
+
+HI-TECH Software Omniscient Code Generator (PRO mode) build 49521
+     1                           	processor	18F87K90
+     2                           	fnconf	rparam,??,?,0
+     3                           	opt	pw 120
+     4                           	opt	pm
+     5                           	psect	eeprom_data,global,class=EEDATA,delta=1
+     6                           	psect	text0,global,reloc=2,class=CODE,delta=1
+     7                           	psect	cinit,global,reloc=2,class=CODE,delta=1
+     8                           	psect	bssCOMRAM,global,class=COMRAM,space=1,delta=1
+     9                           	psect	cstackCOMRAM,global,class=COMRAM,space=1,delta=1
+    10                           	psect	text1,global,reloc=2,class=CODE,delta=1
+    11                           	psect	text2,global,reloc=2,class=CODE,delta=1
+    12                           	psect	intsave_regs,global,class=BIGRAM,space=1,delta=1
+    13                           	psect	text3,global,reloc=2,class=CODE,delta=1
+    14                           	psect	rparam,global,class=COMRAM,space=1,delta=1
+    15  0000                     
+    16                           	psect	eeprom_data
+    17  F00000  11 22 33 44 55 66  	db	17,34,51,68,85,102,119,136	;# 
+      +       77 88              
+    18  0000                     _EEADR	set	3938
+    19  0000                     _EEADRH	set	3939
+    20  0000                     _EECON1bits	set	3967
+    21  0000                     _EEDATA	set	3937
+    22  0000                     _WREG	set	4072
+    23                           
+    24 ;;
+    25 ;;Main: autosize = 0, tempsize = 0, incstack = 0, save=0
+    26 ;;
+    27 ;; *************** function _main *****************
+    28 ;; Defined at:
+    29 ;;		line 150 in file "main.c"
+    30 ;; Parameters:    Size  Location     Type
+    31 ;;		None
+    32 ;; Auto vars:     Size  Location     Type
+    33 ;;  crcSeed         2    0        unsigned int 
+    34 ;;  length          2   18[COMRAM] unsigned int 
+    35 ;;  myAddress       2    0        unsigned int 
+    36 ;;  testResult      2   14[COMRAM] volatile unsigned int 
+    37 ;; Return value:  Size  Location     Type
+    38 ;;		None               void
+    39 ;; Registers used:
+    40 ;;		wreg, status,2, status,0, cstack
+    41 ;; Tracked objects:
+    42 ;;		On entry : 0/0
+    43 ;;		On exit  : 0/0
+    44 ;;		Unchanged: 0/0
+    45 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK1
+      +1  BANK12  BANK13  BANK14
+    46 ;;      Params:         0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+    47 ;;      Locals:         8       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+    48 ;;      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+    49 ;;      Totals:         8       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+    50 ;;Total ram usage:        8 bytes
+    51 ;; Hardware stack levels required when called:    2
+    52 ;; This function calls:
+    53 ;;		_CLASSB_CRCEEPROMTest
+    54 ;; This function is called by:
+    55 ;;		Startup code after reset
+    56 ;; This function uses a non-reentrant model
+    57 ;;
+    58                           
+    59                           	psect	text0
+    60  01FF3C                     __ptext0:
+    61                           	opt stack 0
+    62                           
+    63                           ; #config settings
+    64  01FF3C                     _main:
+    65                           	opt stack 29
+    66                           
+    67                           ;main.c: 152: uint16_t length = 255;
+    68  01FF3C  6A14               	clrf	main@length+1,c
+    69  01FF3E  6813               	setf	main@length,c
+    70                           
+    71                           ;main.c: 154: volatile unsigned int testResult;
+    72                           ;main.c: 156: testResult = CLASSB_CRCEEPROMTest(myAddress,length,crcSeed);
+    73  01FF40  6A03               	clrf	?_CLASSB_CRCEEPROMTest+1,c
+    74  01FF42  0E04               	movlw	4
+    75  01FF44  6E02               	movwf	?_CLASSB_CRCEEPROMTest,c
+    76  01FF46  6A05               	clrf	?_CLASSB_CRCEEPROMTest+3,c
+    77  01FF48  0EFF               	movlw	255
+    78  01FF4A  6804               	setf	?_CLASSB_CRCEEPROMTest+2,c
+    79  01FF4C  6807               	setf	?_CLASSB_CRCEEPROMTest+5,c
+    80  01FF4E  6806               	setf	?_CLASSB_CRCEEPROMTest+4,c
+    81  01FF50  ECD1  F0FF         	call	_CLASSB_CRCEEPROMTest	;wreg free
+    82  01FF54  C002  F00F         	movff	?_CLASSB_CRCEEPROMTest,main@testResult	;volatile
+    83  01FF58  C003  F010         	movff	?_CLASSB_CRCEEPROMTest+1,main@testResult+1	;volatile
+    84  01FF5C                     l5:
+    85  01FF5C  D7FF               	goto	l5
+    86                           
+    87                           	psect	cinit
+    88  01FF2E                     __pcinit:
+    89                           	opt stack 0
+    90  01FF2E                     start_initialization:
+    91                           	opt stack 0
+    92  01FF2E                     __initialization:
+    93                           	opt stack 0
+    94                           
+    95                           ; Clear objects allocated to COMRAM (4 bytes)
+    96  01FF2E  6A18               	clrf	(__pbssCOMRAM+3)& (0+255),c
+    97  01FF30  6A17               	clrf	(__pbssCOMRAM+2)& (0+255),c
+    98  01FF32  6A16               	clrf	(__pbssCOMRAM+1)& (0+255),c
+    99  01FF34  6A15               	clrf	__pbssCOMRAM& (0+255),c
+   100  01FF36                     end_of_initialization:
+   101                           	opt stack 0
+   102  01FF36                     __end_of__initialization:
+   103                           	opt stack 0
+   104  01FF36  0100               	movlb	0
+   105  01FF38  EF9E  F0FF         	goto	_main	;jump to C main() function
+   106                           
+   107                           	psect	bssCOMRAM
+   108  000015                     __pbssCOMRAM:
+   109                           	opt stack 0
+   110  000015                     _crcreg:
+   111                           	opt stack 0
+   112  000015                     	ds	2
+   113  000017                     _dataXorCrcHigh:
+   114                           	opt stack 0
+   115  000017                     	ds	1
+   116  000018                     _parity:
+   117                           	opt stack 0
+   118  000018                     	ds	1
+   119                           
+   120                           	psect	cstackCOMRAM
+   121  000001                     __pcstackCOMRAM:
+   122                           	opt stack 0
+   123  000001                     crcByte_EEPROM@dataSequence:
+   124                           	opt stack 0
+   125                           
+   126                           ; 1 bytes @ 0x0
+   127  000001                     	ds	1
+   128  000002                     ?_CLASSB_CRCEEPROMTest:
+   129                           	opt stack 0
+   130  000002                     CLASSB_CRCEEPROMTest@startAddress:
+   131                           	opt stack 0
+   132                           
+   133                           ; 2 bytes @ 0x1
+   134  000002                     	ds	2
+   135  000004                     CLASSB_CRCEEPROMTest@length:
+   136                           	opt stack 0
+   137                           
+   138                           ; 2 bytes @ 0x3
+   139  000004                     	ds	2
+   140  000006                     CLASSB_CRCEEPROMTest@crcSeed:
+   141                           	opt stack 0
+   142                           
+   143                           ; 2 bytes @ 0x5
+   144  000006                     	ds	2
+   145  000008                     ??_CLASSB_CRCEEPROMTest:
+   146                           
+   147                           ; 0 bytes @ 0x7
+   148  000008                     	ds	2
+   149  00000A                     CLASSB_CRCEEPROMTest@dataSequence:
+   150                           	opt stack 0
+   151                           
+   152                           ; 1 bytes @ 0x9
+   153  00000A                     	ds	1
+   154  00000B                     CLASSB_CRCEEPROMTest@i:
+   155                           	opt stack 0
+   156                           
+   157                           ; 2 bytes @ 0xA
+   158  00000B                     	ds	2
+   159  00000D                     CLASSB_CRCEEPROMTest@testResult:
+   160                           	opt stack 0
+   161                           
+   162                           ; 2 bytes @ 0xC
+   163  00000D                     	ds	2
+   164  00000F                     main@testResult:
+   165                           	opt stack 0
+   166                           
+   167                           ; 2 bytes @ 0xE
+   168  00000F                     	ds	4
+   169  000013                     main@length:
+   170                           	opt stack 0
+   171                           
+   172                           ; 2 bytes @ 0x12
+   173  000013                     	ds	2
+   174                           
+   175 ;; *************** function _CLASSB_CRCEEPROMTest *****************
+   176 ;; Defined at:
+   177 ;;		line 67 in file "CLASSB_CRCEEPROMTest.c"
+   178 ;; Parameters:    Size  Location     Type
+   179 ;;  startAddress    2    1[COMRAM] unsigned int 
+   180 ;;  length          2    3[COMRAM] unsigned int 
+   181 ;;  crcSeed         2    5[COMRAM] unsigned int 
+   182 ;; Auto vars:     Size  Location     Type
+   183 ;;  i               2   10[COMRAM] unsigned int 
+   184 ;;  testResult      2   12[COMRAM] volatile unsigned int 
+   185 ;;  dataSequence    1    9[COMRAM] unsigned char 
+   186 ;; Return value:  Size  Location     Type
+   187 ;;                  2    1[COMRAM] unsigned int 
+   188 ;; Registers used:
+   189 ;;		wreg, status,2, status,0, cstack
+   190 ;; Tracked objects:
+   191 ;;		On entry : 0/0
+   192 ;;		On exit  : 0/0
+   193 ;;		Unchanged: 0/0
+   194 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK1
+      +1  BANK12  BANK13  BANK14
+   195 ;;      Params:         6       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+   196 ;;      Locals:         5       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+   197 ;;      Temps:          2       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+   198 ;;      Totals:        13       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+   199 ;;Total ram usage:       13 bytes
+   200 ;; Hardware stack levels used:    1
+   201 ;; Hardware stack levels required when called:    1
+   202 ;; This function calls:
+   203 ;;		_crcByte_EEPROM
+   204 ;; This function is called by:
+   205 ;;		_main
+   206 ;; This function uses a non-reentrant model
+   207 ;;
+   208                           
+   209                           	psect	text1
+   210  01FFA2                     __ptext1:
+   211                           	opt stack 0
+   212  01FFA2                     __end_of_main:
+   213                           	opt stack 0
+   214  01FFA2                     _CLASSB_CRCEEPROMTest:
+   215                           	opt stack 29
+   216                           
+   217                           ;CLASSB_CRCEEPROMTest.c: 68: volatile unsigned int testResult;
+   218                           ;CLASSB_CRCEEPROMTest.c: 69: uint16_t i;
+   219                           ;CLASSB_CRCEEPROMTest.c: 70: uint8_t dataSequence;
+   220                           ;CLASSB_CRCEEPROMTest.c: 71: crcreg = crcSeed;
+   221  01FFA2  C006  F015         	movff	CLASSB_CRCEEPROMTest@crcSeed,_crcreg
+   222  01FFA6  C007  F016         	movff	CLASSB_CRCEEPROMTest@crcSeed+1,_crcreg+1
+   223                           
+   224                           ;CLASSB_CRCEEPROMTest.c: 73: for(i=0; i<length; i++)
+   225  01FFAA  6A0B               	clrf	CLASSB_CRCEEPROMTest@i,c
+   226  01FFAC  6A0C               	clrf	CLASSB_CRCEEPROMTest@i+1,c
+   227  01FFAE  D01A               	goto	l632
+   228  01FFB0                     l618:
+   229                           
+   230                           ;CLASSB_CRCEEPROMTest.c: 74: {
+   231                           ;CLASSB_CRCEEPROMTest.c: 75: EEADR = (startAddress + i);
+   232  01FFB0  5002               	movf	CLASSB_CRCEEPROMTest@startAddress,w,c
+   233  01FFB2  240B               	addwf	CLASSB_CRCEEPROMTest@i,w,c
+   234  01FFB4  6E62               	movwf	3938,c	;volatile
+   235                           
+   236                           ;CLASSB_CRCEEPROMTest.c: 76: EEADRH = (startAddress + i)>>8;
+   237  01FFB6  C002  F008         	movff	CLASSB_CRCEEPROMTest@startAddress,??_CLASSB_CRCEEPROMTest
+   238  01FFBA  C003  F009         	movff	CLASSB_CRCEEPROMTest@startAddress+1,??_CLASSB_CRCEEPROMTest+1
+   239  01FFBE  500B               	movf	CLASSB_CRCEEPROMTest@i,w,c
+   240  01FFC0  2608               	addwf	??_CLASSB_CRCEEPROMTest,f,c
+   241  01FFC2  500C               	movf	CLASSB_CRCEEPROMTest@i+1,w,c
+   242  01FFC4  2209               	addwfc	??_CLASSB_CRCEEPROMTest+1,f,c
+   243  01FFC6  C009  F008         	movff	??_CLASSB_CRCEEPROMTest+1,??_CLASSB_CRCEEPROMTest
+   244  01FFCA  6A09               	clrf	??_CLASSB_CRCEEPROMTest+1,c
+   245  01FFCC  5008               	movf	??_CLASSB_CRCEEPROMTest,w,c
+   246  01FFCE  6E63               	movwf	3939,c	;volatile
+   247                           
+   248                           ;CLASSB_CRCEEPROMTest.c: 78: EECON1bits.CFGS = 0;
+   249  01FFD0  9C7F               	bcf	3967,6,c	;volatile
+   250                           
+   251                           ;CLASSB_CRCEEPROMTest.c: 79: EECON1bits.EEPGD = 0;
+   252  01FFD2  9E7F               	bcf	3967,7,c	;volatile
+   253                           
+   254                           ;CLASSB_CRCEEPROMTest.c: 80: EECON1bits.RD = 1;
+   255  01FFD4  807F               	bsf	3967,0,c	;volatile
+   256                           
+   257                           ;CLASSB_CRCEEPROMTest.c: 82: dataSequence= EEDATA;
+   258  01FFD6  CF61 F00A          	movff	3937,CLASSB_CRCEEPROMTest@dataSequence	;volatile
+   259                           
+   260                           ;CLASSB_CRCEEPROMTest.c: 84: crcByte_EEPROM(dataSequence);
+   261  01FFDA  500A               	movf	CLASSB_CRCEEPROMTest@dataSequence,w,c
+   262  01FFDC  ECAF  F0FF         	call	_crcByte_EEPROM
+   263  01FFE0  4A0B               	infsnz	CLASSB_CRCEEPROMTest@i,f,c
+   264  01FFE2  2A0C               	incf	CLASSB_CRCEEPROMTest@i+1,f,c
+   265  01FFE4                     l632:
+   266  01FFE4  5004               	movf	CLASSB_CRCEEPROMTest@length,w,c
+   267  01FFE6  5C0B               	subwf	CLASSB_CRCEEPROMTest@i,w,c
+   268  01FFE8  5005               	movf	CLASSB_CRCEEPROMTest@length+1,w,c
+   269  01FFEA  580C               	subwfb	CLASSB_CRCEEPROMTest@i+1,w,c
+   270  01FFEC  E3E1               	bnc	l618
+   271                           
+   272                           ;CLASSB_CRCEEPROMTest.c: 85: }
+   273                           ;CLASSB_CRCEEPROMTest.c: 86: testResult = crcreg;
+   274  01FFEE  C015  F00D         	movff	_crcreg,CLASSB_CRCEEPROMTest@testResult	;volatile
+   275  01FFF2  C016  F00E         	movff	_crcreg+1,CLASSB_CRCEEPROMTest@testResult+1	;volatile
+   276                           
+   277                           ;CLASSB_CRCEEPROMTest.c: 87: return testResult;
+   278  01FFF6  C00D  F002         	movff	CLASSB_CRCEEPROMTest@testResult,?_CLASSB_CRCEEPROMTest	;volatile
+   279  01FFFA  C00E  F003         	movff	CLASSB_CRCEEPROMTest@testResult+1,?_CLASSB_CRCEEPROMTest+1	;volatile
+   280  01FFFE  0012               	return	
+   281  020000                     __end_of_CLASSB_CRCEEPROMTest:
+   282                           	opt stack 0
+   283                           
+   284 ;; *************** function _crcByte_EEPROM *****************
+   285 ;; Defined at:
+   286 ;;		line 125 in file "CLASSB_CRCEEPROMTest.c"
+   287 ;; Parameters:    Size  Location     Type
+   288 ;;  dataSequence    1    wreg     unsigned char 
+   289 ;; Auto vars:     Size  Location     Type
+   290 ;;  dataSequence    1    0[COMRAM] unsigned char 
+   291 ;; Return value:  Size  Location     Type
+   292 ;;		None               void
+   293 ;; Registers used:
+   294 ;;		wreg, status,2
+   295 ;; Tracked objects:
+   296 ;;		On entry : 0/0
+   297 ;;		On exit  : 0/0
+   298 ;;		Unchanged: 0/0
+   299 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK1
+      +1  BANK12  BANK13  BANK14
+   300 ;;      Params:         0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+   301 ;;      Locals:         1       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+   302 ;;      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+   303 ;;      Totals:         1       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+   304 ;;Total ram usage:        1 bytes
+   305 ;; Hardware stack levels used:    1
+   306 ;; This function calls:
+   307 ;;		Nothing
+   308 ;; This function is called by:
+   309 ;;		_CLASSB_CRCEEPROMTest
+   310 ;; This function uses a non-reentrant model
+   311 ;;
+   312                           
+   313                           	psect	text2
+   314  01FF5E                     __ptext2:
+   315                           	opt stack 0
+   316  01FF5E                     _crcByte_EEPROM:
+   317                           	opt stack 29
+   318                           
+   319                           ;crcByte_EEPROM@dataSequence stored from wreg
+   320  01FF5E  CFE8 F001          	movff	wreg,crcByte_EEPROM@dataSequence
+   321                           
+   322                           ;CLASSB_CRCEEPROMTest.c: 126: WREG = dataSequence;
+   323  01FF62  5001               	movf	crcByte_EEPROM@dataSequence,w,c
+   324  01FF64  0100               	banksel	_crcreg& (0+255)	;# 
+   325  01FF66  1916               	xorwf	(_crcreg& (0+255)+1),w,b	;# 
+   326  01FF68  6F17               	movwf	_dataXorCrcHigh& (0+255),b	;# 
+   327  01FF6A  6F18               	movwf	_parity& (0+255),b	;# 
+   328  01FF6C  3918               	swapf	_parity& (0+255),w,b	;# 
+   329  01FF6E  1B18               	xorwf	_parity& (0+255),f,b	;# 
+   330  01FF70  90D8               	bcf	status,0,c	;# 
+   331  01FF72  3118               	rrcf	_parity& (0+255),w,b	;# 
+   332  01FF74  90D8               	bcf	status,0,c	;# 
+   333  01FF76  32E8               	rrcf	wreg,f,c	;# 
+   334  01FF78  90D8               	bcf	status,0,c	;# 
+   335  01FF7A  1B18               	xorwf	_parity& (0+255),f,b	;# 
+   336  01FF7C  3118               	rrcf	_parity& (0+255),w,b	;# 
+   337  01FF7E  1B18               	xorwf	_parity& (0+255),f,b	;# 
+   338  01FF80  90D8               	bcf	status,0,c	;# 
+   339  01FF82  3517               	rlcf	_dataXorCrcHigh& (0+255),w,b	;# 
+   340  01FF84  1B17               	xorwf	_dataXorCrcHigh& (0+255),f,b	;# 
+   341  01FF86  5115               	movf	_crcreg& (0+255),w,b	;# 
+   342  01FF88  B118               	btfsc	_parity& (0+255),0,b	;# 
+   343  01FF8A  0A80               	xorlw	128	;# 
+   344  01FF8C  B0D8               	btfsc	status,0,c	;# 
+   345  01FF8E  0A02               	xorlw	2	;# 
+   346  01FF90  BF17               	btfsc	_dataXorCrcHigh& (0+255),7,b	;# 
+   347  01FF92  0A01               	xorlw	1	;# 
+   348  01FF94  6F16               	movwf	(_crcreg& (0+255)+1),b	;# 
+   349  01FF96  90D8               	bcf	status,0,c	;# 
+   350  01FF98  3517               	rlcf	_dataXorCrcHigh& (0+255),w,b	;# 
+   351  01FF9A  B118               	btfsc	_parity& (0+255),0,b	;# 
+   352  01FF9C  0A03               	xorlw	3	;# 
+   353  01FF9E  6F15               	movwf	_crcreg& (0+255),b	;# 
+   354  01FFA0  0012               	return	
+   355  01FFA2                     __end_of_crcByte_EEPROM:
+   356                           	opt stack 0
+   357  0000                     wreg	equ	0xFE8
+   358                           status	equ	0xFD8
+   359                           wreg	equ	0xFE8
+   360                           status	equ	0xFD8
+   361                           
+   362                           	psect	text3
+   363  000000                     __ptext3:
+   364                           	opt stack 0
+   365                           wreg	equ	0xFE8
+   366                           status	equ	0xFD8
+   367                           
+   368                           	psect	rparam
+   369  0000                     wreg	equ	0xFE8
+   370                           status	equ	0xFD8
+
+
+Data Sizes:
+    Strings     0
+    Constant    0
+    Data        0
+    BSS         4
+    Persistent  0
+    Stack       0
+
+Auto Spaces:
+    Space          Size  Autos    Used
+    COMRAM           95     22      26
+    BANK0           160      0       0
+    BANK1           256      0       0
+    BANK2           256      0       0
+    BANK3           256      0       0
+    BANK4           256      0       0
+    BANK5           256      0       0
+    BANK6           256      0       0
+    BANK7           256      0       0
+    BANK8           256      0       0
+    BANK9           256      0       0
+    BANK10          256      0       0
+    BANK11          256      0       0
+    BANK12          256      0       0
+    BANK13          256      0       0
+    BANK14          244      0       0
+
+Pointer List with Targets:
+
+    ?_CLASSB_CRCEEPROMTest	unsigned int  size(1) Largest target is 0
+
+
+Critical Paths under _main in COMRAM
+
+    _main->_CLASSB_CRCEEPROMTest
+    _CLASSB_CRCEEPROMTest->_crcByte_EEPROM
+
+Critical Paths under _main in BANK0
+
+    None.
+
+Critical Paths under _main in BANK1
+
+    None.
+
+Critical Paths under _main in BANK2
+
+    None.
+
+Critical Paths under _main in BANK3
+
+    None.
+
+Critical Paths under _main in BANK4
+
+    None.
+
+Critical Paths under _main in BANK5
+
+    None.
+
+Critical Paths under _main in BANK6
+
+    None.
+
+Critical Paths under _main in BANK7
+
+    None.
+
+Critical Paths under _main in BANK8
+
+    None.
+
+Critical Paths under _main in BANK9
+
+    None.
+
+Critical Paths under _main in BANK10
+
+    None.
+
+Critical Paths under _main in BANK11
+
+    None.
+
+Critical Paths under _main in BANK12
+
+    None.
+
+Critical Paths under _main in BANK13
+
+    None.
+
+Critical Paths under _main in BANK14
+
+    None.
+
+Call Graph Tables:
+
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (0) _main                                                 8     8      0     195
+                                             14 COMRAM     8     8      0
+               _CLASSB_CRCEEPROMTest
+ ---------------------------------------------------------------------------------
+ (1) _CLASSB_CRCEEPROMTest                                13     7      6     150
+                                              1 COMRAM    13     7      6
+                     _crcByte_EEPROM
+ ---------------------------------------------------------------------------------
+ (2) _crcByte_EEPROM                                       1     1      0      15
+                                              0 COMRAM     1     1      0
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 2
+ ---------------------------------------------------------------------------------
+
+ Call Graph Graphs:
+
+ _main (ROOT)
+   _CLASSB_CRCEEPROMTest
+     _crcByte_EEPROM
+
+ Address spaces:
+Name               Size   Autos  Total    Cost      Usage
+BIGRAM             EF3      0       0      35        0.0%
+EEDATA             400      0       0       0        0.0%
+BITBANK13          100      0       0      31        0.0%
+BANK13             100      0       0      32        0.0%
+BITBANK12          100      0       0      29        0.0%
+BANK12             100      0       0      30        0.0%
+BITBANK11          100      0       0      27        0.0%
+BANK11             100      0       0      28        0.0%
+BITBANK10          100      0       0      25        0.0%
+BANK10             100      0       0      26        0.0%
+BITBANK9           100      0       0      23        0.0%
+BANK9              100      0       0      24        0.0%
+BITBANK8           100      0       0      21        0.0%
+BANK8              100      0       0      22        0.0%
+BITBANK7           100      0       0      19        0.0%
+BANK7              100      0       0      20        0.0%
+BITBANK6           100      0       0      17        0.0%
+BANK6              100      0       0      18        0.0%
+BITBANK5           100      0       0      15        0.0%
+BANK5              100      0       0      16        0.0%
+BITBANK4           100      0       0      13        0.0%
+BANK4              100      0       0      14        0.0%
+BITBANK3           100      0       0      11        0.0%
+BANK3              100      0       0      12        0.0%
+BITBANK2           100      0       0       9        0.0%
+BANK2              100      0       0      10        0.0%
+BITBANK1           100      0       0       7        0.0%
+BANK1              100      0       0       8        0.0%
+BITBANK14           F4      0       0      33        0.0%
+BANK14              F4      0       0      34        0.0%
+BITBANK0            A0      0       0       4        0.0%
+BANK0               A0      0       0       5        0.0%
+BITCOMRAM           5F      0       0       0        0.0%
+COMRAM              5F     16      1A       1       27.4%
+BITSFR_2             0      0       0      40        0.0%
+SFR_2                0      0       0      40        0.0%
+BITSFR_1             0      0       0      40        0.0%
+SFR_1                0      0       0      40        0.0%
+BITSFR               0      0       0      40        0.0%
+SFR                  0      0       0      40        0.0%
+STACK                0      0       2       2        0.0%
+NULL                 0      0       0       0        0.0%
+ABS                  0      0      1A       6        0.0%
+DATA                 0      0      1C       3        0.0%
+CODE                 0      0       0       0        0.0%
+
+
+Microchip Technology PIC18 Macro Assembler V1.12 build 49521 
+Symbol Table                                                                                   Wed May 21 13:40:21 2014
+
+                               l5 FF5C                       __CFG_BORV$3 000000  
+                    __CFG_CP0$OFF 000000                      __CFG_CP1$OFF 000000  
+                    __CFG_CP2$OFF 000000                      __CFG_CP3$OFF 000000  
+                    __CFG_CP4$OFF 000000                      __CFG_CP5$OFF 000000  
+                    __CFG_CP6$OFF 000000                      __CFG_CP7$OFF 000000  
+                             l632 FFE4                               WREG 000FE8  
+                             l618 FFB0                      __CFG_CPB$OFF 000000  
+                    __CFG_CPD$OFF 000000                               wreg 000FE8  
+         __size_of_crcByte_EEPROM 0044                    _dataXorCrcHigh 0017  
+                            _WREG 000FE8                              _main FF3C  
+          ??_CLASSB_CRCEEPROMTest 0008                              start 0000  
+                   __CFG_IESO$OFF 000000                     __CFG_MCLRE$ON 000000  
+                   __CFG_RETEN$ON 000000                             STATUS 000FD8  
+                           ?_main 0001                             _EEADR 000F62  
+                   __CFG_WRT0$OFF 000000                     __CFG_WRT1$OFF 000000  
+                   __CFG_WRT2$OFF 000000                     __CFG_WRT3$OFF 000000  
+                   __CFG_WRT4$OFF 000000                    __CFG_EBRT0$OFF 000000  
+                   __CFG_WRT5$OFF 000000                    __CFG_EBRT1$OFF 000000  
+                   __CFG_WRT6$OFF 000000                    __CFG_EBRT2$OFF 000000  
+                   __CFG_WRT7$OFF 000000                    __CFG_EBRT3$OFF 000000  
+                  __CFG_EBRT4$OFF 000000                    __CFG_FCMEN$OFF 000000  
+                  __CFG_EBRT5$OFF 000000                    __CFG_EBRT6$OFF 000000  
+                  __CFG_EBRT7$OFF 000000                     __CFG_WRTB$OFF 000000  
+                   __CFG_WRTC$OFF 000000                     __CFG_WRTD$OFF 000000  
+                  __CFG_EBRTB$OFF 000000                             status 000FD8  
+                 __initialization FF2E                      __end_of_main FFA2  
+                          ??_main 000F                     __activetblptr 000000  
+                          _EEADRH 000F63                            _EEDATA 000F61  
+                 __CFG_BBSIZ$BB2K 000000                    __CFG_WDTEN$OFF 000000  
+                  __CFG_XINST$OFF 000000  CLASSB_CRCEEPROMTest@dataSequence 000A  
+                  __CFG_STVREN$ON 000000                            _crcreg 0015  
+                          _parity 0018                    _crcByte_EEPROM FF5E  
+                      __accesstop 0060           __end_of__initialization FF36  
+                  __pcstackCOMRAM 0001            __end_of_crcByte_EEPROM FFA2  
+      CLASSB_CRCEEPROMTest@length 0004                   __CFG_PLLCFG$OFF 000000  
+                 ?_crcByte_EEPROM 0001                   __CFG_PWRTEN$OFF 000000  
+                         __Hparam 0000     __size_of_CLASSB_CRCEEPROMTest 005E  
+                         __Lparam 0000                           __pcinit FF2E  
+                         __ramtop 0F00                           __ptext0 FF3C  
+                         __ptext1 FFA2                           __ptext2 FF5E  
+                         __ptext3 0000                 __CFG_MSSPMSK$MSK7 000000  
+            end_of_initialization FF36                    main@testResult 000F  
+                __CFG_FOSC$INTIO2 000000                 __CFG_SOSCSEL$HIGH 000000  
+                      main@length 0013               start_initialization FF2E  
+      crcByte_EEPROM@dataSequence 0001             CLASSB_CRCEEPROMTest@i 000B  
+                ??_crcByte_EEPROM 0001       CLASSB_CRCEEPROMTest@crcSeed 0006  
+                     __pbssCOMRAM 0015                 __CFG_CCP2MX$PORTC 000000  
+    __end_of_CLASSB_CRCEEPROMTest 0000                 __CFG_ECCPMX$PORTE 000000  
+                      _EECON1bits 000F7F                          __Hrparam 0000  
+                        __Lrparam 0000                __CFG_BOREN$SBORDIS 000000  
+  CLASSB_CRCEEPROMTest@testResult 000D                     __size_of_main 0066  
+             __CFG_RTCOSC$SOSCREF 000000              _CLASSB_CRCEEPROMTest FFA2  
+             __CFG_INTOSCSEL$HIGH 000000             ?_CLASSB_CRCEEPROMTest 0002  
+              __CFG_WDTPS$1048576 000000  CLASSB_CRCEEPROMTest@startAddress 0002  
+             __CFG_BORPWR$ZPBORMV 000000  

@@ -1,0 +1,707 @@
+
+
+Microchip Technology PIC18 PRO Macro Assembler V1.12 build 49521 
+                                                                                               Wed May 21 13:39:41 2014
+
+HI-TECH Software Omniscient Code Generator (PRO mode) build 49521
+     1                           	processor	18F87K90
+     2                           	fnconf	rparam,??,?,0
+     3                           	opt	pw 120
+     4                           	opt	pm
+     5                           	psect	_testFlashVar1_text,global,ovrld,reloc=2,class=CODE,delta=1
+     6                           	psect	_testFlashVar2_text,global,ovrld,reloc=2,class=CODE,delta=1
+     7                           	psect	_testFlashVar3_text,global,ovrld,reloc=2,class=CODE,delta=1
+     8                           	psect	_testFlashVar4_text,global,ovrld,reloc=2,class=CODE,delta=1
+     9                           	psect	cinit,global,reloc=2,class=CODE,delta=1
+    10                           	psect	bssCOMRAM,global,class=COMRAM,space=1,delta=1
+    11                           	psect	cstackCOMRAM,global,class=COMRAM,space=1,delta=1
+    12                           	psect	text0,global,reloc=2,class=CODE,delta=1
+    13                           	psect	text1,global,reloc=2,class=CODE,delta=1
+    14                           	psect	text2,global,reloc=2,class=CODE,delta=1
+    15                           	psect	smallconst,global,reloc=2,class=SMALLCONST,delta=1
+    16                           	psect	intsave_regs,global,class=BIGRAM,space=1,delta=1
+    17                           	psect	rparam,global,class=COMRAM,space=1,delta=1
+    18  0000                     _testFlashVar1_absaddr	set	4
+    19  0000                     _testFlashVar2_absaddr	set	6
+    20  0000                     _testFlashVar3_absaddr	set	8
+    21  0000                     _testFlashVar4_absaddr	set	10
+    22  0000                     _testFlashVar1_absaddr	set	4
+    23                           
+    24                           	psect	_testFlashVar1_text
+    25  000004                     __p_testFlashVar1_text:
+    26                           	opt stack 0
+    27  0000                     _testFlashVar2_absaddr	set	6
+    28  000004                     _testFlashVar1:
+    29                           	opt stack 0
+    30  000004  11                 	db	17
+    31  000005                     __end_of_testFlashVar1:
+    32                           	opt stack 0
+    33                           
+    34                           	psect	_testFlashVar2_text
+    35  000006                     __p_testFlashVar2_text:
+    36                           	opt stack 0
+    37  0000                     _testFlashVar3_absaddr	set	8
+    38  000006                     _testFlashVar2:
+    39                           	opt stack 0
+    40  000006  22                 	db	34
+    41  000007                     __end_of_testFlashVar2:
+    42                           	opt stack 0
+    43                           
+    44                           	psect	_testFlashVar3_text
+    45  000008                     __p_testFlashVar3_text:
+    46                           	opt stack 0
+    47  0000                     _testFlashVar4_absaddr	set	10
+    48  000008                     _testFlashVar3:
+    49                           	opt stack 0
+    50  000008  33                 	db	51
+    51  000009                     __end_of_testFlashVar3:
+    52                           	opt stack 0
+    53                           
+    54                           	psect	_testFlashVar4_text
+    55  00000A                     __p_testFlashVar4_text:
+    56                           	opt stack 0
+    57  0000                     _WREG	set	4072
+    58  0000                     _TABLAT	set	4085
+    59  0000                     _TBLPTR	set	4086
+    60  00000A                     _testFlashVar4:
+    61                           	opt stack 0
+    62  00000A  44                 	db	68
+    63  00000B                     __end_of_testFlashVar4:
+    64                           	opt stack 0
+    65                           
+    66                           ; #config settings
+    67  0000                     
+    68                           	psect	cinit
+    69  000FE8                     __pcinit:
+    70                           	opt stack 0
+    71  000FE8                     start_initialization:
+    72                           	opt stack 0
+    73  000FE8                     __initialization:
+    74                           	opt stack 0
+    75                           
+    76                           ; Clear objects allocated to COMRAM (4 bytes)
+    77  000FE8  6A23               	clrf	(__pbssCOMRAM+3)& (0+255),c
+    78  000FEA  6A22               	clrf	(__pbssCOMRAM+2)& (0+255),c
+    79  000FEC  6A21               	clrf	(__pbssCOMRAM+1)& (0+255),c
+    80  000FEE  6A20               	clrf	__pbssCOMRAM& (0+255),c
+    81  000FF0                     end_of_initialization:
+    82                           	opt stack 0
+    83  000FF0                     __end_of__initialization:
+    84                           	opt stack 0
+    85  000FF0  0100               	movlb	0
+    86  000FF2  EFD9  F007         	goto	_main	;jump to C main() function
+    87                           
+    88                           	psect	bssCOMRAM
+    89  000020                     __pbssCOMRAM:
+    90                           	opt stack 0
+    91  000020                     _crcreg:
+    92                           	opt stack 0
+    93  000020                     	ds	2
+    94  000022                     _dataXorCrcHigh:
+    95                           	opt stack 0
+    96  000022                     	ds	1
+    97  000023                     _parity:
+    98                           	opt stack 0
+    99  000023                     	ds	1
+   100                           
+   101                           	psect	cstackCOMRAM
+   102  000001                     __pcstackCOMRAM:
+   103                           	opt stack 0
+   104  000001                     crcByte_FLASH@dataSequence:
+   105                           	opt stack 0
+   106                           
+   107                           ; 1 bytes @ 0x0
+   108  000001                     	ds	1
+   109  000002                     ?_CLASSB_CRCFlashTest:
+   110                           	opt stack 0
+   111  000002                     CLASSB_CRCFlashTest@startAddress:
+   112                           	opt stack 0
+   113                           
+   114                           ; 4 bytes @ 0x1
+   115  000002                     	ds	4
+   116  000006                     CLASSB_CRCFlashTest@length:
+   117                           	opt stack 0
+   118                           
+   119                           ; 4 bytes @ 0x5
+   120  000006                     	ds	4
+   121  00000A                     CLASSB_CRCFlashTest@crcSeed:
+   122                           	opt stack 0
+   123                           
+   124                           ; 2 bytes @ 0x9
+   125  00000A                     	ds	2
+   126  00000C                     ??_CLASSB_CRCFlashTest:
+   127                           
+   128                           ; 0 bytes @ 0xB
+   129  00000C                     	ds	4
+   130  000010                     CLASSB_CRCFlashTest@i:
+   131                           	opt stack 0
+   132                           
+   133                           ; 2 bytes @ 0xF
+   134  000010                     	ds	2
+   135  000012                     CLASSB_CRCFlashTest@dataSequence0:
+   136                           	opt stack 0
+   137                           
+   138                           ; 1 bytes @ 0x11
+   139  000012                     	ds	1
+   140  000013                     CLASSB_CRCFlashTest@dataSequence1:
+   141                           	opt stack 0
+   142                           
+   143                           ; 1 bytes @ 0x12
+   144  000013                     	ds	1
+   145  000014                     CLASSB_CRCFlashTest@testResult:
+   146                           	opt stack 0
+   147                           
+   148                           ; 2 bytes @ 0x13
+   149  000014                     	ds	2
+   150  000016                     main@testResult:
+   151                           	opt stack 0
+   152                           
+   153                           ; 2 bytes @ 0x15
+   154  000016                     	ds	6
+   155  00001C                     main@length:
+   156                           	opt stack 0
+   157                           
+   158                           ; 4 bytes @ 0x1B
+   159  00001C                     	ds	4
+   160                           
+   161 ;;
+   162 ;;Main: autosize = 0, tempsize = 0, incstack = 0, save=0
+   163 ;;
+   164 ;; *************** function _main *****************
+   165 ;; Defined at:
+   166 ;;		line 153 in file "main.c"
+   167 ;; Parameters:    Size  Location     Type
+   168 ;;		None
+   169 ;; Auto vars:     Size  Location     Type
+   170 ;;  length          4   27[COMRAM] unsigned long 
+   171 ;;  myAddress       4    0        unsigned long 
+   172 ;;  crcSeed         2    0        unsigned int 
+   173 ;;  testResult      2   21[COMRAM] volatile unsigned int 
+   174 ;; Return value:  Size  Location     Type
+   175 ;;		None               void
+   176 ;; Registers used:
+   177 ;;		wreg, status,2, status,0, cstack
+   178 ;; Tracked objects:
+   179 ;;		On entry : 0/0
+   180 ;;		On exit  : 0/0
+   181 ;;		Unchanged: 0/0
+   182 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK1
+      +1  BANK12  BANK13  BANK14
+   183 ;;      Params:         0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+   184 ;;      Locals:        12       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+   185 ;;      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+   186 ;;      Totals:        12       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+   187 ;;Total ram usage:       12 bytes
+   188 ;; Hardware stack levels required when called:    2
+   189 ;; This function calls:
+   190 ;;		_CLASSB_CRCFlashTest
+   191 ;; This function is called by:
+   192 ;;		Startup code after reset
+   193 ;; This function uses a non-reentrant model
+   194 ;;
+   195                           
+   196                           	psect	text0
+   197  000FB2                     __ptext0:
+   198                           	opt stack 0
+   199  000FB2                     _main:
+   200                           	opt stack 29
+   201                           
+   202                           ;main.c: 155: uint32_t length = 8001;
+   203  000FB2  0E41               	movlw	65
+   204  000FB4  6E1C               	movwf	main@length,c
+   205  000FB6  0E1F               	movlw	31
+   206  000FB8  6E1D               	movwf	main@length+1,c
+   207  000FBA  6A1E               	clrf	main@length+2,c
+   208  000FBC  6A1F               	clrf	main@length+3,c
+   209                           
+   210                           ;main.c: 157: volatile unsigned int testResult;
+   211                           ;main.c: 159: testResult = CLASSB_CRCFlashTest(myAddress,length,crcSeed);
+   212  000FBE  0E04               	movlw	4
+   213  000FC0  6E02               	movwf	?_CLASSB_CRCFlashTest,c
+   214  000FC2  6A03               	clrf	?_CLASSB_CRCFlashTest+1,c
+   215  000FC4  6A04               	clrf	?_CLASSB_CRCFlashTest+2,c
+   216  000FC6  6A05               	clrf	?_CLASSB_CRCFlashTest+3,c
+   217  000FC8  0E41               	movlw	65
+   218  000FCA  6E06               	movwf	?_CLASSB_CRCFlashTest+4,c
+   219  000FCC  0E1F               	movlw	31
+   220  000FCE  6E07               	movwf	?_CLASSB_CRCFlashTest+5,c
+   221  000FD0  6A08               	clrf	?_CLASSB_CRCFlashTest+6,c
+   222  000FD2  6A09               	clrf	?_CLASSB_CRCFlashTest+7,c
+   223  000FD4  0EFF               	movlw	255
+   224  000FD6  680B               	setf	?_CLASSB_CRCFlashTest+9,c
+   225  000FD8  680A               	setf	?_CLASSB_CRCFlashTest+8,c
+   226  000FDA  EC81  F007         	call	_CLASSB_CRCFlashTest	;wreg free
+   227  000FDE  C002  F016         	movff	?_CLASSB_CRCFlashTest,main@testResult	;volatile
+   228  000FE2  C003  F017         	movff	?_CLASSB_CRCFlashTest+1,main@testResult+1	;volatile
+   229  000FE6                     l13:
+   230  000FE6  D7FF               	goto	l13
+   231                           
+   232 ;; *************** function _CLASSB_CRCFlashTest *****************
+   233 ;; Defined at:
+   234 ;;		line 69 in file "CLASSB_CRCFlashTest.c"
+   235 ;; Parameters:    Size  Location     Type
+   236 ;;  startAddress    4    1[COMRAM] unsigned long 
+   237 ;;  length          4    5[COMRAM] unsigned long 
+   238 ;;  crcSeed         2    9[COMRAM] unsigned int 
+   239 ;; Auto vars:     Size  Location     Type
+   240 ;;  i               2   15[COMRAM] int 
+   241 ;;  testResult      2   19[COMRAM] volatile unsigned int 
+   242 ;;  dataSequence    1   18[COMRAM] unsigned char 
+   243 ;;  dataSequence    1   17[COMRAM] unsigned char 
+   244 ;; Return value:  Size  Location     Type
+   245 ;;                  2    1[COMRAM] unsigned int 
+   246 ;; Registers used:
+   247 ;;		wreg, status,2, status,0, cstack
+   248 ;; Tracked objects:
+   249 ;;		On entry : 0/0
+   250 ;;		On exit  : 0/0
+   251 ;;		Unchanged: 0/0
+   252 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK1
+      +1  BANK12  BANK13  BANK14
+   253 ;;      Params:        10       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+   254 ;;      Locals:         6       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+   255 ;;      Temps:          4       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+   256 ;;      Totals:        20       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+   257 ;;Total ram usage:       20 bytes
+   258 ;; Hardware stack levels used:    1
+   259 ;; Hardware stack levels required when called:    1
+   260 ;; This function calls:
+   261 ;;		_crcByte_FLASH
+   262 ;; This function is called by:
+   263 ;;		_main
+   264 ;; This function uses a non-reentrant model
+   265 ;;
+   266                           
+   267                           	psect	text1
+   268  000F02                     __ptext1:
+   269                           	opt stack 0
+   270  000F02                     __end_of_main:
+   271                           	opt stack 0
+   272  000F02                     _CLASSB_CRCFlashTest:
+   273                           	opt stack 29
+   274                           
+   275                           ;CLASSB_CRCFlashTest.c: 71: volatile unsigned int testResult;
+   276                           ;CLASSB_CRCFlashTest.c: 72: int i;
+   277                           ;CLASSB_CRCFlashTest.c: 73: uint8_t dataSequence0,dataSequence1;
+   278                           ;CLASSB_CRCFlashTest.c: 74: crcreg = crcSeed;
+   279  000F02  C00A  F020         	movff	CLASSB_CRCFlashTest@crcSeed,_crcreg
+   280  000F06  C00B  F021         	movff	CLASSB_CRCFlashTest@crcSeed+1,_crcreg+1
+   281                           
+   282                           ;CLASSB_CRCFlashTest.c: 76: TBLPTR = startAddress;
+   283  000F0A  C002  FFF6         	movff	CLASSB_CRCFlashTest@startAddress,tblptrl	;volatile
+   284  000F0E  C003  FFF7         	movff	CLASSB_CRCFlashTest@startAddress+1,tblptrh	;volatile
+   285  000F12  C004  FFF8         	movff	CLASSB_CRCFlashTest@startAddress+2,tblptru	;volatile
+   286                           
+   287                           ;CLASSB_CRCFlashTest.c: 78: for(i=0; i<length; i++)
+   288  000F16  6A10               	clrf	CLASSB_CRCFlashTest@i,c
+   289  000F18  6A11               	clrf	CLASSB_CRCFlashTest@i+1,c
+   290  000F1A  D00E               	goto	l626
+   291  000F1C                     l34:
+   292  000F1C  0009               	tblrd		*+	;# 
+   293                           
+   294                           ;CLASSB_CRCFlashTest.c: 84: dataSequence0 = TABLAT;
+   295  000F1E  CFF5 F012          	movff	tablat,CLASSB_CRCFlashTest@dataSequence0	;volatile
+   296  000F22  0009               	tblrd		*+	;# 
+   297                           
+   298                           ;CLASSB_CRCFlashTest.c: 90: dataSequence1= TABLAT;
+   299  000F24  CFF5 F013          	movff	tablat,CLASSB_CRCFlashTest@dataSequence1	;volatile
+   300                           
+   301                           ;CLASSB_CRCFlashTest.c: 92: crcByte_FLASH(dataSequence1);
+   302  000F28  5013               	movf	CLASSB_CRCFlashTest@dataSequence1,w,c
+   303  000F2A  ECB7  F007         	call	_crcByte_FLASH
+   304                           
+   305                           ;CLASSB_CRCFlashTest.c: 93: crcByte_FLASH(dataSequence0);
+   306  000F2E  5012               	movf	CLASSB_CRCFlashTest@dataSequence0,w,c
+   307  000F30  ECB7  F007         	call	_crcByte_FLASH
+   308  000F34  4A10               	infsnz	CLASSB_CRCFlashTest@i,f,c
+   309  000F36  2A11               	incf	CLASSB_CRCFlashTest@i+1,f,c
+   310  000F38                     l626:
+   311  000F38  C010  F00C         	movff	CLASSB_CRCFlashTest@i,??_CLASSB_CRCFlashTest
+   312  000F3C  C011  F00D         	movff	CLASSB_CRCFlashTest@i+1,??_CLASSB_CRCFlashTest+1
+   313  000F40  0E00               	movlw	0
+   314  000F42  BE0D               	btfsc	(??_CLASSB_CRCFlashTest+1)& (0+255),7,c
+   315  000F44  0EFF               	movlw	255
+   316  000F46  6E0E               	movwf	(??_CLASSB_CRCFlashTest+2)& (0+255),c
+   317  000F48  6E0F               	movwf	(??_CLASSB_CRCFlashTest+3)& (0+255),c
+   318  000F4A  5006               	movf	CLASSB_CRCFlashTest@length,w,c
+   319  000F4C  5C0C               	subwf	??_CLASSB_CRCFlashTest,w,c
+   320  000F4E  5007               	movf	CLASSB_CRCFlashTest@length+1,w,c
+   321  000F50  580D               	subwfb	??_CLASSB_CRCFlashTest+1,w,c
+   322  000F52  5008               	movf	CLASSB_CRCFlashTest@length+2,w,c
+   323  000F54  580E               	subwfb	??_CLASSB_CRCFlashTest+2,w,c
+   324  000F56  5009               	movf	CLASSB_CRCFlashTest@length+3,w,c
+   325  000F58  580F               	subwfb	??_CLASSB_CRCFlashTest+3,w,c
+   326  000F5A  E3E0               	bnc	l34
+   327                           
+   328                           ;CLASSB_CRCFlashTest.c: 94: }
+   329                           ;CLASSB_CRCFlashTest.c: 96: testResult = crcreg;
+   330  000F5C  C020  F014         	movff	_crcreg,CLASSB_CRCFlashTest@testResult	;volatile
+   331  000F60  C021  F015         	movff	_crcreg+1,CLASSB_CRCFlashTest@testResult+1	;volatile
+   332                           
+   333                           ;CLASSB_CRCFlashTest.c: 97: return testResult;
+   334  000F64  C014  F002         	movff	CLASSB_CRCFlashTest@testResult,?_CLASSB_CRCFlashTest	;volatile
+   335  000F68  C015  F003         	movff	CLASSB_CRCFlashTest@testResult+1,?_CLASSB_CRCFlashTest+1	;volatile
+   336  000F6C  0012               	return	
+   337  000F6E                     __end_of_CLASSB_CRCFlashTest:
+   338                           	opt stack 0
+   339                           tblptru	equ	0xFF8
+   340                           tblptrh	equ	0xFF7
+   341                           tblptrl	equ	0xFF6
+   342                           tablat	equ	0xFF5
+   343                           
+   344 ;; *************** function _crcByte_FLASH *****************
+   345 ;; Defined at:
+   346 ;;		line 135 in file "CLASSB_CRCFlashTest.c"
+   347 ;; Parameters:    Size  Location     Type
+   348 ;;  dataSequence    1    wreg     unsigned char 
+   349 ;; Auto vars:     Size  Location     Type
+   350 ;;  dataSequence    1    0[COMRAM] unsigned char 
+   351 ;; Return value:  Size  Location     Type
+   352 ;;		None               void
+   353 ;; Registers used:
+   354 ;;		wreg, status,2
+   355 ;; Tracked objects:
+   356 ;;		On entry : 0/0
+   357 ;;		On exit  : 0/0
+   358 ;;		Unchanged: 0/0
+   359 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK1
+      +1  BANK12  BANK13  BANK14
+   360 ;;      Params:         0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+   361 ;;      Locals:         1       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+   362 ;;      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+   363 ;;      Totals:         1       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0
+   364 ;;Total ram usage:        1 bytes
+   365 ;; Hardware stack levels used:    1
+   366 ;; This function calls:
+   367 ;;		Nothing
+   368 ;; This function is called by:
+   369 ;;		_CLASSB_CRCFlashTest
+   370 ;; This function uses a non-reentrant model
+   371 ;;
+   372                           
+   373                           	psect	text2
+   374  000F6E                     __ptext2:
+   375                           	opt stack 0
+   376  000F6E                     _crcByte_FLASH:
+   377                           	opt stack 29
+   378                           
+   379                           ;crcByte_FLASH@dataSequence stored from wreg
+   380  000F6E  CFE8 F001          	movff	wreg,crcByte_FLASH@dataSequence
+   381                           
+   382                           ;CLASSB_CRCFlashTest.c: 136: WREG = dataSequence;
+   383  000F72  5001               	movf	crcByte_FLASH@dataSequence,w,c
+   384  000F74  0100               	banksel	_crcreg& (0+255)	;# 
+   385  000F76  1921               	xorwf	(_crcreg& (0+255)+1),w,b	;# 
+   386  000F78  6F22               	movwf	_dataXorCrcHigh& (0+255),b	;# 
+   387  000F7A  6F23               	movwf	_parity& (0+255),b	;# 
+   388  000F7C  3923               	swapf	_parity& (0+255),w,b	;# 
+   389  000F7E  1B23               	xorwf	_parity& (0+255),f,b	;# 
+   390  000F80  90D8               	bcf	status,0,c	;# 
+   391  000F82  3123               	rrcf	_parity& (0+255),w,b	;# 
+   392  000F84  90D8               	bcf	status,0,c	;# 
+   393  000F86  32E8               	rrcf	wreg,f,c	;# 
+   394  000F88  90D8               	bcf	status,0,c	;# 
+   395  000F8A  1B23               	xorwf	_parity& (0+255),f,b	;# 
+   396  000F8C  3123               	rrcf	_parity& (0+255),w,b	;# 
+   397  000F8E  1B23               	xorwf	_parity& (0+255),f,b	;# 
+   398  000F90  90D8               	bcf	status,0,c	;# 
+   399  000F92  3522               	rlcf	_dataXorCrcHigh& (0+255),w,b	;# 
+   400  000F94  1B22               	xorwf	_dataXorCrcHigh& (0+255),f,b	;# 
+   401  000F96  5120               	movf	_crcreg& (0+255),w,b	;# 
+   402  000F98  B123               	btfsc	_parity& (0+255),0,b	;# 
+   403  000F9A  0A80               	xorlw	128	;# 
+   404  000F9C  B0D8               	btfsc	status,0,c	;# 
+   405  000F9E  0A02               	xorlw	2	;# 
+   406  000FA0  BF22               	btfsc	_dataXorCrcHigh& (0+255),7,b	;# 
+   407  000FA2  0A01               	xorlw	1	;# 
+   408  000FA4  6F21               	movwf	(_crcreg& (0+255)+1),b	;# 
+   409  000FA6  90D8               	bcf	status,0,c	;# 
+   410  000FA8  3522               	rlcf	_dataXorCrcHigh& (0+255),w,b	;# 
+   411  000FAA  B123               	btfsc	_parity& (0+255),0,b	;# 
+   412  000FAC  0A03               	xorlw	3	;# 
+   413  000FAE  6F20               	movwf	_crcreg& (0+255),b	;# 
+   414  000FB0  0012               	return	
+   415  000FB2                     __end_of_crcByte_FLASH:
+   416                           	opt stack 0
+   417                           tblptru	equ	0xFF8
+   418                           tblptrh	equ	0xFF7
+   419                           tblptrl	equ	0xFF6
+   420                           tablat	equ	0xFF5
+   421                           wreg	equ	0xFE8
+   422                           status	equ	0xFD8
+   423                           
+   424                           	psect	smallconst
+   425  000F00                     __psmallconst:
+   426                           	opt stack 0
+   427  000F00  00                 	db	0	; dummy byte at the end
+   428  0000                     tblptru	equ	0xFF8
+   429                           tblptrh	equ	0xFF7
+   430                           tblptrl	equ	0xFF6
+   431                           tablat	equ	0xFF5
+   432                           wreg	equ	0xFE8
+   433                           status	equ	0xFD8
+   434                           tblptru	equ	0xFF8
+   435                           tblptrh	equ	0xFF7
+   436                           tblptrl	equ	0xFF6
+   437                           tablat	equ	0xFF5
+   438                           wreg	equ	0xFE8
+   439                           status	equ	0xFD8
+   440                           
+   441                           	psect	rparam
+   442  0000                     tblptru	equ	0xFF8
+   443                           tblptrh	equ	0xFF7
+   444                           tblptrl	equ	0xFF6
+   445                           tablat	equ	0xFF5
+   446                           wreg	equ	0xFE8
+   447                           status	equ	0xFD8
+
+
+Data Sizes:
+    Strings     0
+    Constant    0
+    Data        0
+    BSS         4
+    Persistent  0
+    Stack       0
+
+Auto Spaces:
+    Space          Size  Autos    Used
+    COMRAM           95     33      37
+    BANK0           160      0       0
+    BANK1           256      0       0
+    BANK2           256      0       0
+    BANK3           256      0       0
+    BANK4           256      0       0
+    BANK5           256      0       0
+    BANK6           256      0       0
+    BANK7           256      0       0
+    BANK8           256      0       0
+    BANK9           256      0       0
+    BANK10          256      0       0
+    BANK11          256      0       0
+    BANK12          256      0       0
+    BANK13          256      0       0
+    BANK14          244      0       0
+
+Pointer List with Targets:
+
+    ?_CLASSB_CRCFlashTest	unsigned int  size(1) Largest target is 0
+
+
+Critical Paths under _main in COMRAM
+
+    _main->_CLASSB_CRCFlashTest
+    _CLASSB_CRCFlashTest->_crcByte_FLASH
+
+Critical Paths under _main in BANK0
+
+    None.
+
+Critical Paths under _main in BANK1
+
+    None.
+
+Critical Paths under _main in BANK2
+
+    None.
+
+Critical Paths under _main in BANK3
+
+    None.
+
+Critical Paths under _main in BANK4
+
+    None.
+
+Critical Paths under _main in BANK5
+
+    None.
+
+Critical Paths under _main in BANK6
+
+    None.
+
+Critical Paths under _main in BANK7
+
+    None.
+
+Critical Paths under _main in BANK8
+
+    None.
+
+Critical Paths under _main in BANK9
+
+    None.
+
+Critical Paths under _main in BANK10
+
+    None.
+
+Critical Paths under _main in BANK11
+
+    None.
+
+Critical Paths under _main in BANK12
+
+    None.
+
+Critical Paths under _main in BANK13
+
+    None.
+
+Critical Paths under _main in BANK14
+
+    None.
+
+Call Graph Tables:
+
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (0) _main                                                12    12      0     165
+                                             21 COMRAM    12    12      0
+                _CLASSB_CRCFlashTest
+ ---------------------------------------------------------------------------------
+ (1) _CLASSB_CRCFlashTest                                 20    10     10     120
+                                              1 COMRAM    20    10     10
+                      _crcByte_FLASH
+ ---------------------------------------------------------------------------------
+ (2) _crcByte_FLASH                                        1     1      0      15
+                                              0 COMRAM     1     1      0
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 2
+ ---------------------------------------------------------------------------------
+
+ Call Graph Graphs:
+
+ _main (ROOT)
+   _CLASSB_CRCFlashTest
+     _crcByte_FLASH
+
+ Address spaces:
+Name               Size   Autos  Total    Cost      Usage
+BIGRAM             EF3      0       0      35        0.0%
+EEDATA             400      0       0       0        0.0%
+BITBANK13          100      0       0      31        0.0%
+BANK13             100      0       0      32        0.0%
+BITBANK12          100      0       0      29        0.0%
+BANK12             100      0       0      30        0.0%
+BITBANK11          100      0       0      27        0.0%
+BANK11             100      0       0      28        0.0%
+BITBANK10          100      0       0      25        0.0%
+BANK10             100      0       0      26        0.0%
+BITBANK9           100      0       0      23        0.0%
+BANK9              100      0       0      24        0.0%
+BITBANK8           100      0       0      21        0.0%
+BANK8              100      0       0      22        0.0%
+BITBANK7           100      0       0      19        0.0%
+BANK7              100      0       0      20        0.0%
+BITBANK6           100      0       0      17        0.0%
+BANK6              100      0       0      18        0.0%
+BITBANK5           100      0       0      15        0.0%
+BANK5              100      0       0      16        0.0%
+BITBANK4           100      0       0      13        0.0%
+BANK4              100      0       0      14        0.0%
+BITBANK3           100      0       0      11        0.0%
+BANK3              100      0       0      12        0.0%
+BITBANK2           100      0       0       9        0.0%
+BANK2              100      0       0      10        0.0%
+BITBANK1           100      0       0       7        0.0%
+BANK1              100      0       0       8        0.0%
+BITBANK14           F4      0       0      33        0.0%
+BANK14              F4      0       0      34        0.0%
+BITBANK0            A0      0       0       4        0.0%
+BANK0               A0      0       0       5        0.0%
+BITCOMRAM           5F      0       0       0        0.0%
+COMRAM              5F     21      25       1       38.9%
+BITSFR_2             0      0       0      40        0.0%
+SFR_2                0      0       0      40        0.0%
+BITSFR_1             0      0       0      40        0.0%
+SFR_1                0      0       0      40        0.0%
+BITSFR               0      0       0      40        0.0%
+SFR                  0      0       0      40        0.0%
+STACK                0      0       2       2        0.0%
+NULL                 0      0       0       0        0.0%
+ABS                  0      0      25       6        0.0%
+DATA                 0      0      27       3        0.0%
+CODE                 0      0       0       0        0.0%
+
+
+Microchip Technology PIC18 Macro Assembler V1.12 build 49521 
+Symbol Table                                                                                   Wed May 21 13:39:41 2014
+
+                              l13 0FE6                                l34 0F1C  
+                     __CFG_BORV$3 000000                      __CFG_CP0$OFF 000000  
+                    __CFG_CP1$OFF 000000                      __CFG_CP2$OFF 000000  
+                    __CFG_CP3$OFF 000000                      __CFG_CP4$OFF 000000  
+                    __CFG_CP5$OFF 000000                      __CFG_CP6$OFF 000000  
+                    __CFG_CP7$OFF 000000                               WREG 000FE8  
+                             l626 0F38                      __CFG_CPB$OFF 000000  
+                    __CFG_CPD$OFF 000000                               wreg 000FE8  
+                  _dataXorCrcHigh 0022                              _WREG 000FE8  
+                            _main 0FB2                              start 0000  
+                   __CFG_IESO$OFF 000000                     __CFG_MCLRE$ON 000000  
+                   __CFG_RETEN$ON 000000                             STATUS 000FD8  
+                           ?_main 0001                     __CFG_WRT0$OFF 000000  
+                   __CFG_WRT1$OFF 000000                     __CFG_WRT2$OFF 000000  
+                   __CFG_WRT3$OFF 000000                     __CFG_WRT4$OFF 000000  
+                  __CFG_EBRT0$OFF 000000                     __CFG_WRT5$OFF 000000  
+                  __CFG_EBRT1$OFF 000000                     __CFG_WRT6$OFF 000000  
+                  __CFG_EBRT2$OFF 000000                     __CFG_WRT7$OFF 000000  
+                  __CFG_EBRT3$OFF 000000                    __CFG_EBRT4$OFF 000000  
+                  __CFG_FCMEN$OFF 000000                    __CFG_EBRT5$OFF 000000  
+                  __CFG_EBRT6$OFF 000000                    __CFG_EBRT7$OFF 000000  
+                   __CFG_WRTB$OFF 000000                     __CFG_WRTC$OFF 000000  
+                   __CFG_WRTD$OFF 000000                    __CFG_EBRTB$OFF 000000  
+                           status 000FD8                   __initialization 0FE8  
+                    __end_of_main 0F02             __end_of_crcByte_FLASH 0FB2  
+                          ??_main 0016                     __activetblptr 000003  
+                 __CFG_BBSIZ$BB2K 000000                    __CFG_WDTEN$OFF 000000  
+                          _TABLAT 000FF5                            _TBLPTR 000FF6  
+                  __CFG_XINST$OFF 000000                    __CFG_STVREN$ON 000000  
+                          _crcreg 0020                            _parity 0023  
+                    __mediumconst 0000                        __accesstop 0060  
+         __end_of__initialization 0FF0                    __pcstackCOMRAM 0001  
+                 __CFG_PLLCFG$OFF 000000      __size_of_CLASSB_CRCFlashTest 006C  
+           __end_of_testFlashVar1 0005             __end_of_testFlashVar2 0007  
+           __end_of_testFlashVar3 0009             __end_of_testFlashVar4 000B  
+                 __CFG_PWRTEN$OFF 000000                           __Hparam 0000  
+                         __Lparam 0000                      __psmallconst 0F00  
+                         __pcinit 0FE8                           __ramtop 0F00  
+                         __ptext0 0FB2                           __ptext1 0F02  
+                         __ptext2 0F6E                 __CFG_MSSPMSK$MSK7 000000  
+            end_of_initialization 0FF0                    main@testResult 0016  
+CLASSB_CRCFlashTest@dataSequence0 0012  CLASSB_CRCFlashTest@dataSequence1 0013  
+                __CFG_FOSC$INTIO2 000000                 __CFG_SOSCSEL$HIGH 000000  
+          __size_of_crcByte_FLASH 0044                        main@length 001C  
+             start_initialization 0FE8               _CLASSB_CRCFlashTest 0F02  
+           _testFlashVar1_absaddr 000004             _testFlashVar2_absaddr 000006  
+           _testFlashVar3_absaddr 000008             _testFlashVar4_absaddr 00000A  
+            ?_CLASSB_CRCFlashTest 0002     CLASSB_CRCFlashTest@testResult 0014  
+                   _crcByte_FLASH 0F6E                       __pbssCOMRAM 0020  
+           ??_CLASSB_CRCFlashTest 000C             __p_testFlashVar1_text 0004  
+           __p_testFlashVar2_text 0006             __p_testFlashVar3_text 0008  
+           __p_testFlashVar4_text 000A                 __CFG_CCP2MX$PORTC 000000  
+                  ?_crcByte_FLASH 0001                       __smallconst 0F00  
+ CLASSB_CRCFlashTest@startAddress 0002                 __CFG_ECCPMX$PORTE 000000  
+                        __Hrparam 0000                          __Lrparam 0000  
+              __CFG_BOREN$SBORDIS 000000                   ??_crcByte_FLASH 0001  
+                   _testFlashVar1 0004                     _testFlashVar2 0006  
+                   _testFlashVar3 0008                     _testFlashVar4 000A  
+       crcByte_FLASH@dataSequence 0001              CLASSB_CRCFlashTest@i 0010  
+                   __size_of_main FF50        CLASSB_CRCFlashTest@crcSeed 000A  
+             __CFG_RTCOSC$SOSCREF 000000               __CFG_INTOSCSEL$HIGH 000000  
+       CLASSB_CRCFlashTest@length 0006                __CFG_WDTPS$1048576 000000  
+     __end_of_CLASSB_CRCFlashTest 0F6E               __CFG_BORPWR$ZPBORMV 000000  

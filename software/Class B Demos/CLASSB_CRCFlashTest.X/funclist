@@ -1,0 +1,9 @@
+_CLASSB_CRCFlashTest: CODE, 3842 0 108
+_main: CODE, 4018 0 4294967120
+_testFlashVar1: CODE, 4 0 1
+_testFlashVar2: CODE, 6 0 1
+_testFlashVar3: CODE, 8 0 1
+_testFlashVar4: CODE, 10 0 1
+__initialization: CODE, 4072 0 8
+_crcByte_FLASH: CODE, 3950 0 68
+Total: 12

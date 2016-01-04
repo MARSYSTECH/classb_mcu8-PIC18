@@ -1,0 +1,14 @@
+_CLASSB_LineUserRestore: CODE, 914 0 26
+_ISR: CODE, 8 0 16
+_OnClockError: CODE, 982 0 4
+_main: CODE, 788 0 44
+_CLASSB_ClockLineFreqTest: CODE, 324 0 192
+_LineFreqInit: CODE, 860 0 28
+___lmul: CODE, 516 0 154
+__initialization: CODE, 940 0 12
+___lldiv: CODE, 670 0 118
+_CLASSB_ClockLineFreqISR: CODE, 28 0 296
+_CLASSB_LineUserSave: CODE, 888 0 26
+_Init: CODE, 832 0 28
+_CheckClockLineTestFlag: CODE, 962 0 20
+Total: 964

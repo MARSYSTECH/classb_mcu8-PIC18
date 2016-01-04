@@ -1,0 +1,1924 @@
+
+
+Microchip Technology PIC18 PRO Macro Assembler V1.31 build 56723 
+                                                                                               Wed Jul 30 10:37:53 2014
+
+Microchip Technology Omniscient Code Generator (PRO mode) build 56723
+     1                           	processor	18F26K22
+     2                           	fnconf	rparam,??,?,0
+     3                           	opt	pw 120
+     4                           	opt	pm
+     5                           	psect	nvCOMRAM,global,class=COMRAM,space=1,delta=1
+     6                           	psect	cinit,global,reloc=2,class=CODE,delta=1
+     7                           	psect	bssCOMRAM,global,class=COMRAM,space=1,delta=1
+     8                           	psect	cstackCOMRAM,global,class=COMRAM,space=1,delta=1
+     9                           	psect	text0,global,reloc=2,class=CODE,delta=1
+    10                           	psect	text1,global,reloc=2,class=CODE,delta=1
+    11                           	psect	text2,global,reloc=2,class=CODE,delta=1
+    12                           	psect	text3,global,reloc=2,class=CODE,delta=1
+    13                           	psect	text4,global,reloc=2,class=CODE,delta=1
+    14                           	psect	text5,global,reloc=2,class=CODE,delta=1
+    15                           	psect	text6,global,reloc=2,class=CODE,delta=1
+    16                           	psect	text7,global,reloc=2,class=CODE,delta=1
+    17                           	psect	text8,global,reloc=2,class=CODE,delta=1
+    18                           	psect	intcode,global,reloc=2,class=CODE,delta=1
+    19                           	psect	text10,global,reloc=2,class=CODE,delta=1
+    20                           	psect	text11,global,reloc=2,class=CODE,delta=1
+    21                           	psect	intsave_regs,global,class=BIGRAM,space=1,delta=1
+    22                           	psect	rparam,global,class=COMRAM,space=1,delta=1
+    23  0000                     _TMR1	set	4046
+    24  0000                     _ANSELA	set	3896
+    25  0000                     _ANSELB	set	3897
+    26  0000                     _ANSELC	set	3898
+    27  0000                     _CCP1CON	set	4029
+    28  0000                     _CCPR1H	set	4031
+    29  0000                     _CCPR1L	set	4030
+    30  0000                     _INTCON	set	4082
+    31  0000                     _LATA	set	3977
+    32  0000                     _LATB	set	3978
+    33  0000                     _LATC	set	3979
+    34  0000                     _OSCCON	set	4051
+    35  0000                     _PIE1	set	3997
+    36  0000                     _PIR1	set	3998
+    37  0000                     _T1CON	set	4045
+    38  0000                     _T1GCON	set	4044
+    39  0000                     _TRISA	set	3986
+    40  0000                     _TRISB	set	3987
+    41  0000                     _TRISC	set	3988
+    42  0000                     _CCP1IE	set	31978
+    43  0000                     _CCP1IF	set	31986
+    44  0000                     _LATA0	set	31816
+    45  0000                     _LATA1	set	31817
+    46  0000                     _LATA2	set	31818
+    47  0000                     _LATA4	set	31820
+    48  0000                     _TMR1IE	set	31976
+    49  0000                     _TMR1IF	set	31984
+    50  0000                     _TMR1ON	set	32360
+    51                           
+    52                           	psect	nvCOMRAM
+    53  000037                     __pnvCOMRAM:
+    54                           	opt stack 0
+    55  000037                     _expectedCount:
+    56                           	opt stack 0
+    57  000037                     	ds	4
+    58  00003B                     _toleranceCount:
+    59                           	opt stack 0
+    60  00003B                     	ds	4
+    61  00003F                     _CCPUser:
+    62                           	opt stack 0
+    63  00003F                     	ds	1
+    64  000040                     _CLASSB_Line_Freq:
+    65                           	opt stack 0
+    66  000040                     	ds	1
+    67  000041                     _ClockLineFreqTestFlag:
+    68                           	opt stack 0
+    69  000041                     	ds	1
+    70  000042                     _ClockTestResult:
+    71                           	opt stack 0
+    72  000042                     	ds	1
+    73  000043                     _InterruptsUser:
+    74                           	opt stack 0
+    75  000043                     	ds	1
+    76  000044                     _PIE1User:
+    77                           	opt stack 0
+    78  000044                     	ds	1
+    79  000045                     _PIR1User:
+    80                           	opt stack 0
+    81  000045                     	ds	1
+    82  000046                     _Timer1GateUser:
+    83                           	opt stack 0
+    84  000046                     	ds	1
+    85  000047                     _Timer1User:
+    86                           	opt stack 0
+    87  000047                     	ds	1
+    88  000048                     ___DCByte:
+    89                           	opt stack 0
+    90  000048                     	ds	1
+    91  000049                     ___DCDelay:
+    92                           	opt stack 0
+    93  000049                     	ds	1
+    94                           
+    95                           ; #config settings
+    96  0000                     
+    97                           	psect	cinit
+    98  0003AC                     __pcinit:
+    99                           	opt stack 0
+   100  0003AC                     start_initialization:
+   101                           	opt stack 0
+   102  0003AC                     __initialization:
+   103                           	opt stack 0
+   104                           
+   105                           ; Clear objects allocated to COMRAM (15 bytes)
+   106  0003AC  EE00  F04A         	lfsr	0,__pbssCOMRAM
+   107  0003B0  0E0F               	movlw	15
+   108  0003B2                     clear_0:
+   109  0003B2  6AEE               	clrf	postinc0,c
+   110  0003B4  06E8               	decf	wreg,f,c
+   111  0003B6  E1FD               	bnz	clear_0
+   112  0003B8                     end_of_initialization:
+   113                           	opt stack 0
+   114  0003B8                     __end_of__initialization:
+   115                           	opt stack 0
+   116  0003B8  0E00               	movlw	low (__Lmediumconst shr (0+16))
+   117  0003BA  6EF8               	movwf	tblptru,c
+   118  0003BC  0100               	movlb	0
+   119  0003BE  EF8A  F001         	goto	_main	;jump to C main() function
+   120                           tblptru	equ	0xFF8
+   121                           postinc0	equ	0xFEE
+   122                           wreg	equ	0xFE8
+   123                           
+   124                           	psect	bssCOMRAM
+   125  00004A                     __pbssCOMRAM:
+   126                           	opt stack 0
+   127  00004A                     _testCount:
+   128                           	opt stack 0
+   129  00004A                     	ds	4
+   130  00004E                     _ClockLineFreqTestFail:
+   131                           	opt stack 0
+   132  00004E                     	ds	2
+   133  000050                     _captureTimer1:
+   134                           	opt stack 0
+   135  000050                     	ds	2
+   136  000052                     _FIRSTCROSS:
+   137                           	opt stack 0
+   138  000052                     	ds	1
+   139  000053                     _TMR1RollOver:
+   140                           	opt stack 0
+   141  000053                     	ds	1
+   142  000054                     __IT_INT_MASK:
+   143                           	opt stack 0
+   144  000054                     	ds	1
+   145  000055                     __IT_SAVE_BSR:
+   146                           	opt stack 0
+   147  000055                     	ds	1
+   148  000056                     __IT_SAVE_STATUS:
+   149                           	opt stack 0
+   150  000056                     	ds	1
+   151  000057                     __IT_SAVE_WREG:
+   152                           	opt stack 0
+   153  000057                     	ds	1
+   154  000058                     _lineTestEnd:
+   155                           	opt stack 0
+   156  000058                     	ds	1
+   157                           tblptru	equ	0xFF8
+   158                           postinc0	equ	0xFEE
+   159                           wreg	equ	0xFE8
+   160                           
+   161                           	psect	cstackCOMRAM
+   162  000001                     __pcstackCOMRAM:
+   163                           	opt stack 0
+   164  000001                     ??_CLASSB_ClockLineFreqISR:
+   165  000001                     
+   166                           ; 1 bytes @ 0x0
+   167  000001                     	ds	12
+   168  00000D                     ?___lmul:
+   169                           	opt stack 0
+   170  00000D                     ___lmul@multiplier:
+   171                           	opt stack 0
+   172                           
+   173                           ; 4 bytes @ 0xC
+   174  00000D                     	ds	4
+   175  000011                     ___lmul@multiplicand:
+   176                           	opt stack 0
+   177                           
+   178                           ; 4 bytes @ 0x10
+   179  000011                     	ds	4
+   180  000015                     ??___lmul:
+   181                           
+   182                           ; 0 bytes @ 0x14
+   183  000015                     	ds	3
+   184  000018                     ___lmul@product:
+   185                           	opt stack 0
+   186                           
+   187                           ; 4 bytes @ 0x17
+   188  000018                     	ds	4
+   189  00001C                     ?___lldiv:
+   190                           	opt stack 0
+   191  00001C                     ___lldiv@dividend:
+   192                           	opt stack 0
+   193                           
+   194                           ; 4 bytes @ 0x1B
+   195  00001C                     	ds	4
+   196  000020                     ___lldiv@divisor:
+   197                           	opt stack 0
+   198                           
+   199                           ; 4 bytes @ 0x1F
+   200  000020                     	ds	4
+   201  000024                     ___lldiv@quotient:
+   202                           	opt stack 0
+   203                           
+   204                           ; 4 bytes @ 0x23
+   205  000024                     	ds	4
+   206  000028                     ___lldiv@counter:
+   207                           	opt stack 0
+   208                           
+   209                           ; 1 bytes @ 0x27
+   210  000028                     	ds	1
+   211  000029                     CLASSB_ClockLineFreqTest@clockFrequency:
+   212                           	opt stack 0
+   213                           
+   214                           ; 4 bytes @ 0x28
+   215  000029                     	ds	4
+   216  00002D                     CLASSB_ClockLineFreqTest@lineFrequency:
+   217                           	opt stack 0
+   218                           
+   219                           ; 1 bytes @ 0x2C
+   220  00002D                     	ds	1
+   221  00002E                     CLASSB_ClockLineFreqTest@tolerance:
+   222                           	opt stack 0
+   223                           
+   224                           ; 1 bytes @ 0x2D
+   225  00002E                     	ds	1
+   226  00002F                     ??_CLASSB_ClockLineFreqTest:
+   227                           
+   228                           ; 0 bytes @ 0x2E
+   229  00002F                     	ds	4
+   230  000033                     CLASSB_ClockLineFreqTest@systemFrequency:
+   231                           	opt stack 0
+   232                           
+   233                           ; 4 bytes @ 0x32
+   234  000033                     	ds	4
+   235  000037                     tblptru	equ	0xFF8
+   236                           postinc0	equ	0xFEE
+   237                           wreg	equ	0xFE8
+   238                           
+   239                           ; 0 bytes @ 0x36
+   240 ;;
+   241 ;;Main: autosize = 0, tempsize = 0, incstack = 0, save=0
+   242 ;;
+   243 ;; *************** function _main *****************
+   244 ;; Defined at:
+   245 ;;		line 162 in file "main.c"
+   246 ;; Parameters:    Size  Location     Type
+   247 ;;		None
+   248 ;; Auto vars:     Size  Location     Type
+   249 ;;  clockFrequen    4    0        unsigned long 
+   250 ;;  tolerance       1    0        unsigned char 
+   251 ;;  lineFrequenc    1    0        unsigned char 
+   252 ;; Return value:  Size  Location     Type
+   253 ;;		None               void
+   254 ;; Registers used:
+   255 ;;		wreg, status,2, status,0, prodl, prodh, cstack
+   256 ;; Tracked objects:
+   257 ;;		On entry : 0/0
+   258 ;;		On exit  : 0/0
+   259 ;;		Unchanged: 0/0
+   260 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK1
+      +1  BANK12  BANK13  BANK14  BANK15
+   261 ;;      Params:         0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+   262 ;;      Locals:         6       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+   263 ;;      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+   264 ;;      Totals:         6       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+   265 ;;Total ram usage:        6 bytes
+   266 ;; Hardware stack levels required when called:    5
+   267 ;; This function calls:
+   268 ;;		_CLASSB_ClockLineFreqTest
+   269 ;;		_CheckClockLineTestFlag
+   270 ;;		_Init
+   271 ;;		_OnClockError
+   272 ;; This function is called by:
+   273 ;;		Startup code after reset
+   274 ;; This function uses a non-reentrant model
+   275 ;;
+   276                           
+   277                           	psect	text0
+   278  000314                     __ptext0:
+   279                           	opt stack 0
+   280  000314                     _main:
+   281                           	opt stack 25
+   282                           
+   283                           ;main.c: 164: Init();
+   284                           
+   285                           ;incstack = 0
+   286  000314  ECA0  F001         	call	_Init	;wreg free
+   287                           
+   288                           ; BSR set to: 15
+   289                           ;main.c: 177: CLASSB_ClockLineFreqTest(clockFrequency, lineFrequency, tolerance);
+   290                           
+   291                           ; BSR set to: 15
+   292                           
+   293                           ; BSR set to: 15
+   294                           
+   295                           ; BSR set to: 15
+   296  000318  6A29               	clrf	CLASSB_ClockLineFreqTest@clockFrequency,c
+   297  00031A  0E24               	movlw	36
+   298  00031C  6E2A               	movwf	CLASSB_ClockLineFreqTest@clockFrequency+1,c
+   299  00031E  0EF4               	movlw	244
+   300  000320  6E2B               	movwf	CLASSB_ClockLineFreqTest@clockFrequency+2,c
+   301  000322  6A2C               	clrf	CLASSB_ClockLineFreqTest@clockFrequency+3,c
+   302  000324  0E3C               	movlw	60
+   303  000326  6E2D               	movwf	CLASSB_ClockLineFreqTest@lineFrequency,c
+   304  000328  0E05               	movlw	5
+   305  00032A  6E2E               	movwf	CLASSB_ClockLineFreqTest@tolerance,c
+   306  00032C  ECA2  F000         	call	_CLASSB_ClockLineFreqTest	;wreg free
+   307  000330                     l979:
+   308                           
+   309                           ;main.c: 181: {
+   310                           ;main.c: 182: ClockTestResult = CheckClockLineTestFlag();
+   311  000330  ECE1  F001         	call	_CheckClockLineTestFlag	;wreg free
+   312  000334  6E42               	movwf	_ClockTestResult,c
+   313                           
+   314                           ;main.c: 183: if (ClockTestResult == CLASSB_TEST_FAIL)
+   315  000336  0442               	decf	_ClockTestResult,w,c
+   316  000338  E1FB               	bnz	l979
+   317                           
+   318                           ;main.c: 184: {
+   319                           ;main.c: 185: OnClockError();
+   320  00033A  ECEB  F001         	call	_OnClockError	;wreg free
+   321  00033E  D7F8               	goto	l979
+   322  000340                     __end_of_main:
+   323                           	opt stack 0
+   324                           tblptru	equ	0xFF8
+   325                           postinc0	equ	0xFEE
+   326                           wreg	equ	0xFE8
+   327                           
+   328 ;; *************** function _OnClockError *****************
+   329 ;; Defined at:
+   330 ;;		line 210 in file "main.c"
+   331 ;; Parameters:    Size  Location     Type
+   332 ;;		None
+   333 ;; Auto vars:     Size  Location     Type
+   334 ;;		None
+   335 ;; Return value:  Size  Location     Type
+   336 ;;		None               void
+   337 ;; Registers used:
+   338 ;;		None
+   339 ;; Tracked objects:
+   340 ;;		On entry : 0/F
+   341 ;;		On exit  : 0/0
+   342 ;;		Unchanged: 0/0
+   343 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK1
+      +1  BANK12  BANK13  BANK14  BANK15
+   344 ;;      Params:         0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+   345 ;;      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+   346 ;;      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+   347 ;;      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+   348 ;;Total ram usage:        0 bytes
+   349 ;; Hardware stack levels used:    1
+   350 ;; Hardware stack levels required when called:    3
+   351 ;; This function calls:
+   352 ;;		Nothing
+   353 ;; This function is called by:
+   354 ;;		_main
+   355 ;; This function uses a non-reentrant model
+   356 ;;
+   357                           
+   358                           	psect	text1
+   359  0003D6                     __ptext1:
+   360                           	opt stack 0
+   361  0003D6                     _OnClockError:
+   362                           	opt stack 26
+   363                           
+   364                           ;main.c: 213: __nop();
+   365                           
+   366                           ;incstack = 0
+   367  0003D6  F000               	nop	
+   368  0003D8  0012               	return	
+   369  0003DA                     __end_of_OnClockError:
+   370                           	opt stack 0
+   371                           tblptru	equ	0xFF8
+   372                           postinc0	equ	0xFEE
+   373                           wreg	equ	0xFE8
+   374                           
+   375 ;; *************** function _Init *****************
+   376 ;; Defined at:
+   377 ;;		line 146 in file "main.c"
+   378 ;; Parameters:    Size  Location     Type
+   379 ;;		None
+   380 ;; Auto vars:     Size  Location     Type
+   381 ;;		None
+   382 ;; Return value:  Size  Location     Type
+   383 ;;		None               void
+   384 ;; Registers used:
+   385 ;;		wreg, status,2
+   386 ;; Tracked objects:
+   387 ;;		On entry : 0/0
+   388 ;;		On exit  : F/F
+   389 ;;		Unchanged: 0/0
+   390 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK1
+      +1  BANK12  BANK13  BANK14  BANK15
+   391 ;;      Params:         0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+   392 ;;      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+   393 ;;      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+   394 ;;      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+   395 ;;Total ram usage:        0 bytes
+   396 ;; Hardware stack levels used:    1
+   397 ;; Hardware stack levels required when called:    3
+   398 ;; This function calls:
+   399 ;;		Nothing
+   400 ;; This function is called by:
+   401 ;;		_main
+   402 ;; This function uses a non-reentrant model
+   403 ;;
+   404                           
+   405                           	psect	text2
+   406  000340                     __ptext2:
+   407                           	opt stack 0
+   408  000340                     _Init:
+   409                           	opt stack 26
+   410                           
+   411                           ;main.c: 148: OSCCON = 0b01110000;
+   412                           
+   413                           ;incstack = 0
+   414  000340  0E70               	movlw	112
+   415  000342  6ED3               	movwf	4051,c	;volatile
+   416                           
+   417                           ;main.c: 149: TRISA = 0;
+   418  000344  6A92               	clrf	3986,c	;volatile
+   419                           
+   420                           ;main.c: 150: ANSELA = 0;
+   421  000346  010F               	movlb	15	; () banked
+   422  000348  6B38               	clrf	56,b	;volatile
+   423                           
+   424                           ; BSR set to: 15
+   425                           ;main.c: 151: TRISB = 0;
+   426  00034A  6A93               	clrf	3987,c	;volatile
+   427                           
+   428                           ; BSR set to: 15
+   429                           ;main.c: 152: ANSELB = 0;
+   430  00034C  6B39               	clrf	57,b	;volatile
+   431                           
+   432                           ;main.c: 153: TRISC = 0b00000100;
+   433  00034E  0E04               	movlw	4
+   434  000350  6E94               	movwf	3988,c	;volatile
+   435                           
+   436                           ; BSR set to: 15
+   437                           ;main.c: 154: ANSELC = 0;
+   438  000352  6B3A               	clrf	58,b	;volatile
+   439                           
+   440                           ; BSR set to: 15
+   441                           ;main.c: 156: LATA = 0;
+   442  000354  6A89               	clrf	3977,c	;volatile
+   443                           
+   444                           ; BSR set to: 15
+   445                           ;main.c: 157: LATB = 0;
+   446  000356  6A8A               	clrf	3978,c	;volatile
+   447                           
+   448                           ; BSR set to: 15
+   449                           ;main.c: 158: LATC = 0;
+   450  000358  6A8B               	clrf	3979,c	;volatile
+   451                           
+   452                           ; BSR set to: 15
+   453  00035A  0012               	return	
+   454  00035C                     __end_of_Init:
+   455                           	opt stack 0
+   456                           tblptru	equ	0xFF8
+   457                           postinc0	equ	0xFEE
+   458                           wreg	equ	0xFE8
+   459                           
+   460 ;; *************** function _CheckClockLineTestFlag *****************
+   461 ;; Defined at:
+   462 ;;		line 191 in file "main.c"
+   463 ;; Parameters:    Size  Location     Type
+   464 ;;		None
+   465 ;; Auto vars:     Size  Location     Type
+   466 ;;		None
+   467 ;; Return value:  Size  Location     Type
+   468 ;;                  1    wreg      enum E41
+   469 ;; Registers used:
+   470 ;;		wreg, status,2, status,0
+   471 ;; Tracked objects:
+   472 ;;		On entry : 0/F
+   473 ;;		On exit  : 0/0
+   474 ;;		Unchanged: 0/0
+   475 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK1
+      +1  BANK12  BANK13  BANK14  BANK15
+   476 ;;      Params:         0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+   477 ;;      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+   478 ;;      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+   479 ;;      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+   480 ;;Total ram usage:        0 bytes
+   481 ;; Hardware stack levels used:    1
+   482 ;; Hardware stack levels required when called:    3
+   483 ;; This function calls:
+   484 ;;		Nothing
+   485 ;; This function is called by:
+   486 ;;		_main
+   487 ;; This function uses a non-reentrant model
+   488 ;;
+   489                           
+   490                           	psect	text3
+   491  0003C2                     __ptext3:
+   492                           	opt stack 0
+   493  0003C2                     _CheckClockLineTestFlag:
+   494                           	opt stack 26
+   495                           
+   496                           ;main.c: 193: if (ClockLineFreqTestFlag == CLASSB_TEST_FAIL)
+   497                           
+   498                           ; BSR set to: 15
+   499                           ;incstack = 0
+   500  0003C2  0441               	decf	_ClockLineFreqTestFlag,w,c
+   501  0003C4  E102               	bnz	l161
+   502                           
+   503                           ;main.c: 194: {
+   504                           ;main.c: 195: LATA0 = 1;
+   505  0003C6  8089               	bsf	3977,0,c	;volatile
+   506                           
+   507                           ;main.c: 196: return CLASSB_TEST_FAIL;
+   508  0003C8  0C01               	retlw	1
+   509  0003CA                     l161:
+   510                           
+   511                           ;main.c: 197: }
+   512                           ;main.c: 198: if (ClockLineFreqTestFlag == CLASSB_TEST_PASS)
+   513  0003CA  6641               	tstfsz	_ClockLineFreqTestFlag,c
+   514  0003CC  D002               	goto	l163
+   515                           
+   516                           ;main.c: 199: {
+   517                           ;main.c: 200: LATA1 = 1;
+   518  0003CE  8289               	bsf	3977,1,c	;volatile
+   519                           
+   520                           ;main.c: 201: return CLASSB_TEST_PASS;
+   521  0003D0  0C00               	retlw	0
+   522  0003D2                     l163:
+   523                           
+   524                           ;main.c: 203: else
+   525                           ;main.c: 204: {
+   526                           ;main.c: 205: LATA2 ^= 1;
+   527  0003D2  7489               	btg	3977,2,c	;volatile
+   528                           
+   529                           ;main.c: 206: return CLASSB_TEST_INPROGRESS;
+   530  0003D4  0C03               	retlw	3
+   531  0003D6                     __end_of_CheckClockLineTestFlag:
+   532                           	opt stack 0
+   533                           tblptru	equ	0xFF8
+   534                           postinc0	equ	0xFEE
+   535                           wreg	equ	0xFE8
+   536                           
+   537 ;; *************** function _CLASSB_ClockLineFreqTest *****************
+   538 ;; Defined at:
+   539 ;;		line 78 in file "CLASSB_ClockLineFreqTest.c"
+   540 ;; Parameters:    Size  Location     Type
+   541 ;;  clockFrequen    4   40[COMRAM] unsigned long 
+   542 ;;  lineFrequenc    1   44[COMRAM] unsigned char 
+   543 ;;  tolerance       1   45[COMRAM] unsigned char 
+   544 ;; Auto vars:     Size  Location     Type
+   545 ;;  systemFreque    4   50[COMRAM] unsigned long 
+   546 ;; Return value:  Size  Location     Type
+   547 ;;		None               void
+   548 ;; Registers used:
+   549 ;;		wreg, status,2, status,0, prodl, prodh, cstack
+   550 ;; Tracked objects:
+   551 ;;		On entry : F/F
+   552 ;;		On exit  : 0/0
+   553 ;;		Unchanged: 0/0
+   554 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK1
+      +1  BANK12  BANK13  BANK14  BANK15
+   555 ;;      Params:         6       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+   556 ;;      Locals:         4       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+   557 ;;      Temps:          4       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+   558 ;;      Totals:        14       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+   559 ;;Total ram usage:       14 bytes
+   560 ;; Hardware stack levels used:    1
+   561 ;; Hardware stack levels required when called:    4
+   562 ;; This function calls:
+   563 ;;		_CLASSB_LineUserSave
+   564 ;;		_LineFreqInit
+   565 ;;		___lldiv
+   566 ;;		___lmul
+   567 ;; This function is called by:
+   568 ;;		_main
+   569 ;; This function uses a non-reentrant model
+   570 ;;
+   571                           
+   572                           	psect	text4
+   573  000144                     __ptext4:
+   574                           	opt stack 0
+   575  000144                     _CLASSB_ClockLineFreqTest:
+   576                           	opt stack 25
+   577                           
+   578                           ; BSR set to: 15
+   579                           ;CLASSB_ClockLineFreqTest.c: 80: uint32_t systemFrequency = clockFrequency/4;
+   580                           
+   581                           ;incstack = 0
+   582  000144  C029  F02F         	movff	CLASSB_ClockLineFreqTest@clockFrequency,??_CLASSB_ClockLineFreqTest
+   583  000148  C02A  F030         	movff	CLASSB_ClockLineFreqTest@clockFrequency+1,??_CLASSB_ClockLineFreqTest+1
+   584  00014C  C02B  F031         	movff	CLASSB_ClockLineFreqTest@clockFrequency+2,??_CLASSB_ClockLineFreqTest+2
+   585  000150  C02C  F032         	movff	CLASSB_ClockLineFreqTest@clockFrequency+3,??_CLASSB_ClockLineFreqTest+3
+   586  000154  0E03               	movlw	3
+   587  000156  D005               	goto	u40
+   588  000158                     u45:
+   589  000158  90D8               	bcf	status,0,c
+   590  00015A  3232               	rrcf	??_CLASSB_ClockLineFreqTest+3,f,c
+   591  00015C  3231               	rrcf	??_CLASSB_ClockLineFreqTest+2,f,c
+   592  00015E  3230               	rrcf	??_CLASSB_ClockLineFreqTest+1,f,c
+   593  000160  322F               	rrcf	??_CLASSB_ClockLineFreqTest,f,c
+   594  000162                     u40:
+   595  000162  2EE8               	decfsz	wreg,f,c
+   596  000164  D7F9               	goto	u45
+   597  000166  C02F  F033         	movff	??_CLASSB_ClockLineFreqTest,CLASSB_ClockLineFreqTest@systemFrequency
+   598  00016A  C030  F034         	movff	??_CLASSB_ClockLineFreqTest+1,CLASSB_ClockLineFreqTest@systemFrequency+1
+   599  00016E  C031  F035         	movff	??_CLASSB_ClockLineFreqTest+2,CLASSB_ClockLineFreqTest@systemFrequency+2
+   600  000172  C032  F036         	movff	??_CLASSB_ClockLineFreqTest+3,CLASSB_ClockLineFreqTest@systemFrequency+3
+   601                           
+   602                           ; BSR set to: 15
+   603                           ;CLASSB_ClockLineFreqTest.c: 83: CLASSB_Line_Freq = lineFrequency;
+   604  000176  C02D  F040         	movff	CLASSB_ClockLineFreqTest@lineFrequency,_CLASSB_Line_Freq
+   605                           
+   606                           ; BSR set to: 15
+   607                           ;CLASSB_ClockLineFreqTest.c: 86: CLASSB_LineUserSave();
+   608  00017A  ECBC  F001         	call	_CLASSB_LineUserSave	;wreg free
+   609                           
+   610                           ; BSR set to: 15
+   611                           ;CLASSB_ClockLineFreqTest.c: 88: ClockLineFreqTestFlag = CLASSB_TEST_INPROGRESS;
+   612  00017E  0E03               	movlw	3
+   613  000180  6E41               	movwf	_ClockLineFreqTestFlag,c
+   614                           
+   615                           ; BSR set to: 15
+   616                           ;CLASSB_ClockLineFreqTest.c: 91: LineFreqInit();
+   617  000182  ECAE  F001         	call	_LineFreqInit	;wreg free
+   618                           
+   619                           ; BSR set to: 15
+   620                           ;CLASSB_ClockLineFreqTest.c: 95: expectedCount = systemFrequency/CLASSB_Line_Freq;
+   621  000186  C033  F01C         	movff	CLASSB_ClockLineFreqTest@systemFrequency,___lldiv@dividend
+   622  00018A  C034  F01D         	movff	CLASSB_ClockLineFreqTest@systemFrequency+1,___lldiv@dividend+1
+   623  00018E  C035  F01E         	movff	CLASSB_ClockLineFreqTest@systemFrequency+2,___lldiv@dividend+2
+   624  000192  C036  F01F         	movff	CLASSB_ClockLineFreqTest@systemFrequency+3,___lldiv@dividend+3
+   625  000196  5040               	movf	_CLASSB_Line_Freq,w,c
+   626  000198  6E20               	movwf	___lldiv@divisor,c
+   627  00019A  6A21               	clrf	___lldiv@divisor+1,c
+   628  00019C  6A22               	clrf	___lldiv@divisor+2,c
+   629  00019E  6A23               	clrf	___lldiv@divisor+3,c
+   630  0001A0  EC4F  F001         	call	___lldiv	;wreg free
+   631  0001A4  C01C  F037         	movff	?___lldiv,_expectedCount
+   632  0001A8  C01D  F038         	movff	?___lldiv+1,_expectedCount+1
+   633  0001AC  C01E  F039         	movff	?___lldiv+2,_expectedCount+2
+   634  0001B0  C01F  F03A         	movff	?___lldiv+3,_expectedCount+3
+   635                           
+   636                           ;CLASSB_ClockLineFreqTest.c: 96: toleranceCount = ((uint32_t)tolerance * expectedCount)/
+      +                          100;
+   637  0001B4  C037  F011         	movff	_expectedCount,___lmul@multiplicand
+   638  0001B8  C038  F012         	movff	_expectedCount+1,___lmul@multiplicand+1
+   639  0001BC  C039  F013         	movff	_expectedCount+2,___lmul@multiplicand+2
+   640  0001C0  C03A  F014         	movff	_expectedCount+3,___lmul@multiplicand+3
+   641  0001C4  502E               	movf	CLASSB_ClockLineFreqTest@tolerance,w,c
+   642  0001C6  6E0D               	movwf	___lmul@multiplier,c
+   643  0001C8  6A0E               	clrf	___lmul@multiplier+1,c
+   644  0001CA  6A0F               	clrf	___lmul@multiplier+2,c
+   645  0001CC  6A10               	clrf	___lmul@multiplier+3,c
+   646  0001CE  EC02  F001         	call	___lmul	;wreg free
+   647  0001D2  C00D  F01C         	movff	?___lmul,___lldiv@dividend
+   648  0001D6  C00E  F01D         	movff	?___lmul+1,___lldiv@dividend+1
+   649  0001DA  C00F  F01E         	movff	?___lmul+2,___lldiv@dividend+2
+   650  0001DE  C010  F01F         	movff	?___lmul+3,___lldiv@dividend+3
+   651  0001E2  0E64               	movlw	100
+   652  0001E4  6E20               	movwf	___lldiv@divisor,c
+   653  0001E6  0E00               	movlw	0
+   654  0001E8  6A21               	clrf	___lldiv@divisor+1,c
+   655  0001EA  6A22               	clrf	___lldiv@divisor+2,c
+   656  0001EC  6A23               	clrf	___lldiv@divisor+3,c
+   657  0001EE  EC4F  F001         	call	___lldiv	;wreg free
+   658  0001F2  C01C  F03B         	movff	?___lldiv,_toleranceCount
+   659  0001F6  C01D  F03C         	movff	?___lldiv+1,_toleranceCount+1
+   660  0001FA  C01E  F03D         	movff	?___lldiv+2,_toleranceCount+2
+   661  0001FE  C01F  F03E         	movff	?___lldiv+3,_toleranceCount+3
+   662  000202  0012               	return	
+   663  000204                     __end_of_CLASSB_ClockLineFreqTest:
+   664                           	opt stack 0
+   665                           tblptru	equ	0xFF8
+   666                           postinc0	equ	0xFEE
+   667                           wreg	equ	0xFE8
+   668                           status	equ	0xFD8
+   669                           
+   670 ;; *************** function ___lmul *****************
+   671 ;; Defined at:
+   672 ;;		line 9 in file "C:\Program Files (x86)\Microchip\xc8\v1.31\sources\common\lmul.c"
+   673 ;; Parameters:    Size  Location     Type
+   674 ;;  multiplier      4   12[COMRAM] unsigned long 
+   675 ;;  multiplicand    4   16[COMRAM] unsigned long 
+   676 ;; Auto vars:     Size  Location     Type
+   677 ;;  product         4   23[COMRAM] unsigned long 
+   678 ;; Return value:  Size  Location     Type
+   679 ;;                  4   12[COMRAM] unsigned long 
+   680 ;; Registers used:
+   681 ;;		wreg, status,2, status,0, prodl, prodh
+   682 ;; Tracked objects:
+   683 ;;		On entry : 0/F
+   684 ;;		On exit  : 0/0
+   685 ;;		Unchanged: 0/0
+   686 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK1
+      +1  BANK12  BANK13  BANK14  BANK15
+   687 ;;      Params:         8       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+   688 ;;      Locals:         4       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+   689 ;;      Temps:          3       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+   690 ;;      Totals:        15       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+   691 ;;Total ram usage:       15 bytes
+   692 ;; Hardware stack levels used:    1
+   693 ;; Hardware stack levels required when called:    3
+   694 ;; This function calls:
+   695 ;;		Nothing
+   696 ;; This function is called by:
+   697 ;;		_CLASSB_ClockLineFreqTest
+   698 ;; This function uses a non-reentrant model
+   699 ;;
+   700                           
+   701                           	psect	text5
+   702  000204                     __ptext5:
+   703                           	opt stack 0
+   704  000204                     ___lmul:
+   705                           	opt stack 25
+   706                           
+   707                           ;incstack = 0
+   708  000204  500D               	movf	___lmul@multiplier,w,c
+   709  000206  0211               	mulwf	___lmul@multiplicand,c
+   710  000208  CFF3 F018          	movff	prodl,___lmul@product
+   711  00020C  CFF4 F019          	movff	prodh,___lmul@product+1
+   712  000210  6A1A               	clrf	___lmul@product+2,c
+   713  000212  6A1B               	clrf	___lmul@product+3,c
+   714  000214  500D               	movf	___lmul@multiplier,w,c
+   715  000216  0212               	mulwf	___lmul@multiplicand+1,c
+   716  000218  CFF3 F015          	movff	prodl,??___lmul
+   717  00021C  CFF4 F016          	movff	prodh,??___lmul+1
+   718  000220  6A17               	clrf	(??___lmul+2)& (0+255),c
+   719  000222  5015               	movf	??___lmul,w,c
+   720  000224  2619               	addwf	___lmul@product+1,f,c
+   721  000226  5016               	movf	??___lmul+1,w,c
+   722  000228  221A               	addwfc	___lmul@product+2,f,c
+   723  00022A  5017               	movf	??___lmul+2,w,c
+   724  00022C  221B               	addwfc	___lmul@product+3,f,c
+   725  00022E  500E               	movf	___lmul@multiplier+1,w,c
+   726  000230  0211               	mulwf	___lmul@multiplicand,c
+   727  000232  CFF3 F015          	movff	prodl,??___lmul
+   728  000236  CFF4 F016          	movff	prodh,??___lmul+1
+   729  00023A  6A17               	clrf	(??___lmul+2)& (0+255),c
+   730  00023C  5015               	movf	??___lmul,w,c
+   731  00023E  2619               	addwf	___lmul@product+1,f,c
+   732  000240  5016               	movf	??___lmul+1,w,c
+   733  000242  221A               	addwfc	___lmul@product+2,f,c
+   734  000244  5017               	movf	??___lmul+2,w,c
+   735  000246  221B               	addwfc	___lmul@product+3,f,c
+   736  000248  500D               	movf	___lmul@multiplier,w,c
+   737  00024A  0213               	mulwf	___lmul@multiplicand+2,c
+   738  00024C  50F3               	movf	prodl,w,c
+   739  00024E  261A               	addwf	___lmul@product+2,f,c
+   740  000250  50F4               	movf	prodh,w,c
+   741  000252  221B               	addwfc	___lmul@product+3,f,c
+   742  000254  500E               	movf	___lmul@multiplier+1,w,c
+   743  000256  0212               	mulwf	___lmul@multiplicand+1,c
+   744  000258  50F3               	movf	prodl,w,c
+   745  00025A  261A               	addwf	___lmul@product+2,f,c
+   746  00025C  50F4               	movf	prodh,w,c
+   747  00025E  221B               	addwfc	___lmul@product+3,f,c
+   748  000260  500F               	movf	___lmul@multiplier+2,w,c
+   749  000262  0211               	mulwf	___lmul@multiplicand,c
+   750  000264  50F3               	movf	prodl,w,c
+   751  000266  261A               	addwf	___lmul@product+2,f,c
+   752  000268  50F4               	movf	prodh,w,c
+   753  00026A  221B               	addwfc	___lmul@product+3,f,c
+   754  00026C  5014               	movf	___lmul@multiplicand+3,w,c
+   755  00026E  020D               	mulwf	___lmul@multiplier,c
+   756  000270  50F3               	movf	prodl,w,c
+   757  000272  261B               	addwf	___lmul@product+3,f,c
+   758  000274  500E               	movf	___lmul@multiplier+1,w,c
+   759  000276  0213               	mulwf	___lmul@multiplicand+2,c
+   760  000278  50F3               	movf	prodl,w,c
+   761  00027A  261B               	addwf	___lmul@product+3,f,c
+   762  00027C  500F               	movf	___lmul@multiplier+2,w,c
+   763  00027E  0212               	mulwf	___lmul@multiplicand+1,c
+   764  000280  50F3               	movf	prodl,w,c
+   765  000282  261B               	addwf	___lmul@product+3,f,c
+   766  000284  5010               	movf	___lmul@multiplier+3,w,c
+   767  000286  0211               	mulwf	___lmul@multiplicand,c
+   768  000288  50F3               	movf	prodl,w,c
+   769  00028A  261B               	addwf	___lmul@product+3,f,c
+   770  00028C  C018  F00D         	movff	___lmul@product,?___lmul
+   771  000290  C019  F00E         	movff	___lmul@product+1,?___lmul+1
+   772  000294  C01A  F00F         	movff	___lmul@product+2,?___lmul+2
+   773  000298  C01B  F010         	movff	___lmul@product+3,?___lmul+3
+   774  00029C  0012               	return	
+   775  00029E                     __end_of___lmul:
+   776                           	opt stack 0
+   777                           tblptru	equ	0xFF8
+   778                           prodh	equ	0xFF4
+   779                           prodl	equ	0xFF3
+   780                           postinc0	equ	0xFEE
+   781                           wreg	equ	0xFE8
+   782                           status	equ	0xFD8
+   783                           
+   784 ;; *************** function ___lldiv *****************
+   785 ;; Defined at:
+   786 ;;		line 8 in file "C:\Program Files (x86)\Microchip\xc8\v1.31\sources\common\lldiv.c"
+   787 ;; Parameters:    Size  Location     Type
+   788 ;;  dividend        4   27[COMRAM] unsigned long 
+   789 ;;  divisor         4   31[COMRAM] unsigned long 
+   790 ;; Auto vars:     Size  Location     Type
+   791 ;;  quotient        4   35[COMRAM] unsigned long 
+   792 ;;  counter         1   39[COMRAM] unsigned char 
+   793 ;; Return value:  Size  Location     Type
+   794 ;;                  4   27[COMRAM] unsigned long 
+   795 ;; Registers used:
+   796 ;;		wreg, status,2, status,0
+   797 ;; Tracked objects:
+   798 ;;		On entry : 0/F
+   799 ;;		On exit  : 0/0
+   800 ;;		Unchanged: 0/0
+   801 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK1
+      +1  BANK12  BANK13  BANK14  BANK15
+   802 ;;      Params:         8       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+   803 ;;      Locals:         5       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+   804 ;;      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+   805 ;;      Totals:        13       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+   806 ;;Total ram usage:       13 bytes
+   807 ;; Hardware stack levels used:    1
+   808 ;; Hardware stack levels required when called:    3
+   809 ;; This function calls:
+   810 ;;		Nothing
+   811 ;; This function is called by:
+   812 ;;		_CLASSB_ClockLineFreqTest
+   813 ;; This function uses a non-reentrant model
+   814 ;;
+   815                           
+   816                           	psect	text6
+   817  00029E                     __ptext6:
+   818                           	opt stack 0
+   819  00029E                     ___lldiv:
+   820                           	opt stack 25
+   821                           
+   822                           ;incstack = 0
+   823  00029E  6A24               	clrf	___lldiv@quotient,c
+   824  0002A0  6A25               	clrf	___lldiv@quotient+1,c
+   825  0002A2  6A26               	clrf	___lldiv@quotient+2,c
+   826  0002A4  6A27               	clrf	___lldiv@quotient+3,c
+   827  0002A6  5023               	movf	___lldiv@divisor+3,w,c
+   828  0002A8  1020               	iorwf	___lldiv@divisor,w,c
+   829  0002AA  1021               	iorwf	___lldiv@divisor+1,w,c
+   830  0002AC  1022               	iorwf	___lldiv@divisor+2,w,c
+   831  0002AE  E029               	bz	l624
+   832  0002B0  0E01               	movlw	1
+   833  0002B2  6E28               	movwf	___lldiv@counter,c
+   834  0002B4  D006               	goto	l841
+   835  0002B6                     l839:
+   836  0002B6  90D8               	bcf	status,0,c
+   837  0002B8  3620               	rlcf	___lldiv@divisor,f,c
+   838  0002BA  3621               	rlcf	___lldiv@divisor+1,f,c
+   839  0002BC  3622               	rlcf	___lldiv@divisor+2,f,c
+   840  0002BE  3623               	rlcf	___lldiv@divisor+3,f,c
+   841  0002C0  2A28               	incf	___lldiv@counter,f,c
+   842  0002C2                     l841:
+   843  0002C2  AE23               	btfss	___lldiv@divisor+3,7,c
+   844  0002C4  D7F8               	goto	l839
+   845  0002C6                     l843:
+   846  0002C6  90D8               	bcf	status,0,c
+   847  0002C8  3624               	rlcf	___lldiv@quotient,f,c
+   848  0002CA  3625               	rlcf	___lldiv@quotient+1,f,c
+   849  0002CC  3626               	rlcf	___lldiv@quotient+2,f,c
+   850  0002CE  3627               	rlcf	___lldiv@quotient+3,f,c
+   851  0002D0  5020               	movf	___lldiv@divisor,w,c
+   852  0002D2  5C1C               	subwf	___lldiv@dividend,w,c
+   853  0002D4  5021               	movf	___lldiv@divisor+1,w,c
+   854  0002D6  581D               	subwfb	___lldiv@dividend+1,w,c
+   855  0002D8  5022               	movf	___lldiv@divisor+2,w,c
+   856  0002DA  581E               	subwfb	___lldiv@dividend+2,w,c
+   857  0002DC  5023               	movf	___lldiv@divisor+3,w,c
+   858  0002DE  581F               	subwfb	___lldiv@dividend+3,w,c
+   859  0002E0  E309               	bnc	l851
+   860  0002E2  5020               	movf	___lldiv@divisor,w,c
+   861  0002E4  5E1C               	subwf	___lldiv@dividend,f,c
+   862  0002E6  5021               	movf	___lldiv@divisor+1,w,c
+   863  0002E8  5A1D               	subwfb	___lldiv@dividend+1,f,c
+   864  0002EA  5022               	movf	___lldiv@divisor+2,w,c
+   865  0002EC  5A1E               	subwfb	___lldiv@dividend+2,f,c
+   866  0002EE  5023               	movf	___lldiv@divisor+3,w,c
+   867  0002F0  5A1F               	subwfb	___lldiv@dividend+3,f,c
+   868  0002F2  8024               	bsf	___lldiv@quotient,0,c
+   869  0002F4                     l851:
+   870  0002F4  90D8               	bcf	status,0,c
+   871  0002F6  3223               	rrcf	___lldiv@divisor+3,f,c
+   872  0002F8  3222               	rrcf	___lldiv@divisor+2,f,c
+   873  0002FA  3221               	rrcf	___lldiv@divisor+1,f,c
+   874  0002FC  3220               	rrcf	___lldiv@divisor,f,c
+   875  0002FE  2E28               	decfsz	___lldiv@counter,f,c
+   876  000300  D7E2               	goto	l843
+   877  000302                     l624:
+   878  000302  C024  F01C         	movff	___lldiv@quotient,?___lldiv
+   879  000306  C025  F01D         	movff	___lldiv@quotient+1,?___lldiv+1
+   880  00030A  C026  F01E         	movff	___lldiv@quotient+2,?___lldiv+2
+   881  00030E  C027  F01F         	movff	___lldiv@quotient+3,?___lldiv+3
+   882  000312  0012               	return	
+   883  000314                     __end_of___lldiv:
+   884                           	opt stack 0
+   885                           tblptru	equ	0xFF8
+   886                           prodh	equ	0xFF4
+   887                           prodl	equ	0xFF3
+   888                           postinc0	equ	0xFEE
+   889                           wreg	equ	0xFE8
+   890                           status	equ	0xFD8
+   891                           
+   892 ;; *************** function _LineFreqInit *****************
+   893 ;; Defined at:
+   894 ;;		line 171 in file "CLASSB_ClockLineFreqTest.c"
+   895 ;; Parameters:    Size  Location     Type
+   896 ;;		None
+   897 ;; Auto vars:     Size  Location     Type
+   898 ;;		None
+   899 ;; Return value:  Size  Location     Type
+   900 ;;		None               void
+   901 ;; Registers used:
+   902 ;;		wreg, status,2
+   903 ;; Tracked objects:
+   904 ;;		On entry : F/F
+   905 ;;		On exit  : F/F
+   906 ;;		Unchanged: E/0
+   907 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK1
+      +1  BANK12  BANK13  BANK14  BANK15
+   908 ;;      Params:         0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+   909 ;;      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+   910 ;;      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+   911 ;;      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+   912 ;;Total ram usage:        0 bytes
+   913 ;; Hardware stack levels used:    1
+   914 ;; Hardware stack levels required when called:    3
+   915 ;; This function calls:
+   916 ;;		Nothing
+   917 ;; This function is called by:
+   918 ;;		_CLASSB_ClockLineFreqTest
+   919 ;; This function uses a non-reentrant model
+   920 ;;
+   921                           
+   922                           	psect	text7
+   923  00035C                     __ptext7:
+   924                           	opt stack 0
+   925  00035C                     _LineFreqInit:
+   926                           	opt stack 25
+   927                           
+   928                           ; BSR set to: 15
+   929                           ;CLASSB_ClockLineFreqTest.c: 173: T1CON = 0b00000000;
+   930                           
+   931                           ;incstack = 0
+   932  00035C  6ACD               	clrf	4045,c	;volatile
+   933                           
+   934                           ;CLASSB_ClockLineFreqTest.c: 175: T1GCON = 0;
+   935  00035E  6ACC               	clrf	4044,c	;volatile
+   936                           
+   937                           ;CLASSB_ClockLineFreqTest.c: 176: TMR1 = 0;
+   938  000360  6ACE               	clrf	4046,c	;volatile
+   939  000362  6ACF               	clrf	4047,c	;volatile
+   940                           
+   941                           ;CLASSB_ClockLineFreqTest.c: 177: TMR1IF = 0;
+   942  000364  909E               	bcf	3998,0,c	;volatile
+   943                           
+   944                           ;CLASSB_ClockLineFreqTest.c: 178: TMR1IE = 1;
+   945  000366  809D               	bsf	3997,0,c	;volatile
+   946                           
+   947                           ; BSR set to: 15
+   948                           ;CLASSB_ClockLineFreqTest.c: 180: CCP1CON = 0b00000100;
+   949  000368  0E04               	movlw	4
+   950  00036A  6EBD               	movwf	4029,c	;volatile
+   951                           
+   952                           ; BSR set to: 15
+   953                           ;CLASSB_ClockLineFreqTest.c: 182: CCP1IF = 0;
+   954  00036C  949E               	bcf	3998,2,c	;volatile
+   955                           
+   956                           ; BSR set to: 15
+   957                           ;CLASSB_ClockLineFreqTest.c: 183: CCP1IE = 1;
+   958  00036E  849D               	bsf	3997,2,c	;volatile
+   959                           
+   960                           ;CLASSB_ClockLineFreqTest.c: 185: INTCON = 0xC0;
+   961  000370  0EC0               	movlw	192
+   962  000372  6EF2               	movwf	intcon,c	;volatile
+   963                           
+   964                           ; BSR set to: 15
+   965                           ;CLASSB_ClockLineFreqTest.c: 187: TMR1ON = 1;
+   966  000374  80CD               	bsf	4045,0,c	;volatile
+   967                           
+   968                           ; BSR set to: 15
+   969  000376  0CC0               	retlw	192
+   970  000378                     __end_of_LineFreqInit:
+   971                           	opt stack 0
+   972                           tblptru	equ	0xFF8
+   973                           prodh	equ	0xFF4
+   974                           prodl	equ	0xFF3
+   975                           intcon	equ	0xFF2
+   976                           postinc0	equ	0xFEE
+   977                           wreg	equ	0xFE8
+   978                           status	equ	0xFD8
+   979                           
+   980 ;; *************** function _CLASSB_LineUserSave *****************
+   981 ;; Defined at:
+   982 ;;		line 190 in file "CLASSB_ClockLineFreqTest.c"
+   983 ;; Parameters:    Size  Location     Type
+   984 ;;		None
+   985 ;; Auto vars:     Size  Location     Type
+   986 ;;		None
+   987 ;; Return value:  Size  Location     Type
+   988 ;;		None               void
+   989 ;; Registers used:
+   990 ;;		None
+   991 ;; Tracked objects:
+   992 ;;		On entry : F/F
+   993 ;;		On exit  : F/F
+   994 ;;		Unchanged: E/0
+   995 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK1
+      +1  BANK12  BANK13  BANK14  BANK15
+   996 ;;      Params:         0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+   997 ;;      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+   998 ;;      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+   999 ;;      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+  1000 ;;Total ram usage:        0 bytes
+  1001 ;; Hardware stack levels used:    1
+  1002 ;; Hardware stack levels required when called:    3
+  1003 ;; This function calls:
+  1004 ;;		Nothing
+  1005 ;; This function is called by:
+  1006 ;;		_CLASSB_ClockLineFreqTest
+  1007 ;; This function uses a non-reentrant model
+  1008 ;;
+  1009                           
+  1010                           	psect	text8
+  1011  000378                     __ptext8:
+  1012                           	opt stack 0
+  1013  000378                     _CLASSB_LineUserSave:
+  1014                           	opt stack 25
+  1015                           
+  1016                           ; BSR set to: 15
+  1017                           ;CLASSB_ClockLineFreqTest.c: 192: InterruptsUser = INTCON;
+  1018                           
+  1019                           ; BSR set to: 15
+  1020                           ;incstack = 0
+  1021  000378  CFF2 F043          	movff	intcon,_InterruptsUser	;volatile
+  1022                           
+  1023                           ;CLASSB_ClockLineFreqTest.c: 193: CCPUser = CCP1CON;
+  1024  00037C  CFBD F03F          	movff	4029,_CCPUser	;volatile
+  1025                           
+  1026                           ;CLASSB_ClockLineFreqTest.c: 194: Timer1User = T1CON;
+  1027  000380  CFCD F047          	movff	4045,_Timer1User	;volatile
+  1028                           
+  1029                           ;CLASSB_ClockLineFreqTest.c: 195: Timer1GateUser = T1GCON;
+  1030  000384  CFCC F046          	movff	4044,_Timer1GateUser	;volatile
+  1031                           
+  1032                           ;CLASSB_ClockLineFreqTest.c: 196: PIE1User = PIE1;
+  1033  000388  CF9D F044          	movff	3997,_PIE1User	;volatile
+  1034                           
+  1035                           ;CLASSB_ClockLineFreqTest.c: 197: PIR1User = PIR1;
+  1036  00038C  CF9E F045          	movff	3998,_PIR1User	;volatile
+  1037                           
+  1038                           ; BSR set to: 15
+  1039  000390  0012               	return	
+  1040  000392                     __end_of_CLASSB_LineUserSave:
+  1041                           	opt stack 0
+  1042                           tblptru	equ	0xFF8
+  1043                           prodh	equ	0xFF4
+  1044                           prodl	equ	0xFF3
+  1045                           intcon	equ	0xFF2
+  1046                           postinc0	equ	0xFEE
+  1047                           wreg	equ	0xFE8
+  1048                           status	equ	0xFD8
+  1049                           
+  1050 ;; *************** function _ISR *****************
+  1051 ;; Defined at:
+  1052 ;;		line 216 in file "main.c"
+  1053 ;; Parameters:    Size  Location     Type
+  1054 ;;		None
+  1055 ;; Auto vars:     Size  Location     Type
+  1056 ;;		None
+  1057 ;; Return value:  Size  Location     Type
+  1058 ;;		None               void
+  1059 ;; Registers used:
+  1060 ;;		wreg, status,2, status,0, cstack
+  1061 ;; Tracked objects:
+  1062 ;;		On entry : 0/0
+  1063 ;;		On exit  : 0/0
+  1064 ;;		Unchanged: 0/0
+  1065 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK1
+      +1  BANK12  BANK13  BANK14  BANK15
+  1066 ;;      Params:         0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+  1067 ;;      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+  1068 ;;      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+  1069 ;;      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+  1070 ;;Total ram usage:        0 bytes
+  1071 ;; Hardware stack levels used:    1
+  1072 ;; Hardware stack levels required when called:    2
+  1073 ;; This function calls:
+  1074 ;;		_CLASSB_ClockLineFreqISR
+  1075 ;; This function is called by:
+  1076 ;;		Interrupt level 2
+  1077 ;; This function uses a non-reentrant model
+  1078 ;;
+  1079                           
+  1080                           	psect	intcode
+  1081  000008                     __pintcode:
+  1082                           	opt stack 0
+  1083  000008                     _ISR:
+  1084                           	opt stack 25
+  1085                           
+  1086                           ;main.c: 218: if(ClockLineFreqTestFlag == CLASSB_TEST_INPROGRESS)
+  1087                           
+  1088                           ; BSR set to: 15
+  1089                           ;incstack = 0
+  1090  000008  5041               	movf	_ClockLineFreqTestFlag,w,c
+  1091  00000A  0A03               	xorlw	3
+  1092  00000C  A4D8               	btfss	status,2,c
+  1093  00000E  0011               	retfie		f
+  1094                           
+  1095                           ;main.c: 219: {
+  1096                           ;main.c: 220: LATA4 ^= 1;
+  1097  000010  7889               	btg	3977,4,c	;volatile
+  1098                           
+  1099                           ;main.c: 221: CLASSB_ClockLineFreqISR();
+  1100  000012  EC0E  F000         	call	_CLASSB_ClockLineFreqISR	;wreg free
+  1101  000016  0011               	retfie		f
+  1102  000018                     __end_of_ISR:
+  1103                           	opt stack 0
+  1104                           tblptru	equ	0xFF8
+  1105                           prodh	equ	0xFF4
+  1106                           prodl	equ	0xFF3
+  1107                           intcon	equ	0xFF2
+  1108                           postinc0	equ	0xFEE
+  1109                           wreg	equ	0xFE8
+  1110                           status	equ	0xFD8
+  1111                           
+  1112 ;; *************** function _CLASSB_ClockLineFreqISR *****************
+  1113 ;; Defined at:
+  1114 ;;		line 99 in file "CLASSB_ClockLineFreqTest.c"
+  1115 ;; Parameters:    Size  Location     Type
+  1116 ;;		None
+  1117 ;; Auto vars:     Size  Location     Type
+  1118 ;;		None
+  1119 ;; Return value:  Size  Location     Type
+  1120 ;;		None               void
+  1121 ;; Registers used:
+  1122 ;;		wreg, status,2, status,0, cstack
+  1123 ;; Tracked objects:
+  1124 ;;		On entry : 0/0
+  1125 ;;		On exit  : 0/0
+  1126 ;;		Unchanged: 0/0
+  1127 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK1
+      +1  BANK12  BANK13  BANK14  BANK15
+  1128 ;;      Params:         0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+  1129 ;;      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+  1130 ;;      Temps:         12       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+  1131 ;;      Totals:        12       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+  1132 ;;Total ram usage:       12 bytes
+  1133 ;; Hardware stack levels used:    1
+  1134 ;; Hardware stack levels required when called:    1
+  1135 ;; This function calls:
+  1136 ;;		_CLASSB_LineUserRestore
+  1137 ;; This function is called by:
+  1138 ;;		_ISR
+  1139 ;; This function uses a non-reentrant model
+  1140 ;;
+  1141                           
+  1142                           	psect	text10
+  1143  00001C                     __ptext10:
+  1144                           	opt stack 0
+  1145  00001C                     _CLASSB_ClockLineFreqISR:
+  1146                           	opt stack 25
+  1147                           
+  1148                           ;CLASSB_ClockLineFreqTest.c: 102: if (TMR1IF)
+  1149                           
+  1150                           ;incstack = 0
+  1151  00001C  A09E               	btfss	3998,0,c	;volatile
+  1152  00001E  D007               	goto	i2l879
+  1153                           
+  1154                           ;CLASSB_ClockLineFreqTest.c: 103: {
+  1155                           ;CLASSB_ClockLineFreqTest.c: 104: TMR1RollOver++;
+  1156  000020  2A53               	incf	_TMR1RollOver,f,c
+  1157                           
+  1158                           ;CLASSB_ClockLineFreqTest.c: 105: TMR1IF = 0;
+  1159  000022  909E               	bcf	3998,0,c	;volatile
+  1160                           
+  1161                           ;CLASSB_ClockLineFreqTest.c: 106: if(TMR1RollOver > 10)
+  1162  000024  0E0A               	movlw	10
+  1163  000026  6453               	cpfsgt	_TMR1RollOver,c
+  1164  000028  D002               	goto	i2l879
+  1165                           
+  1166                           ;CLASSB_ClockLineFreqTest.c: 107: {
+  1167                           ;CLASSB_ClockLineFreqTest.c: 108: ClockLineFreqTestFlag = CLASSB_TEST_TIMEOUT;
+  1168  00002A  0E02               	movlw	2
+  1169  00002C  6E41               	movwf	_ClockLineFreqTestFlag,c
+  1170  00002E                     i2l879:
+  1171                           
+  1172                           ;CLASSB_ClockLineFreqTest.c: 109: }
+  1173                           ;CLASSB_ClockLineFreqTest.c: 110: }
+  1174                           ;CLASSB_ClockLineFreqTest.c: 114: if (CCP1IF)
+  1175  00002E  A49E               	btfss	3998,2,c	;volatile
+  1176  000030  0012               	return	
+  1177                           
+  1178                           ;CLASSB_ClockLineFreqTest.c: 115: {
+  1179                           ;CLASSB_ClockLineFreqTest.c: 116: TMR1 = 0;
+  1180  000032  6ACE               	clrf	4046,c	;volatile
+  1181  000034  6ACF               	clrf	4047,c	;volatile
+  1182                           
+  1183                           ;CLASSB_ClockLineFreqTest.c: 117: CCP1IF = 0;
+  1184  000036  949E               	bcf	3998,2,c	;volatile
+  1185                           
+  1186                           ;CLASSB_ClockLineFreqTest.c: 119: if(!FIRSTCROSS)
+  1187  000038  6652               	tstfsz	_FIRSTCROSS,c
+  1188  00003A  D004               	goto	i2l887
+  1189                           
+  1190                           ;CLASSB_ClockLineFreqTest.c: 120: {
+  1191                           ;CLASSB_ClockLineFreqTest.c: 121: TMR1RollOver = 0;
+  1192  00003C  6A53               	clrf	_TMR1RollOver,c
+  1193                           
+  1194                           ;CLASSB_ClockLineFreqTest.c: 122: FIRSTCROSS = 1;
+  1195  00003E  0E01               	movlw	1
+  1196  000040  6E52               	movwf	_FIRSTCROSS,c
+  1197                           
+  1198                           ;CLASSB_ClockLineFreqTest.c: 123: }
+  1199  000042  D049               	goto	i2l905
+  1200  000044                     i2l887:
+  1201                           
+  1202                           ;CLASSB_ClockLineFreqTest.c: 124: else
+  1203                           ;CLASSB_ClockLineFreqTest.c: 125: {
+  1204                           ;CLASSB_ClockLineFreqTest.c: 126: captureTimer1 = (uint16_t)(CCPR1H << 8) + CCPR1L;
+  1205  000044  50BF               	movf	4031,w,c	;volatile
+  1206  000046  6E51               	movwf	_captureTimer1+1,c
+  1207  000048  50BE               	movf	4030,w,c	;volatile
+  1208  00004A  6E50               	movwf	_captureTimer1,c
+  1209                           
+  1210                           ;CLASSB_ClockLineFreqTest.c: 127: if(!lineTestEnd)
+  1211  00004C  6658               	tstfsz	_lineTestEnd,c
+  1212  00004E  D00D               	goto	i2l77
+  1213                           
+  1214                           ;CLASSB_ClockLineFreqTest.c: 128: {
+  1215                           ;CLASSB_ClockLineFreqTest.c: 129: TMR1RollOver <<= 16;
+  1216  000050  6A53               	clrf	_TMR1RollOver,c
+  1217                           
+  1218                           ;CLASSB_ClockLineFreqTest.c: 130: testCount = (captureTimer1+TMR1RollOver);
+  1219  000052  5053               	movf	_TMR1RollOver,w,c
+  1220  000054  2450               	addwf	_captureTimer1,w,c
+  1221  000056  6E01               	movwf	??_CLASSB_ClockLineFreqISR& (0+255),c
+  1222  000058  0E00               	movlw	0
+  1223  00005A  2051               	addwfc	_captureTimer1+1,w,c
+  1224  00005C  6E02               	movwf	(??_CLASSB_ClockLineFreqISR+1)& (0+255),c
+  1225  00005E  C001  F04A         	movff	??_CLASSB_ClockLineFreqISR,_testCount
+  1226  000062  C002  F04B         	movff	??_CLASSB_ClockLineFreqISR+1,_testCount+1
+  1227  000066  6A4C               	clrf	_testCount+2,c
+  1228  000068  6A4D               	clrf	_testCount+3,c
+  1229  00006A                     i2l77:
+  1230                           
+  1231                           ;CLASSB_ClockLineFreqTest.c: 131: }
+  1232                           ;CLASSB_ClockLineFreqTest.c: 132: testCount = (testCount + (captureTimer1+(0x10000 * TMR
+      +                          1RollOver)))/2;
+  1233  00006A  C053  F001         	movff	_TMR1RollOver,??_CLASSB_ClockLineFreqISR
+  1234  00006E  6A02               	clrf	(??_CLASSB_ClockLineFreqISR+1)& (0+255),c
+  1235  000070  6A03               	clrf	(??_CLASSB_ClockLineFreqISR+2)& (0+255),c
+  1236  000072  6A04               	clrf	(??_CLASSB_ClockLineFreqISR+3)& (0+255),c
+  1237  000074  C002  F004         	movff	??_CLASSB_ClockLineFreqISR+1,??_CLASSB_ClockLineFreqISR+3
+  1238  000078  C001  F003         	movff	??_CLASSB_ClockLineFreqISR,??_CLASSB_ClockLineFreqISR+2
+  1239  00007C  6A02               	clrf	??_CLASSB_ClockLineFreqISR+1,c
+  1240  00007E  6A01               	clrf	??_CLASSB_ClockLineFreqISR,c
+  1241  000080  5050               	movf	_captureTimer1,w,c
+  1242  000082  2401               	addwf	??_CLASSB_ClockLineFreqISR,w,c
+  1243  000084  6E05               	movwf	(??_CLASSB_ClockLineFreqISR+4)& (0+255),c
+  1244  000086  5051               	movf	_captureTimer1+1,w,c
+  1245  000088  2002               	addwfc	??_CLASSB_ClockLineFreqISR+1,w,c
+  1246  00008A  6E06               	movwf	(??_CLASSB_ClockLineFreqISR+5)& (0+255),c
+  1247  00008C  0E00               	movlw	0
+  1248  00008E  2003               	addwfc	??_CLASSB_ClockLineFreqISR+2,w,c
+  1249  000090  6E07               	movwf	(??_CLASSB_ClockLineFreqISR+6)& (0+255),c
+  1250  000092  0E00               	movlw	0
+  1251  000094  2004               	addwfc	??_CLASSB_ClockLineFreqISR+3,w,c
+  1252  000096  6E08               	movwf	(??_CLASSB_ClockLineFreqISR+7)& (0+255),c
+  1253  000098  504A               	movf	_testCount,w,c
+  1254  00009A  2405               	addwf	??_CLASSB_ClockLineFreqISR+4,w,c
+  1255  00009C  6E09               	movwf	(??_CLASSB_ClockLineFreqISR+8)& (0+255),c
+  1256  00009E  504B               	movf	_testCount+1,w,c
+  1257  0000A0  2006               	addwfc	??_CLASSB_ClockLineFreqISR+5,w,c
+  1258  0000A2  6E0A               	movwf	(??_CLASSB_ClockLineFreqISR+9)& (0+255),c
+  1259  0000A4  504C               	movf	_testCount+2,w,c
+  1260  0000A6  2007               	addwfc	??_CLASSB_ClockLineFreqISR+6,w,c
+  1261  0000A8  6E0B               	movwf	(??_CLASSB_ClockLineFreqISR+10)& (0+255),c
+  1262  0000AA  504D               	movf	_testCount+3,w,c
+  1263  0000AC  2008               	addwfc	??_CLASSB_ClockLineFreqISR+7,w,c
+  1264  0000AE  6E0C               	movwf	(??_CLASSB_ClockLineFreqISR+11)& (0+255),c
+  1265  0000B0  90D8               	bcf	status,0,c
+  1266  0000B2  320C               	rrcf	??_CLASSB_ClockLineFreqISR+11,f,c
+  1267  0000B4  320B               	rrcf	??_CLASSB_ClockLineFreqISR+10,f,c
+  1268  0000B6  320A               	rrcf	??_CLASSB_ClockLineFreqISR+9,f,c
+  1269  0000B8  3209               	rrcf	??_CLASSB_ClockLineFreqISR+8,f,c
+  1270  0000BA  C009  F04A         	movff	??_CLASSB_ClockLineFreqISR+8,_testCount
+  1271  0000BE  C00A  F04B         	movff	??_CLASSB_ClockLineFreqISR+9,_testCount+1
+  1272  0000C2  C00B  F04C         	movff	??_CLASSB_ClockLineFreqISR+10,_testCount+2
+  1273  0000C6  C00C  F04D         	movff	??_CLASSB_ClockLineFreqISR+11,_testCount+3
+  1274                           
+  1275                           ;CLASSB_ClockLineFreqTest.c: 133: CCPR1L = 0;
+  1276  0000CA  6ABE               	clrf	4030,c	;volatile
+  1277                           
+  1278                           ;CLASSB_ClockLineFreqTest.c: 134: CCPR1H = 0;
+  1279  0000CC  6ABF               	clrf	4031,c	;volatile
+  1280                           
+  1281                           ;CLASSB_ClockLineFreqTest.c: 135: lineTestEnd++;
+  1282  0000CE  2A58               	incf	_lineTestEnd,f,c
+  1283                           
+  1284                           ;CLASSB_ClockLineFreqTest.c: 136: TMR1RollOver = 0;
+  1285  0000D0  6A53               	clrf	_TMR1RollOver,c
+  1286                           
+  1287                           ;CLASSB_ClockLineFreqTest.c: 137: ClockLineFreqTestFlag = CLASSB_TEST_INPROGRESS;
+  1288  0000D2  0E03               	movlw	3
+  1289  0000D4  6E41               	movwf	_ClockLineFreqTestFlag,c
+  1290  0000D6                     i2l905:
+  1291                           
+  1292                           ;CLASSB_ClockLineFreqTest.c: 138: }
+  1293                           ;CLASSB_ClockLineFreqTest.c: 140: if(lineTestEnd >= CLASSB_Line_Freq)
+  1294  0000D6  5040               	movf	_CLASSB_Line_Freq,w,c
+  1295  0000D8  5C58               	subwf	_lineTestEnd,w,c
+  1296  0000DA  A0D8               	btfss	status,0,c
+  1297  0000DC  0012               	return	
+  1298                           
+  1299                           ;CLASSB_ClockLineFreqTest.c: 141: {
+  1300                           ;CLASSB_ClockLineFreqTest.c: 142: if (testCount < (expectedCount - toleranceCount))
+  1301  0000DE  503B               	movf	_toleranceCount,w,c
+  1302  0000E0  5C37               	subwf	_expectedCount,w,c
+  1303  0000E2  6E01               	movwf	??_CLASSB_ClockLineFreqISR& (0+255),c
+  1304  0000E4  503C               	movf	_toleranceCount+1,w,c
+  1305  0000E6  5838               	subwfb	_expectedCount+1,w,c
+  1306  0000E8  6E02               	movwf	(??_CLASSB_ClockLineFreqISR+1)& (0+255),c
+  1307  0000EA  503D               	movf	_toleranceCount+2,w,c
+  1308  0000EC  5839               	subwfb	_expectedCount+2,w,c
+  1309  0000EE  6E03               	movwf	(??_CLASSB_ClockLineFreqISR+2)& (0+255),c
+  1310  0000F0  503E               	movf	_toleranceCount+3,w,c
+  1311  0000F2  583A               	subwfb	_expectedCount+3,w,c
+  1312  0000F4  6E04               	movwf	(??_CLASSB_ClockLineFreqISR+3)& (0+255),c
+  1313  0000F6  5001               	movf	??_CLASSB_ClockLineFreqISR,w,c
+  1314  0000F8  5C4A               	subwf	_testCount,w,c
+  1315  0000FA  5002               	movf	??_CLASSB_ClockLineFreqISR+1,w,c
+  1316  0000FC  584B               	subwfb	_testCount+1,w,c
+  1317  0000FE  5003               	movf	??_CLASSB_ClockLineFreqISR+2,w,c
+  1318  000100  584C               	subwfb	_testCount+2,w,c
+  1319  000102  5004               	movf	??_CLASSB_ClockLineFreqISR+3,w,c
+  1320  000104  584D               	subwfb	_testCount+3,w,c
+  1321  000106  E205               	bc	i2l915
+  1322  000108                     i2l909:
+  1323                           
+  1324                           ;CLASSB_ClockLineFreqTest.c: 143: {
+  1325                           ;CLASSB_ClockLineFreqTest.c: 144: CLASSB_LineUserRestore();
+  1326  000108  ECC9  F001         	call	_CLASSB_LineUserRestore	;wreg free
+  1327                           
+  1328                           ;CLASSB_ClockLineFreqTest.c: 145: ClockLineFreqTestFlag = CLASSB_TEST_FAIL;
+  1329  00010C  0E01               	movlw	1
+  1330  00010E  6E41               	movwf	_ClockLineFreqTestFlag,c
+  1331  000110  0C01               	retlw	1
+  1332  000112                     i2l915:
+  1333                           
+  1334                           ;CLASSB_ClockLineFreqTest.c: 152: else if (testCount > (expectedCount + toleranceCount))
+  1335  000112  503B               	movf	_toleranceCount,w,c
+  1336  000114  2437               	addwf	_expectedCount,w,c
+  1337  000116  6E01               	movwf	??_CLASSB_ClockLineFreqISR& (0+255),c
+  1338  000118  503C               	movf	_toleranceCount+1,w,c
+  1339  00011A  2038               	addwfc	_expectedCount+1,w,c
+  1340  00011C  6E02               	movwf	(??_CLASSB_ClockLineFreqISR+1)& (0+255),c
+  1341  00011E  503D               	movf	_toleranceCount+2,w,c
+  1342  000120  2039               	addwfc	_expectedCount+2,w,c
+  1343  000122  6E03               	movwf	(??_CLASSB_ClockLineFreqISR+2)& (0+255),c
+  1344  000124  503E               	movf	_toleranceCount+3,w,c
+  1345  000126  203A               	addwfc	_expectedCount+3,w,c
+  1346  000128  6E04               	movwf	(??_CLASSB_ClockLineFreqISR+3)& (0+255),c
+  1347  00012A  504A               	movf	_testCount,w,c
+  1348  00012C  5C01               	subwf	??_CLASSB_ClockLineFreqISR,w,c
+  1349  00012E  504B               	movf	_testCount+1,w,c
+  1350  000130  5802               	subwfb	??_CLASSB_ClockLineFreqISR+1,w,c
+  1351  000132  504C               	movf	_testCount+2,w,c
+  1352  000134  5803               	subwfb	??_CLASSB_ClockLineFreqISR+2,w,c
+  1353  000136  504D               	movf	_testCount+3,w,c
+  1354  000138  5804               	subwfb	??_CLASSB_ClockLineFreqISR+3,w,c
+  1355  00013A  E3E6               	bnc	i2l909
+  1356                           
+  1357                           ;CLASSB_ClockLineFreqTest.c: 161: else
+  1358                           ;CLASSB_ClockLineFreqTest.c: 162: {
+  1359                           ;CLASSB_ClockLineFreqTest.c: 163: CLASSB_LineUserRestore();
+  1360  00013C  ECC9  F001         	call	_CLASSB_LineUserRestore	;wreg free
+  1361                           
+  1362                           ;CLASSB_ClockLineFreqTest.c: 164: ClockLineFreqTestFlag = CLASSB_TEST_PASS;
+  1363  000140  6A41               	clrf	_ClockLineFreqTestFlag,c
+  1364  000142  0012               	return	
+  1365  000144                     __end_of_CLASSB_ClockLineFreqISR:
+  1366                           	opt stack 0
+  1367                           tblptru	equ	0xFF8
+  1368                           prodh	equ	0xFF4
+  1369                           prodl	equ	0xFF3
+  1370                           intcon	equ	0xFF2
+  1371                           postinc0	equ	0xFEE
+  1372                           wreg	equ	0xFE8
+  1373                           status	equ	0xFD8
+  1374                           
+  1375 ;; *************** function _CLASSB_LineUserRestore *****************
+  1376 ;; Defined at:
+  1377 ;;		line 200 in file "CLASSB_ClockLineFreqTest.c"
+  1378 ;; Parameters:    Size  Location     Type
+  1379 ;;		None
+  1380 ;; Auto vars:     Size  Location     Type
+  1381 ;;		None
+  1382 ;; Return value:  Size  Location     Type
+  1383 ;;		None               void
+  1384 ;; Registers used:
+  1385 ;;		None
+  1386 ;; Tracked objects:
+  1387 ;;		On entry : 0/0
+  1388 ;;		On exit  : 0/0
+  1389 ;;		Unchanged: 0/0
+  1390 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK1
+      +1  BANK12  BANK13  BANK14  BANK15
+  1391 ;;      Params:         0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+  1392 ;;      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+  1393 ;;      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+  1394 ;;      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0
+  1395 ;;Total ram usage:        0 bytes
+  1396 ;; Hardware stack levels used:    1
+  1397 ;; This function calls:
+  1398 ;;		Nothing
+  1399 ;; This function is called by:
+  1400 ;;		_CLASSB_ClockLineFreqISR
+  1401 ;; This function uses a non-reentrant model
+  1402 ;;
+  1403                           
+  1404                           	psect	text11
+  1405  000392                     __ptext11:
+  1406                           	opt stack 0
+  1407  000392                     _CLASSB_LineUserRestore:
+  1408                           	opt stack 25
+  1409                           
+  1410                           ;CLASSB_ClockLineFreqTest.c: 202: INTCON = InterruptsUser;
+  1411                           
+  1412                           ;incstack = 0
+  1413  000392  C043  FFF2         	movff	_InterruptsUser,intcon	;volatile
+  1414                           
+  1415                           ;CLASSB_ClockLineFreqTest.c: 203: CCP1CON = CCPUser;
+  1416  000396  C03F  FFBD         	movff	_CCPUser,4029	;volatile
+  1417                           
+  1418                           ;CLASSB_ClockLineFreqTest.c: 204: T1CON = Timer1User;
+  1419  00039A  C047  FFCD         	movff	_Timer1User,4045	;volatile
+  1420                           
+  1421                           ;CLASSB_ClockLineFreqTest.c: 205: T1GCON = Timer1GateUser;
+  1422  00039E  C046  FFCC         	movff	_Timer1GateUser,4044	;volatile
+  1423                           
+  1424                           ;CLASSB_ClockLineFreqTest.c: 206: PIE1 = PIE1User;
+  1425  0003A2  C044  FF9D         	movff	_PIE1User,3997	;volatile
+  1426                           
+  1427                           ;CLASSB_ClockLineFreqTest.c: 207: PIR1 = PIR1User;
+  1428  0003A6  C045  FF9E         	movff	_PIR1User,3998	;volatile
+  1429  0003AA  0012               	return	
+  1430  0003AC                     __end_of_CLASSB_LineUserRestore:
+  1431                           	opt stack 0
+  1432  0000                     tblptru	equ	0xFF8
+  1433                           prodh	equ	0xFF4
+  1434                           prodl	equ	0xFF3
+  1435                           intcon	equ	0xFF2
+  1436                           postinc0	equ	0xFEE
+  1437                           wreg	equ	0xFE8
+  1438                           status	equ	0xFD8
+  1439                           tblptru	equ	0xFF8
+  1440                           prodh	equ	0xFF4
+  1441                           prodl	equ	0xFF3
+  1442                           intcon	equ	0xFF2
+  1443                           postinc0	equ	0xFEE
+  1444                           wreg	equ	0xFE8
+  1445                           status	equ	0xFD8
+  1446                           
+  1447                           	psect	rparam
+  1448  0000                     tblptru	equ	0xFF8
+  1449                           prodh	equ	0xFF4
+  1450                           prodl	equ	0xFF3
+  1451                           intcon	equ	0xFF2
+  1452                           postinc0	equ	0xFEE
+  1453                           wreg	equ	0xFE8
+  1454                           status	equ	0xFD8
+
+
+Data Sizes:
+    Strings     0
+    Constant    0
+    Data        0
+    BSS         15
+    Persistent  19
+    Stack       0
+
+Auto Spaces:
+    Space          Size  Autos    Used
+    COMRAM           95     60      94
+    BANK0           160      0       0
+    BANK1           256      0       0
+    BANK2           256      0       0
+    BANK3           256      0       0
+    BANK4           256      0       0
+    BANK5           256      0       0
+    BANK6           256      0       0
+    BANK7           256      0       0
+    BANK8           256      0       0
+    BANK9           256      0       0
+    BANK10          256      0       0
+    BANK11          256      0       0
+    BANK12          256      0       0
+    BANK13          256      0       0
+    BANK14          256      0       0
+    BANK15           56      0       0
+
+Pointer List with Targets:
+
+    ClockLineFreqTestFail	PTR FTN()void  size(2) Largest target is 0
+		 -> Absolute function(), 
+
+
+Critical Paths under _main in COMRAM
+
+    _main->_CLASSB_ClockLineFreqTest
+    _CLASSB_ClockLineFreqTest->___lldiv
+    ___lldiv->___lmul
+
+Critical Paths under _ISR in COMRAM
+
+    _ISR->_CLASSB_ClockLineFreqISR
+
+Critical Paths under _main in BANK0
+
+    None.
+
+Critical Paths under _ISR in BANK0
+
+    None.
+
+Critical Paths under _main in BANK1
+
+    None.
+
+Critical Paths under _ISR in BANK1
+
+    None.
+
+Critical Paths under _main in BANK2
+
+    None.
+
+Critical Paths under _ISR in BANK2
+
+    None.
+
+Critical Paths under _main in BANK3
+
+    None.
+
+Critical Paths under _ISR in BANK3
+
+    None.
+
+Critical Paths under _main in BANK4
+
+    None.
+
+Critical Paths under _ISR in BANK4
+
+    None.
+
+Critical Paths under _main in BANK5
+
+    None.
+
+Critical Paths under _ISR in BANK5
+
+    None.
+
+Critical Paths under _main in BANK6
+
+    None.
+
+Critical Paths under _ISR in BANK6
+
+    None.
+
+Critical Paths under _main in BANK7
+
+    None.
+
+Critical Paths under _ISR in BANK7
+
+    None.
+
+Critical Paths under _main in BANK8
+
+    None.
+
+Critical Paths under _ISR in BANK8
+
+    None.
+
+Critical Paths under _main in BANK9
+
+    None.
+
+Critical Paths under _ISR in BANK9
+
+    None.
+
+Critical Paths under _main in BANK10
+
+    None.
+
+Critical Paths under _ISR in BANK10
+
+    None.
+
+Critical Paths under _main in BANK11
+
+    None.
+
+Critical Paths under _ISR in BANK11
+
+    None.
+
+Critical Paths under _main in BANK12
+
+    None.
+
+Critical Paths under _ISR in BANK12
+
+    None.
+
+Critical Paths under _main in BANK13
+
+    None.
+
+Critical Paths under _ISR in BANK13
+
+    None.
+
+Critical Paths under _main in BANK14
+
+    None.
+
+Critical Paths under _ISR in BANK14
+
+    None.
+
+Critical Paths under _main in BANK15
+
+    None.
+
+Critical Paths under _ISR in BANK15
+
+    None.
+
+Call Graph Tables:
+
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (0) _main                                                 6     6      0    1117
+                                             54 COMRAM     6     6      0
+           _CLASSB_ClockLineFreqTest
+             _CheckClockLineTestFlag
+                               _Init
+                       _OnClockError
+ ---------------------------------------------------------------------------------
+ (1) _OnClockError                                         0     0      0       0
+ ---------------------------------------------------------------------------------
+ (1) _Init                                                 0     0      0       0
+ ---------------------------------------------------------------------------------
+ (1) _CheckClockLineTestFlag                               0     0      0       0
+ ---------------------------------------------------------------------------------
+ (1) _CLASSB_ClockLineFreqTest                            14     8      6    1072
+                                             40 COMRAM    14     8      6
+                _CLASSB_LineUserSave
+                       _LineFreqInit
+                            ___lldiv
+                             ___lmul
+ ---------------------------------------------------------------------------------
+ (2) ___lmul                                              15     7      8     606
+                                             12 COMRAM    15     7      8
+ ---------------------------------------------------------------------------------
+ (2) ___lldiv                                             13     5      8     277
+                                             27 COMRAM    13     5      8
+                             ___lmul (ARG)
+ ---------------------------------------------------------------------------------
+ (2) _LineFreqInit                                         0     0      0       0
+ ---------------------------------------------------------------------------------
+ (2) _CLASSB_LineUserSave                                  0     0      0       0
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 2
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (3) _ISR                                                  0     0      0       0
+            _CLASSB_ClockLineFreqISR
+ ---------------------------------------------------------------------------------
+ (4) _CLASSB_ClockLineFreqISR                             12    12      0       0
+                                              0 COMRAM    12    12      0
+             _CLASSB_LineUserRestore
+ ---------------------------------------------------------------------------------
+ (5) _CLASSB_LineUserRestore                               0     0      0       0
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 5
+ ---------------------------------------------------------------------------------
+
+ Call Graph Graphs:
+
+ _main (ROOT)
+   _CLASSB_ClockLineFreqTest
+     _CLASSB_LineUserSave
+     _LineFreqInit
+     ___lldiv
+       ___lmul (ARG)
+     ___lmul
+   _CheckClockLineTestFlag
+   _Init
+   _OnClockError
+
+ _ISR (ROOT)
+   _CLASSB_ClockLineFreqISR
+     _CLASSB_LineUserRestore
+
+ Address spaces:
+Name               Size   Autos  Total    Cost      Usage
+BIGRAM             F37      0       0      37        0.0%
+EEDATA             400      0       0       0        0.0%
+BITBANK14          100      0       0      33        0.0%
+BANK14             100      0       0      34        0.0%
+BITBANK13          100      0       0      31        0.0%
+BANK13             100      0       0      32        0.0%
+BITBANK12          100      0       0      29        0.0%
+BANK12             100      0       0      30        0.0%
+BITBANK11          100      0       0      27        0.0%
+BANK11             100      0       0      28        0.0%
+BITBANK10          100      0       0      25        0.0%
+BANK10             100      0       0      26        0.0%
+BITBANK9           100      0       0      23        0.0%
+BANK9              100      0       0      24        0.0%
+BITBANK8           100      0       0      21        0.0%
+BANK8              100      0       0      22        0.0%
+BITBANK7           100      0       0      19        0.0%
+BANK7              100      0       0      20        0.0%
+BITBANK6           100      0       0      17        0.0%
+BANK6              100      0       0      18        0.0%
+BITBANK5           100      0       0      15        0.0%
+BANK5              100      0       0      16        0.0%
+BITBANK4           100      0       0      13        0.0%
+BANK4              100      0       0      14        0.0%
+BITBANK3           100      0       0      10        0.0%
+BANK3              100      0       0      11        0.0%
+BITBANK2           100      0       0       8        0.0%
+BANK2              100      0       0       9        0.0%
+BITBANK1           100      0       0       6        0.0%
+BANK1              100      0       0       7        0.0%
+BITBANK0            A0      0       0       4        0.0%
+BANK0               A0      0       0       5        0.0%
+BITCOMRAM           5F      0       0       0        0.0%
+COMRAM              5F     3C      5E       1       98.9%
+BITBANK15           38      0       0      35        0.0%
+BANK15              38      0       0      36        0.0%
+BITSFR_1             0      0       0      40        0.0%
+SFR_1                0      0       0      40        0.0%
+BITSFR               0      0       0      40        0.0%
+SFR                  0      0       0      40        0.0%
+STACK                0      0       0       2        0.0%
+NULL                 0      0       0       0        0.0%
+ABS                  0      0      5E      12        0.0%
+DATA                 0      0      5E       3        0.0%
+CODE                 0      0       0       0        0.0%
+
+
+Microchip Technology PIC18 Macro Assembler V1.31 build 56723 
+Symbol Table                                                                                   Wed Jul 30 10:37:53 2014
+
+                                     u40 0162                                       u45 0158  
+                           __CFG_CP0$OFF 000000                             __CFG_CP1$OFF 000000  
+                           __CFG_CP2$OFF 000000                             __CFG_CP3$OFF 000000  
+                            __CFG_LVP$ON 000000                                      l161 03CA  
+                                    l163 03D2                                      l624 0302  
+                                    l841 02C2                                      l851 02F4  
+                                    l843 02C6                                      l839 02B6  
+                                    l979 0330                             __CFG_CPB$OFF 000000  
+                           __CFG_CPD$OFF 000000                                      _ISR 0008  
+                                    wreg 000FE8                           ??_OnClockError 000D  
+               ?_CLASSB_ClockLineFreqISR 0001                                     ?_ISR 0001  
+                                   _LATA 000F89                                     _LATB 000F8A  
+                                   _LATC 000F8B                                     _PIE1 000F9D  
+                                   _PIR1 000F9E                                     i2l77 006A  
+                                   _TMR1 000FCE                            ?_LineFreqInit 0001  
+                                   _Init 0340                                     ___IT 000101  
+                                   _main 0314                            __CFG_BORV$190 000000  
+                                   prodh 000FF4                                     prodl 000FF3  
+                                   start 0018           __end_of_CLASSB_LineUserRestore 03AC  
+                          __CFG_IESO$OFF 000000                 _CLASSB_ClockLineFreqTest 0144  
+                                  ??_ISR 000D                                    ?_Init 0001  
+                                  ?_main 0001                          __end_of___lldiv 0314  
+                                  _T1CON 000FCD                                    _LATA0 007C48  
+                                  _LATA1 007C49                                    _LATA2 007C4A  
+                                  _LATA4 007C4C                                    i2l905 00D6  
+                                  i2l915 0112                                    i2l909 0108  
+                                  i2l887 0044                                    i2l879 002E  
+                                  _TRISA 000F92                                    _TRISB 000F93  
+                                  _TRISC 000F94                            __CFG_WRT0$OFF 000000  
+                          __CFG_WRT1$OFF 000000                            __CFG_WRT2$OFF 000000  
+                    ___lmul@multiplicand 0011                            __CFG_WRT3$OFF 000000  
+                         __CFG_EBTR0$OFF 000000                           __CFG_FCMEN$OFF 000000  
+                         __CFG_EBTR1$OFF 000000                           __CFG_EBTR2$OFF 000000  
+                         __CFG_EBTR3$OFF 000000                            __CFG_WRTB$OFF 000000  
+                          __CFG_WRTC$OFF 000000                            __CFG_WRTD$OFF 000000  
+                         __CFG_EBTRB$OFF 000000                       __CFG_MCLRE$INTMCLR 000000  
+                         ??_LineFreqInit 000D                                    status 000FD8  
+                         __CFG_HFOFST$ON 000000                           __CFG_FOSC$HSMP 000000  
+                         __CFG_PBADEN$ON 000000              __end_of_CLASSB_LineUserSave 0392  
+                        __initialization 03AC                             __end_of_Init 035C  
+                         _toleranceCount 003B                             __end_of_main 0340  
+                                 ??_Init 000D                                   ??_main 0037  
+                         _Timer1GateUser 0046                            __activetblptr 000002  
+        __end_of_CLASSB_ClockLineFreqISR 0144                                   _CCP1IE 007CEA  
+                                 _CCP1IF 007CF2                                   _CCPR1H 000FBF  
+                                 _CCPR1L 000FBE                                   _ANSELA 000F38  
+                                 _ANSELB 000F39                                   _ANSELC 000F3A  
+                                 _T1GCON 000FCC                           __CFG_WDTEN$OFF 000000  
+                                 _INTCON 000FF2                                   _OSCCON 000FD3  
+                                 _TMR1IE 007CE8                                   _TMR1IF 007CF0  
+                                 _TMR1ON 007E68                           __CFG_XINST$OFF 000000  
+                             _Timer1User 0047                 ??_CheckClockLineTestFlag 000D  
+                   __end_of_OnClockError 03DA                                   ___lmul 0204  
+                         __CFG_STVREN$ON 000000                                ??___lldiv 0024  
+                                 clear_0 03B2                                   tblptru 000FF8  
+                             __accesstop 0060                  __end_of__initialization 03B8  
+                         __pcstackCOMRAM 0001                     __end_of_LineFreqInit 0378  
+             ??_CLASSB_ClockLineFreqTest 002F                          __CFG_PLLCFG$OFF 000000  
+                             __pnvCOMRAM 0037                             __IT_INT_MASK 0054  
+                           __IT_SAVE_BSR 0055                       __CFG_CCP2MX$PORTC1 000000  
+       __size_of_CLASSB_ClockLineFreqISR 0128          __size_of_CheckClockLineTestFlag 0014  
+                                ?___lmul 000D                       __CFG_CCP3MX$PORTB5 000000  
+                                _CCP1CON 000FBD                           ___lmul@product 0018  
+                                _CCPUser 003F  CLASSB_ClockLineFreqTest@systemFrequency 0033  
+                  __size_of_OnClockError 0004                            _expectedCount 0037  
+                        __CFG_PWRTEN$OFF 000000                                  __Hparam 0000  
+                                __Lparam 0000                          __size_of___lmul 009A  
+                                ___lldiv 029E                                  __pcinit 03AC  
+                                __ramtop 1000                                  __ptext0 0314  
+                                __ptext1 03D6                                  __ptext2 0340  
+                                __ptext3 03C2                                  __ptext4 0144  
+                                __ptext5 0204                                  __ptext6 029E  
+                                __ptext7 035C                                  __ptext8 0378  
+                           __size_of_ISR 0010                   _CheckClockLineTestFlag 03C2  
+                           _OnClockError 03D6                     end_of_initialization 03B8  
+                          __Lmediumconst 0000                          ___lldiv@divisor 0020  
+                        ___lldiv@counter 0028                    __size_of_LineFreqInit 001C  
+                                postinc0 000FEE             __size_of_CLASSB_LineUserSave 001A  
+               ??_CLASSB_LineUserRestore 0001                          _ClockTestResult 0042  
+                           _LineFreqInit 035C                  _CLASSB_ClockLineFreqISR 001C  
+                         __end_of___lmul 029E                                ___DCDelay 0049  
+                    start_initialization 03AC                              __end_of_ISR 0018  
+  CLASSB_ClockLineFreqTest@lineFrequency 002D                                 ??___lmul 0015  
+                            __pbssCOMRAM 004A                          __IT_SAVE_STATUS 0056  
+                         _InterruptsUser 0043                    _ClockLineFreqTestFail 004E  
+                  _ClockLineFreqTestFlag 0041          __size_of_CLASSB_LineUserRestore 001A  
+              ??_CLASSB_ClockLineFreqISR 0001                            __IT_SAVE_WREG 0057  
+                              __pintcode 0008        __size_of_CLASSB_ClockLineFreqTest 00C0  
+                          _captureTimer1 0050                ?_CLASSB_ClockLineFreqTest 0029  
+                               ?___lldiv 001C                         __CFG_PRICLKEN$ON 000000  
+                ?_CheckClockLineTestFlag 0001                         _CLASSB_Line_Freq 0040  
+                    _CLASSB_LineUserSave 0378                                 _PIE1User 0044  
+                               _PIR1User 0045                         __CFG_WDTPS$32768 000000  
+                              _testCount 004A                   _CLASSB_LineUserRestore 0392  
+                   ?_CLASSB_LineUserSave 0001           __end_of_CheckClockLineTestFlag 03D6  
+                      ___lmul@multiplier 000D                                 ___DCByte 0048  
+                               __Hrparam 0000                                 __Lrparam 0000  
+                     __CFG_BOREN$SBORDIS 000000                        __CFG_P2BMX$PORTB5 000000  
+                            _lineTestEnd 0058                         __size_of___lldiv 0076  
+                  ??_CLASSB_LineUserSave 000D                                 __ptext10 001C  
+                               __ptext11 0392                            __size_of_Init 001C  
+                          __size_of_main 002C                               _FIRSTCROSS 0052  
+                           _TMR1RollOver 0053   CLASSB_ClockLineFreqTest@clockFrequency 0029  
+                               intlevel2 0000         __end_of_CLASSB_ClockLineFreqTest 0204  
+                       ___lldiv@dividend 001C        CLASSB_ClockLineFreqTest@tolerance 002E  
+                       ___lldiv@quotient 0024                        __CFG_T3CMX$PORTC0 000000  
+                          ?_OnClockError 0001                  ?_CLASSB_LineUserRestore 0001  
