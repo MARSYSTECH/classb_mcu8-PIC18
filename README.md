@@ -1,4 +1,4 @@
-### PIC16 Class B Library
+### PIC18 Class B Library
 
 ---
 
